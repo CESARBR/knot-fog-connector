@@ -1,0 +1,30 @@
+{
+  "name": "knot-fog-connector",
+  "version": "0.1.0",
+  "description": "KNoT fog connector with a cloud service",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CESARBR/knot-fog-connector.git"
+  },
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "babel esm --out-dir cjs",
+    "start": "node cjs",
+    "start:dev": "babel-node esm"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-import-resolver-babel-module": "^4.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0"
+  }
+}
