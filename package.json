@@ -17,7 +17,10 @@
   },
   "dependencies": {
     "config": "^2.0.1",
-    "knot-fog-connector-fiware": "git://github.com/cesarbr/knot-fog-connector-fiware.git#master"
+    "is-base64": "0.0.6",
+    "knot-fog-connector-fiware": "git://github.com/cesarbr/knot-fog-connector-fiware.git#master",
+    "meshblu": "^1.34.1",
+    "request": "^2.87.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
