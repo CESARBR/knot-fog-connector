@@ -16,7 +16,8 @@
     "start:dev": "babel-node esm"
   },
   "dependencies": {
-    "config": "^2.0.1"
+    "config": "^2.0.1",
+    "knot-fog-connector-fiware": "git://github.com/cesarbr/knot-fog-connector-fiware.git#master"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
