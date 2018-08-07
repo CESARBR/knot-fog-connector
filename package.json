@@ -15,7 +15,9 @@
     "start": "node cjs",
     "start:dev": "babel-node esm"
   },
-  "dependencies": {},
+  "dependencies": {
+    "config": "^2.0.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-module-resolver": "^3.1.1",
