@@ -19,6 +19,7 @@
     "config": "^2.0.1",
     "is-base64": "0.0.6",
     "knot-fog-connector-fiware": "git://github.com/cesarbr/knot-fog-connector-fiware.git#master",
+    "lodash": "^4.17.10",
     "meshblu": "^1.34.1",
     "request": "^2.87.0"
   },
