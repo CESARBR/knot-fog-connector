@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class DeviceStore {
   constructor() {
     this.loadDevices = [];
@@ -11,6 +13,13 @@ class DeviceStore {
     const index = this.loadDevices.indexOf(device);
     if (index > -1) {
       this.loadDevices.splice(index, 1);
+    }
+  }
+
+  async update(id, diff) {
+    const device = _.find(this.loadDevices, _device => _device.id === id);
+    if (device) {
+      _.merge(device, diff);
     }
   }
 

@@ -1,6 +1,7 @@
 import meshblu from 'meshblu';
 import request from 'request';
 import isBase64 from 'is-base64';
+import _ from 'lodash';
 
 function createConnection(hostname, port, uuid, token) {
   return meshblu.createConnection({
@@ -27,12 +28,7 @@ function connect(hostname, port, uuid, token) {
 }
 
 function mapDevice(device) {
-  return {
-    id: device.id,
-    name: device.name,
-    status: device.status,
-    schema: device.schema,
-  };
+  return _.omit(device, ['uuid', '_id', 'owner', 'type', 'ipAddress', 'token', 'meshblu', 'discoverWhitelist', 'configureWhitelist', 'socketid', 'secure']);
 }
 
 function getMyDevices(connection, uuid) {
@@ -218,7 +214,15 @@ class FogConnection {
     if (!this.connection) {
       throw new Error('Not connected');
     }
-    this.connection.on(event, callback);
+
+    if (event === 'config') {
+      this.connection.on(event, (device) => {
+        if (_.has(device, 'id')) { // Just device with KNoT id can call an event
+          const deviceMapped = mapDevice(device);
+          callback(deviceMapped);
+        }
+      });
+    }
   }
 }
 
