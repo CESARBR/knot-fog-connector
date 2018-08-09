@@ -127,9 +127,16 @@ Publish data as a device.
 
 ```javascript
 await connector.start();
-await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', {
-  locked: false
-});
+await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
+  {
+    sensor_id: 1,
+    value: false
+  },
+  {
+    sensor_id: 2,
+    value: 1000,
+  }
+]);
 ```
 
 #### updateSchema(id, schema): Promise&lt;Void&gt;
