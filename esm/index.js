@@ -10,6 +10,7 @@ import UpdateDevices from 'interactors/UpdateDevices';
 import LoadDevices from 'interactors/LoadDevices';
 import DevicesService from 'services/DevicesService';
 import UpdateData from 'interactors/UpdateData';
+import RequestData from 'interactors/RequestData';
 import DataService from 'services/DataService';
 
 const settings = new Settings();
@@ -42,12 +43,17 @@ async function main() {
     const loadDevices = new LoadDevices(deviceStore, cloud);
     const devicesService = new DevicesService(updateDevices, loadDevices);
     const updateData = new UpdateData(fog);
-    const dataService = new DataService(updateData);
+    const requestData = new RequestData(fog);
+    const dataService = new DataService(updateData, requestData);
 
     await devicesService.load();
 
     await cloud.onDataUpdated(async (id, sensorId, data) => {
       await dataService.update(id, sensorId, data);
+    });
+
+    await cloud.onDataRequested(async (id, sensorId) => {
+      await dataService.request(id, sensorId);
     });
 
     setInterval(devicesService.update.bind(devicesService), 5000);
