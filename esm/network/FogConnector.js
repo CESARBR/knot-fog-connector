@@ -44,8 +44,10 @@ function getMyDevices(connection, uuid) {
 
     connection.devices({ owner: uuid }, (result) => {
       if (result.error) {
-        reject(result.error);
-        return;
+        if (result.error.code === 404) {
+          return resolve([]);
+        }
+        return reject(result.error);
       }
 
       resolve(result);
