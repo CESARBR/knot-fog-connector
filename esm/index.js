@@ -11,6 +11,7 @@ import LoadDevices from 'interactors/LoadDevices';
 import DevicesService from 'services/DevicesService';
 import UpdateData from 'interactors/UpdateData';
 import UpdateConfig from 'interactors/UpdateConfig';
+import UpdateProperties from 'interactors/UpdateProperties';
 import RequestData from 'interactors/RequestData';
 import DataService from 'services/DataService';
 
@@ -45,8 +46,9 @@ async function main() {
     const devicesService = new DevicesService(updateDevices, loadDevices);
     const updateData = new UpdateData(fog);
     const updateConfig = new UpdateConfig(fog);
+    const updateProperties = new UpdateProperties(fog);
     const requestData = new RequestData(fog);
-    const dataService = new DataService(updateData, updateConfig, requestData);
+    const dataService = new DataService(updateData, updateConfig, updateProperties, requestData);
 
     await devicesService.load();
 
@@ -56,6 +58,10 @@ async function main() {
 
     await cloud.onConfigUpdated(async (id, config) => {
       await dataService.updateConfig(id, config);
+    });
+
+    await cloud.onPropertiesUpdated(async (id, properties) => {
+      await dataService.updateProperties(id, properties);
     });
 
     await cloud.onDataRequested(async (id, sensorId) => {
