@@ -15,6 +15,7 @@ import UpdateConfig from 'interactors/UpdateConfig';
 import UpdateProperties from 'interactors/UpdateProperties';
 import RequestData from 'interactors/RequestData';
 import DataService from 'services/DataService';
+import PublishData from 'interactors/PublishData';
 
 const settings = new Settings();
 const deviceStore = new DeviceStore();
@@ -49,8 +50,15 @@ async function main() {
     const updateData = new UpdateData(fog);
     const updateConfig = new UpdateConfig(fog);
     const updateProperties = new UpdateProperties(fog);
+    const publishData = new PublishData(cloud);
     const requestData = new RequestData(fog);
-    const dataService = new DataService(updateData, updateConfig, updateProperties, requestData);
+    const dataService = new DataService(
+      updateData,
+      updateConfig,
+      updateProperties,
+      requestData,
+      publishData,
+    );
 
     await devicesService.load();
 
@@ -73,6 +81,14 @@ async function main() {
     await fog.on('config', async (device) => {
       try {
         await devicesService.updateChanges(device);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    await fog.on('message', async (msg) => {
+      try {
+        await dataService.publish(msg.fromId, msg.payload);
       } catch (err) {
         console.error(err);
       }

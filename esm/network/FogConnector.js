@@ -222,6 +222,14 @@ class FogConnection {
           callback(deviceMapped);
         }
       });
+    } else if (event === 'message') {
+      this.connection.on(event, async (msg) => {
+        const devices = await getMyDevices(this.connection, this.uuid);
+        const deviceFound = _.find(devices, dev => dev.uuid === msg.fromUuid);
+
+        _.set(msg, 'fromId', deviceFound.id);
+        callback(_.pick(msg, ['payload', 'fromId']));
+      });
     }
   }
 }
