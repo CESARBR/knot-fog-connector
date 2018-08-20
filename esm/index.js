@@ -25,6 +25,7 @@ async function main() {
   const fogAddress = await settings.getFogAddress();
   const cloudSettings = await settings.getCloudSettings();
   const cloudType = await settings.getCloudType();
+  const runAs = await settings.getRunAs();
 
   try {
     let fog;
@@ -41,6 +42,11 @@ async function main() {
       await cloud.start();
     } else {
       throw Error('Missing uuid and token');
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      process.setgid(runAs.group);
+      process.setuid(runAs.user);
     }
 
     const updateDevices = new UpdateDevices(deviceStore, fog, cloud);

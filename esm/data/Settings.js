@@ -18,6 +18,10 @@ class Settings {
   async getCloudType() {
     return config.get('cloudType');
   }
+
+  async getRunAs() {
+    return config.get('runAs');
+  }
 }
 
 export default Settings;

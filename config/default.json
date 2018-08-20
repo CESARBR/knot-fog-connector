@@ -9,5 +9,9 @@
 	"cloud": {
 		"hostname": "localhost",
 		"port":8080
+	},
+	"runAs": {
+		"user": "knot",
+		"group": "knot"
 	}
 }
