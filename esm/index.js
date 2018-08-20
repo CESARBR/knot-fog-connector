@@ -17,10 +17,14 @@ import RequestData from 'interactors/RequestData';
 import DataService from 'services/DataService';
 import PublishData from 'interactors/PublishData';
 
+// Logger
+import logger from 'util/logger';
+
 const settings = new Settings();
 const deviceStore = new DeviceStore();
 
 async function main() {
+  logger.info('KNoT Fog Connnector started');
   const fogCredentials = await settings.getFogCredentials();
   const fogAddress = await settings.getFogAddress();
   const cloudSettings = await settings.getCloudSettings();
@@ -88,7 +92,7 @@ async function main() {
       try {
         await devicesService.updateChanges(device);
       } catch (err) {
-        console.error(err);
+        logger.error(err);
       }
     });
 
@@ -96,13 +100,13 @@ async function main() {
       try {
         await dataService.publish(msg.fromId, msg.payload);
       } catch (err) {
-        console.error(err);
+        logger.error(err);
       }
     });
 
     setInterval(devicesService.update.bind(devicesService), 5000);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 

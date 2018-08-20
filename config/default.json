@@ -13,5 +13,10 @@
 	"runAs": {
 		"user": "knot",
 		"group": "knot"
+	},
+	"log": {
+		"console": true,
+		"syslog": false,
+		"level": "info"
 	}
 }

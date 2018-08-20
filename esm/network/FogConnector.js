@@ -3,6 +3,8 @@ import request from 'request';
 import isBase64 from 'is-base64';
 import _ from 'lodash';
 
+import logger from 'util/logger';
+
 function createConnection(hostname, port, uuid, token) {
   return meshblu.createConnection({
     server: hostname,
@@ -187,7 +189,7 @@ class FogConnection {
     return new Promise((resolve) => {
       request(postOptions, (err) => {
         if (err) {
-          console.error(err);
+          logger.error(err);
         }
         resolve();
       });
