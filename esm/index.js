@@ -73,23 +73,29 @@ async function main() {
     await devicesService.load();
 
     await cloud.onDataUpdated(async (id, sensorId, data) => {
+      logger.debug(`Update data from ${sensorId} of thing ${id}: ${data}`);
       await dataService.update(id, sensorId, data);
     });
 
     await cloud.onConfigUpdated(async (id, config) => {
+      logger.debug(`Update thing config ${id}: ${config}`);
       await dataService.updateConfig(id, config);
     });
 
     await cloud.onPropertiesUpdated(async (id, properties) => {
+      logger.debug(`Update thing property ${id}: ${properties}`);
       await dataService.updateProperties(id, properties);
     });
 
     await cloud.onDataRequested(async (id, sensorId) => {
+      logger.debug(`Data requested from ${sensorId} of thing ${id}: ${properties}`);
       await dataService.request(id, sensorId);
     });
 
     await fog.on('config', async (device) => {
       try {
+        logger.debug(`Receive fog changes`);
+        logger.debug(`Device ${device.id} has changed`);
         await devicesService.updateChanges(device);
       } catch (err) {
         logger.error(err);
@@ -98,6 +104,8 @@ async function main() {
 
     await fog.on('message', async (msg) => {
       try {
+        logger.debug(`Receive fog message from ${msg.fromId}`);
+        logger.debug(`Payload message: ${msg.payload}`);
         await dataService.publish(msg.fromId, msg.payload);
       } catch (err) {
         logger.error(err);

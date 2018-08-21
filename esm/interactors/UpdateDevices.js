@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import logger from 'util/logger';
+
 class UpdateDevices {
   constructor(deviceStore, fogConnector, cloudConnector) {
     this.deviceStore = deviceStore;
@@ -17,6 +19,7 @@ class UpdateDevices {
 
   async updateDevicesAdded(cloudDevices, fogDevices) {
     _.differenceBy(fogDevices, cloudDevices, 'id').map(async (device) => {
+      logger.debug(`Device ${device.id} added`);
       await this.deviceStore.add(device);
       await this.cloudConnector.addDevice({
         id: device.id,
@@ -28,6 +31,7 @@ class UpdateDevices {
 
   async updateDevicesRemoved(cloudDevices, fogDevices) {
     _.differenceBy(cloudDevices, fogDevices, 'id').map(async (device) => {
+      logger.debug(`Device ${device.id} removed`);
       await this.deviceStore.remove(device);
       await this.cloudConnector.removeDevice(device.id);
     });
