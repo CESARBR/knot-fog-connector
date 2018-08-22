@@ -4,7 +4,7 @@ class RequestData {
   }
 
   async execute(id, sensorId) {
-    await this.fogConnector.getData(id, sensorId);
+    await this.fogConnector.requestData(id, sensorId);
   }
 }
 
