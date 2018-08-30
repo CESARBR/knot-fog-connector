@@ -22,6 +22,7 @@ class UpdateChanges {
     if (!device) {
       return;
     }
+
     const localDevice = _.find(localDevices, { id: device.id });
     let diff = await this.difference(device, localDevice);
 
@@ -29,16 +30,18 @@ class UpdateChanges {
       return;
     }
 
-    if (device.schema && device.schema.length > 0) {
+    if (!localDevice.schema && device.schema && device.schema.length > 0) {
       await this.cloudConnector.updateSchema(device.id, device.schema);
       await this.deviceStore.update(device.id, diff);
     }
 
     diff = _.omit(diff, ['schema']);
+
     if (_.isEmpty(diff)) {
       return;
     }
-    await this.cloudConnector.updateProperties(diff);
+
+    await this.cloudConnector.updateProperties(device.id, diff);
     await this.deviceStore.update(device.id, diff);
   }
 }
