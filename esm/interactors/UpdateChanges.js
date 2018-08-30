@@ -22,9 +22,10 @@ class UpdateChanges {
     if (!device) {
       return;
     }
-    const localDevice = _.find(localDevices, { id: device.id });
-    let diff = await this.difference(device, localDevice);
 
+    const localDevice = _.find(localDevices, { id: device.id });
+
+    let diff = await this.difference(device, localDevice);
     if (_.isEmpty(diff)) {
       return;
     }
@@ -38,7 +39,8 @@ class UpdateChanges {
     if (_.isEmpty(diff)) {
       return;
     }
-    await this.cloudConnector.updateProperties(diff);
+
+    await this.cloudConnector.updateProperties(device.id, diff);
     await this.deviceStore.update(device.id, diff);
   }
 }
