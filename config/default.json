@@ -7,8 +7,14 @@
 	},
 	"cloudType": "FIWARE",
 	"cloud": {
-		"hostname": "localhost",
-		"port":8080
+		"iota": {
+			"hostname": "localhost",
+			"port": 4041
+		},
+		"orion": {
+			"hostname": "localhost",
+			"port": 1026
+		}
 	},
 	"runAs": {
 		"user": "knot",
