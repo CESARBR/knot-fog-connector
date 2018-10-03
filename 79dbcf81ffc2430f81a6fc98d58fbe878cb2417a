@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e61b7aae_5aadf103",
+        "filename": "esm/interactors/UpdateChanges.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1013086
+      },
+      "writtenOn": "2018-10-03T17:27:11Z",
+      "side": 1,
+      "message": "It will update only if there isn\u0027t a schema in localDevice. Shouldn\u0027t we create a diff and update only if not empty?",
+      "revId": "79dbcf81ffc2430f81a6fc98d58fbe878cb2417a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
