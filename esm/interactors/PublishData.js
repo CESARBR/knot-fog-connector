@@ -4,7 +4,7 @@ class PublishData {
   }
 
   async execute(id, data) {
-    await this.cloudConnector.publishData(id, data);
+    await this.cloudConnector.publishData(id, [data]);
   }
 }
 
