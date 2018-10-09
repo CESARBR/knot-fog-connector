@@ -16,6 +16,24 @@
       "revId": "79dbcf81ffc2430f81a6fc98d58fbe878cb2417a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d46630_9af8374f",
+        "filename": "esm/interactors/UpdateChanges.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2018-10-09T18:48:39Z",
+      "side": 1,
+      "message": "Yes. I\u0027ve been testing without this verification and it seems to be working very well. I don\u0027t remember my motivation to change this.",
+      "parentUuid": "e61b7aae_5aadf103",
+      "revId": "79dbcf81ffc2430f81a6fc98d58fbe878cb2417a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
