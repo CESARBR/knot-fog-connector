@@ -221,11 +221,11 @@ await connector.onConfigUpdated((id, config) => {
   console.log(`Configuration for device '${id}' was updated`);
   console.log(config);
   // Configuration for device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' was updated
-  // {
+  // [{
   //   sensor_id: 1,
   //   event_flags: 0,
   //   time_sec: 100 
-  // }
+  // }]
 });
 ```
 
@@ -237,7 +237,7 @@ Register a callback to handle properties updates on the cloud.
 
 * `cb` **Function** event handler defined as `cb(id, properties)` where:
   * `id` **Number** device ID (KNoT ID)
-  * `config` **Object** updated properties
+  * `properties` **Object** updated properties
 
 **NOTE**: unlike `onConfigUpdated`'s callback, this callback receives only the properties that were updated.
 
