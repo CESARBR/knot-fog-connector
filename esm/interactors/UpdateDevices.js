@@ -15,6 +15,7 @@ class UpdateDevices {
 
     await this.updateDevicesAdded(cloudDevices, fogDevices);
     await this.updateDevicesRemoved(cloudDevices, fogDevices);
+    await this.updateDevicesSchema(cloudDevices, fogDevices);
   }
 
   async updateDevicesAdded(cloudDevices, fogDevices) {
@@ -34,6 +35,14 @@ class UpdateDevices {
       logger.debug(`Device ${device.id} removed`);
       await this.deviceStore.remove(device);
       await this.cloudConnector.removeDevice(device.id);
+    });
+  }
+
+  async updateDevicesSchema(cloudDevices, fogDevices) {
+    _.differenceWith(fogDevices, cloudDevices, _.isEqual).map(async (device) => {
+      logger.debug(`Device ${device.id} schema updated`);
+      await this.cloudConnector.updateSchema(device.id, device.schema);
+      await this.deviceStore.update(device.id, { schema: device.schema });
     });
   }
 }
