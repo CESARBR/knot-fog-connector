@@ -1,20 +1,11 @@
 import _ from 'lodash';
 
+import difference from 'util/difference';
+
 class UpdateChanges {
   constructor(deviceStore, cloudConnector) {
     this.cloudConnector = cloudConnector;
     this.deviceStore = deviceStore;
-  }
-
-  async difference(object, base) { // https://gist.github.com/Yimiprod/7ee176597fef230d1451
-    function changes(_object, _base) {
-      return _.transform(_object, (result, value, key) => {
-        if (!_.isEqual(value, _base[key])) {
-          result[key] = (_.isObject(value) && _.isObject(_base[key])) ? changes(value, _base[key]) : value; // eslint-disable-line no-param-reassign, max-len
-        }
-      });
-    }
-    return changes(object, base);
   }
 
   async execute(device) {
@@ -25,7 +16,7 @@ class UpdateChanges {
 
     const localDevice = _.find(localDevices, { id: device.id });
 
-    let diff = await this.difference(device, localDevice);
+    let diff = difference(device, localDevice);
     if (_.isEmpty(diff)) {
       return;
     }
