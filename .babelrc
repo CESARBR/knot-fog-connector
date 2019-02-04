@@ -13,7 +13,7 @@
     [
       "module-resolver",
       {
-        "root": ["./esm"]
+        "root": ["./src"]
       }
     ]
   ]
