@@ -6,14 +6,13 @@
     "type": "git",
     "url": "git+https://github.com/CESARBR/knot-fog-connector.git"
   },
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
+  "main": "./build/index.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "babel esm --out-dir cjs",
-    "start": "node cjs",
-    "start:dev": "babel-node esm"
+    "build": "babel src --out-dir build",
+    "start": "node build",
+    "start:dev": "babel-node src"
   },
   "dependencies": {
     "@cesarbr/knot-fog-connector-fiware": "^1.0.0",
