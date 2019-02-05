@@ -4,6 +4,10 @@ This is a KNoT gateway service that connects the fog with a cloud service.
 
 ## Supported services
 
+* [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud) (under development)
+
+### Supported only in previous versions
+
 * [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
@@ -29,7 +33,7 @@ await connector.start();
 
 Create the connector using a configuration object that will be loaded from a JSON file and passed directly to this constructor. No work, such as connecting to a service, must be done in this constructor.
 
-##### Argument
+##### Arguments
 
 * `config` **Object** configuration parameters defined by the connector
 
@@ -63,7 +67,7 @@ await connector.start();
 
 Add a device to the cloud. Called when a new device is added to the fog.
 
-##### Argument
+##### Arguments
 
 * `device` **Object** device specification containing the following properties:
   * `id` **String** device ID (KNoT ID)
@@ -83,7 +87,7 @@ await connector.addDevice({
 
 Remove a device from the cloud. Called when a device is removed from the fog.
 
-##### Argument
+##### Arguments
 
 * `id` **String** device ID (KNoT ID)
 
@@ -100,7 +104,10 @@ List the devices registered on the cloud for the current gateway.
 
 ##### Result
 
-* `devices` **Array** devices registered on the cloud or an empty array. Each device is an object as described in [`addDevice()`](#adddevicedevice-promisevoid)
+* `devices` **Array** devices registered on the cloud or an empty array. Each device is an object in the following format:
+  * `id` **String** device ID (KNoT ID)
+  * `name` **String** device name
+  * `schema` **Array** schema items, as specified in [`updateSchema()`](#updateschemaid-schema-promisevoid)
 
 ##### Example
 
@@ -108,19 +115,19 @@ List the devices registered on the cloud for the current gateway.
 await connector.start();
 const devices = await connector.listDevices();
 console.log(devices);
-// [ { id: '656123c6-5666-4a5c-9e8e-e2b611a2e66b', name: 'Front door' },
-//   { id: '254d62a9-2118-4229-8b07-5084c4cc3db6', name: 'Back door' } ]
+// [ { id: '656123c6-5666-4a5c-9e8e-e2b611a2e66b', name: 'Front door', schema: [{ sensorId: 1, ... }, ...] },
+//   { id: '254d62a9-2118-4229-8b07-5084c4cc3db6', name: 'Back door', schema: [{ sensorId: 1, ... }, ...] } ]
 ```
 
 #### publishData(id, data): Promise&lt;Void&gt;
 
 Publish data as a device. Called when a device publishes data on the fog.
 
-##### Argument
+##### Arguments
 
 * `id` **String** device ID (KNoT ID)
 * `data` **Array** data items to be published, each one formed by:
-  * `sensor_id` **Number** sensor ID
+  * `sensorId` **Number** sensor ID
   * `value` **Number|Boolean|String** sensor value
 
 ##### Example
@@ -129,11 +136,11 @@ Publish data as a device. Called when a device publishes data on the fog.
 await connector.start();
 await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
   {
-    sensor_id: 1,
+    sensorId: 1,
     value: false
   },
   {
-    sensor_id: 2,
+    sensorId: 2,
     value: 1000,
   }
 ]);
@@ -143,14 +150,14 @@ await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
 
 Update the device schema. Called when a device updates its schema on the fog.
 
-##### Argument
+##### Arguments
 
 * `id` **String** device ID (KNoT ID)
 * `schema` **Array** schema items, each one formed by:
-  * `sensor_id` **Number** sensor ID
-  * `value_type` **Number** semantic value type (voltage, current, temperature, etc)
+  * `sensorId` **Number** sensor ID
+  * `valueType` **Number** semantic value type (voltage, current, temperature, etc)
   * `unit` **Number** sensor unit (V, A, W, W, etc)
-  * `type_id` **Number** data value type (boolean, integer, etc)
+  * `typeId` **Number** data value type (boolean, integer, etc)
   * `name` **String** sensor name
 
 Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for more information on the possible values for each field.
@@ -163,116 +170,36 @@ Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for mor
 await connector.start();
 await connector.updateSchema('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
   {
-    sensor_id: 1,
-    value_type: 0xFFF1, // Switch
+    sensorId: 1,
+    valueType: 0xFFF1, // Switch
     unit: 0, // NA
-    type_id: 3, // Boolean
+    typeId: 3, // Boolean
     name: 'Door lock',
   },
   {
-    sensor_id: 2,
+    sensorId: 2,
     ...
   }
 ]);
-```
-
-#### updateProperties(id, properties): Promise&lt;Void&gt;
-
-Update the device properties. Called when the device's properties are updated on the fog.
-
-##### Argument
-
-* `id` **String** device ID (KNoT ID)
-* `properties` **Object** updated properties
-
-**NOTE**: unlike `updateSchema`, this method receives only the properties that were updated.
-
-##### Example
-
-```javascript
-await connector.start();
-await connector.updateProperties('656123c6-5666-4a5c-9e8e-e2b611a2e66b', {
-  online: true
-});
-```
-
-#### onConfigUpdated(cb): Promise&lt;Void&gt;
-
-Register a callback to handle configuration updates on the cloud. Called when a cloud application requests to update the device configuration.
-
-##### Argument
-
-* `cb` **Function** event handler defined as `cb(id, config)` where:
-  * `id` **String** device ID (KNoT ID)
-  * `config` **Array** configuration for each sensor, each one formed by:
-    * `sensor_id` **Number** sensor ID
-    * `event_flags` **Number** event flags
-    * `time_sec` **Number** update interval in seconds
-    * `lower_limit` **Number** (Optional) lower limit
-    * `upper_limit` **Number** (Optional) upper limit
-
-**NOTE**: `config` will always contain the whole configuration and not a difference from a last update.
-
-##### Example
-
-```javascript
-await connector.start();
-await connector.onConfigUpdated((id, config) => {
-  console.log(`Configuration for device '${id}' was updated`);
-  console.log(config);
-  // Configuration for device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' was updated
-  // [{
-  //   sensor_id: 1,
-  //   event_flags: 0,
-  //   time_sec: 100 
-  // }]
-});
-```
-
-#### onPropertiesUpdated(cb): Promise&lt;Void&gt;
-
-Register a callback to handle properties updates on the cloud. Called when a cloud application updates the device's properties.
-
-##### Argument
-
-* `cb` **Function** event handler defined as `cb(id, properties)` where:
-  * `id` **Number** device ID (KNoT ID)
-  * `properties` **Object** updated properties
-
-**NOTE**: unlike `onConfigUpdated`'s callback, this callback receives only the properties that were updated.
-
-##### Example
-
-```javascript
-await connector.start();
-await connector.onPropertiesUpdated((id, properties) => {
-  console.log(`Properties for device '${id}' were updated`);
-  console.log(props);
-  // Properties for device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' were updated
-  // {
-  //   enabled: false
-  //   online: false
-  // }
-});
 ```
 
 #### onDataRequested(cb): Promise&lt;Void&gt;
 
 Register a callback to handle data requests from the cloud. Called when a cloud application requests the last value of a device's sensor.
 
-##### Argument
+##### Arguments
 
 * `cb` **Function** event handler defined as `cb(id, sensorId)` where:
   * `id` **Number** device ID (KNoT ID)
-  * `sensorId` **String** ID of the sensor to send updated data
+  * `sensorIds` **Array** IDs of the sensor to send last value (**Number**)
 
 ##### Example
 
 ```javascript
 await connector.start();
-await connector.onDataRequested((id, sensorId) => {
-  console.log(`New data from '${sensorId}' on device '${id}' is being requested`);
-  // New data from '1' on device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' is being requested
+await connector.onDataRequested((id, sensorIds) => {
+  console.log(`New data from '${sensorIds}' on device '${id}' is being requested`);
+  // New data from '1,2' on device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' is being requested
 });
 ```
 
@@ -280,12 +207,13 @@ await connector.onDataRequested((id, sensorId) => {
 
 Register a callback to handle data updates from the cloud. Called when a cloud application requests to update a device's actuator.
 
-##### Argument
+##### Arguments
 
-* `cb` **Function** event handler defined as `cb(id, sensorId, data)` where:
+* `cb` **Function** event handler defined as `cb(id, data)` where:
   * `id` **Number** device ID (KNoT ID)
-  * `sensorId` **String** ID of the sensor to update
-  * `data` **Number|Boolean|String** data to be written
+  * `data` **Array** updates for sensors/actuators, each one formed by:
+    * `sensorId` **Number** ID of the sensor to update
+    * `data` **Number|Boolean|String** data to be written
 
 ##### Example
 
