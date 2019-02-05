@@ -4,7 +4,7 @@ This is a KNoT gateway service that connects the fog with a cloud service.
 
 ## Supported services
 
-* [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware) (under development)
+* [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
 
@@ -16,7 +16,7 @@ This is a KNoT gateway service that connects the fog with a cloud service.
 A connector is as a library that exports by default the `Connector` class. This service will use the library as follows:
 
 ```javascript
-import CustomCloudConnector from 'knot-fog-connector-customcloud';
+import CustomCloudConnector from '@cesarbr/knot-fog-connector-customcloud';
 
 ...
 const connector = new CustomCloudConnector(config);
@@ -27,7 +27,7 @@ await connector.start();
 
 #### constructor(config)
 
-Create the connector using a configuration object that will be loaded from a JSON file and passed directly to this constructor. No work, such as connecting to a service must be done in this constructor.
+Create the connector using a configuration object that will be loaded from a JSON file and passed directly to this constructor. No work, such as connecting to a service, must be done in this constructor.
 
 ##### Argument
 
@@ -36,7 +36,7 @@ Create the connector using a configuration object that will be loaded from a JSO
 ##### Example
 
 ```javascript
-import CustomCloudConnector from 'knot-fog-connector-customcloud';
+import CustomCloudConnector from '@cesarbr/knot-fog-connector-customcloud';
 
 const connector = new CustomCloudConnector({
   hostname: 'localhost',
@@ -48,12 +48,12 @@ const connector = new CustomCloudConnector({
 
 #### start(): Promise&lt;Void&gt;
 
-Start the connector.
+Start the connector. This is the method where initialization procedures, such as connecting to external services, must be done.
 
 ##### Example
 
 ```javascript
-import CustomCloudConnector from 'knot-fog-connector-customcloud';
+import CustomCloudConnector from '@cesarbr/knot-fog-connector-customcloud';
 
 const connector = new CustomCloudConnector({ ... });
 await connector.start();
@@ -61,7 +61,7 @@ await connector.start();
 
 #### addDevice(device): Promise&lt;Void&gt;
 
-Add a device to the cloud.
+Add a device to the cloud. Called when a new device is added to the fog.
 
 ##### Argument
 
@@ -81,7 +81,7 @@ await connector.addDevice({
 
 #### removeDevice(id): Promise&lt;Void&gt;
 
-Remove a device from the cloud.
+Remove a device from the cloud. Called when a device is removed from the fog.
 
 ##### Argument
 
@@ -96,7 +96,7 @@ await connector.removeDevice('656123c6-5666-4a5c-9e8e-e2b611a2e66b');
 
 #### listDevices(): Promise&lt;Object&gt;
 
-List the devices registered on the cloud.
+List the devices registered on the cloud for the current gateway.
 
 ##### Result
 
@@ -114,7 +114,7 @@ console.log(devices);
 
 #### publishData(id, data): Promise&lt;Void&gt;
 
-Publish data as a device.
+Publish data as a device. Called when a device publishes data on the fog.
 
 ##### Argument
 
@@ -141,7 +141,7 @@ await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
 
 #### updateSchema(id, schema): Promise&lt;Void&gt;
 
-Update the device schema.
+Update the device schema. Called when a device updates its schema on the fog.
 
 ##### Argument
 
@@ -178,7 +178,7 @@ await connector.updateSchema('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
 
 #### updateProperties(id, properties): Promise&lt;Void&gt;
 
-Update the device properties.
+Update the device properties. Called when the device's properties are updated on the fog.
 
 ##### Argument
 
@@ -198,7 +198,7 @@ await connector.updateProperties('656123c6-5666-4a5c-9e8e-e2b611a2e66b', {
 
 #### onConfigUpdated(cb): Promise&lt;Void&gt;
 
-Register a callback to handle configuration updates on the cloud.
+Register a callback to handle configuration updates on the cloud. Called when a cloud application requests to update the device configuration.
 
 ##### Argument
 
@@ -231,7 +231,7 @@ await connector.onConfigUpdated((id, config) => {
 
 #### onPropertiesUpdated(cb): Promise&lt;Void&gt;
 
-Register a callback to handle properties updates on the cloud.
+Register a callback to handle properties updates on the cloud. Called when a cloud application updates the device's properties.
 
 ##### Argument
 
@@ -258,7 +258,7 @@ await connector.onPropertiesUpdated((id, properties) => {
 
 #### onDataRequested(cb): Promise&lt;Void&gt;
 
-Register a callback to handle data requests from the cloud.
+Register a callback to handle data requests from the cloud. Called when a cloud application requests the last value of a device's sensor.
 
 ##### Argument
 
@@ -278,7 +278,7 @@ await connector.onDataRequested((id, sensorId) => {
 
 #### onDataUpdated(cb): Promise&lt;Void&gt;
 
-Register a callback to handle data updates from the cloud.
+Register a callback to handle data updates from the cloud. Called when a cloud application requests to update a device's actuator.
 
 ##### Argument
 
