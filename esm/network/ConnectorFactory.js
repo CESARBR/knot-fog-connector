@@ -1,4 +1,4 @@
-import Connector from 'knot-fog-connector-fiware';
+import FiwareConnector from '@cesarbr/knot-fog-connector-fiware';
 import logger from 'util/logger';
 
 class ConnectorFactory {
@@ -6,7 +6,7 @@ class ConnectorFactory {
     switch (type) {
       case 'FIWARE':
         logger.debug('Fiware connector selected');
-        return new Connector(settings);
+        return new FiwareConnector(settings);
       default:
         throw Error('Unknown cloud');
     }
