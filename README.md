@@ -4,6 +4,10 @@ This is a KNoT gateway service that connects the fog with a cloud service.
 
 ## Supported services
 
+* [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud) (under development)
+
+### Supported only in previous versions
+
 * [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
@@ -120,7 +124,7 @@ Publish data as a device. Called when a device publishes data on the fog.
 
 * `id` **String** device ID (KNoT ID)
 * `data` **Array** data items to be published, each one formed by:
-  * `sensor_id` **Number** sensor ID
+  * `sensorId` **Number** sensor ID
   * `value` **Number|Boolean|String** sensor value
 
 ##### Example
@@ -129,11 +133,11 @@ Publish data as a device. Called when a device publishes data on the fog.
 await connector.start();
 await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
   {
-    sensor_id: 1,
+    sensorId: 1,
     value: false
   },
   {
-    sensor_id: 2,
+    sensorId: 2,
     value: 1000,
   }
 ]);
@@ -147,10 +151,10 @@ Update the device schema. Called when a device updates its schema on the fog.
 
 * `id` **String** device ID (KNoT ID)
 * `schema` **Array** schema items, each one formed by:
-  * `sensor_id` **Number** sensor ID
-  * `value_type` **Number** semantic value type (voltage, current, temperature, etc)
+  * `sensorId` **Number** sensor ID
+  * `valueType` **Number** semantic value type (voltage, current, temperature, etc)
   * `unit` **Number** sensor unit (V, A, W, W, etc)
-  * `type_id` **Number** data value type (boolean, integer, etc)
+  * `typeId` **Number** data value type (boolean, integer, etc)
   * `name` **String** sensor name
 
 Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for more information on the possible values for each field.
@@ -163,36 +167,68 @@ Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for mor
 await connector.start();
 await connector.updateSchema('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
   {
-    sensor_id: 1,
-    value_type: 0xFFF1, // Switch
+    sensorId: 1,
+    valueType: 0xFFF1, // Switch
     unit: 0, // NA
-    type_id: 3, // Boolean
+    typeId: 3, // Boolean
     name: 'Door lock',
   },
   {
-    sensor_id: 2,
+    sensorId: 2,
     ...
   }
 ]);
 ```
 
-#### updateProperties(id, properties): Promise&lt;Void&gt;
+#### updateConfig(id, config): Promise&lt;Void&gt;
 
-Update the device properties. Called when the device's properties are updated on the fog.
+Update the device configuration. Called when a device updates its configuration on the fog.
 
 ##### Argument
 
 * `id` **String** device ID (KNoT ID)
-* `properties` **Object** updated properties
+* `config` **Array** configuration for each sensor, each one formed by:
+    * `sensorId` **Number** sensor ID
+    * `eventFlags` **Number** event flags
+    * `timeSec` **Number** update interval in seconds
+    * `lowerLimit` **Number** (Optional) lower limit
+    * `upperLimit` **Number** (Optional) upper limit
 
-**NOTE**: unlike `updateSchema`, this method receives only the properties that were updated.
+**NOTE**: `config` will always contain the whole configuration and not a difference from a last update.
 
 ##### Example
 
 ```javascript
 await connector.start();
-await connector.updateProperties('656123c6-5666-4a5c-9e8e-e2b611a2e66b', {
-  online: true
+await connector.updateConfig('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
+  {
+    sensorId: 1,
+    eventFlags: 0,
+    timeSec: 100
+  },
+  {
+    sensorId: 2,
+    ...
+  }
+]);
+```
+
+#### onConfigRequested(cb): Promise&lt;Void&gt;
+
+Register a callback to handle configuration requests from the cloud. Called when a cloud application requests the device to update its current configuration.
+
+##### Argument
+
+* `cb` **Function** event handler defined as `cb(id, sensorId)` where:
+  * `id` **Number** device ID (KNoT ID)
+
+##### Example
+
+```javascript
+await connector.start();
+await connector.onConfigRequested((id) => {
+  console.log(`Device '${id}' configuration is being requested`);
+  // Device '1' configuration is being requested
 });
 ```
 
@@ -205,13 +241,13 @@ Register a callback to handle configuration updates on the cloud. Called when a 
 * `cb` **Function** event handler defined as `cb(id, config)` where:
   * `id` **String** device ID (KNoT ID)
   * `config` **Array** configuration for each sensor, each one formed by:
-    * `sensor_id` **Number** sensor ID
-    * `event_flags` **Number** event flags
-    * `time_sec` **Number** update interval in seconds
-    * `lower_limit` **Number** (Optional) lower limit
-    * `upper_limit` **Number** (Optional) upper limit
+    * `sensorId` **Number** sensor ID
+    * `eventFlags` **Number** event flags
+    * `timeSec` **Number** update interval in seconds
+    * `lowerLimit` **Number** (Optional) lower limit
+    * `upperLimit` **Number** (Optional) upper limit
 
-**NOTE**: `config` will always contain the whole configuration and not a difference from a last update.
+**NOTE**: `config` might contain only the configuration for a subset of the sensors/actuators.
 
 ##### Example
 
@@ -222,37 +258,10 @@ await connector.onConfigUpdated((id, config) => {
   console.log(config);
   // Configuration for device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' was updated
   // [{
-  //   sensor_id: 1,
-  //   event_flags: 0,
-  //   time_sec: 100 
+  //   sensorId: 1,
+  //   eventFlags: 0,
+  //   timeSec: 100 
   // }]
-});
-```
-
-#### onPropertiesUpdated(cb): Promise&lt;Void&gt;
-
-Register a callback to handle properties updates on the cloud. Called when a cloud application updates the device's properties.
-
-##### Argument
-
-* `cb` **Function** event handler defined as `cb(id, properties)` where:
-  * `id` **Number** device ID (KNoT ID)
-  * `properties` **Object** updated properties
-
-**NOTE**: unlike `onConfigUpdated`'s callback, this callback receives only the properties that were updated.
-
-##### Example
-
-```javascript
-await connector.start();
-await connector.onPropertiesUpdated((id, properties) => {
-  console.log(`Properties for device '${id}' were updated`);
-  console.log(props);
-  // Properties for device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' were updated
-  // {
-  //   enabled: false
-  //   online: false
-  // }
 });
 ```
 
