@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import difference from 'util/difference';
 import logger from 'util/logger';
+import convertToCamelCase from 'util/camelCase';
 
 function comparator(elem1, elem2) {
   if (elem1.id !== elem2.id) {
@@ -22,6 +23,11 @@ class UpdateDevices {
   async execute() {
     const cloudDevices = await this.deviceStore.list();
     const fogDevices = await this.fogConnector.getMyDevices();
+    _.mapValues(fogDevices, (value) => {
+      const device = value;
+      device.schema = convertToCamelCase(device.schema);
+      return device;
+    });
 
     await this.updateDevicesAdded(cloudDevices, fogDevices);
     await this.updateDevicesRemoved(cloudDevices, fogDevices);
@@ -56,8 +62,8 @@ class UpdateDevices {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} schema updated`);
-      await this.deviceStore.update(device.id, { schema: device.schema });
-      await this.cloudConnector.updateSchema(device.id, device.schema);
+      await this.deviceStore.update(device.id, { schema: convertToCamelCase(device.schema) });
+      await this.cloudConnector.updateSchema(device.id, convertToCamelCase(device.schema));
     }));
   }
 }
