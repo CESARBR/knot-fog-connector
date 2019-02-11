@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import difference from 'util/difference';
+import convertToCamelCase from 'util/camelCase';
 
 class UpdateChanges {
   constructor(deviceStore, cloudConnector) {
@@ -22,7 +23,7 @@ class UpdateChanges {
     }
 
     if (device.schema && device.schema.length > 0) {
-      await this.cloudConnector.updateSchema(device.id, device.schema);
+      await this.cloudConnector.updateSchema(device.id, convertToCamelCase(device.schema));
       await this.deviceStore.update(device.id, diff);
     }
 
