@@ -56,11 +56,11 @@ async function main() {
     const updateDevices = new UpdateDevices(deviceStore, fog, cloud);
     const loadDevices = new LoadDevices(deviceStore, cloud, fog);
     const updateChanges = new UpdateChanges(deviceStore, cloud);
+    const publishData = new PublishData(deviceStore, cloud);
     const devicesService = new DevicesService(updateDevices, loadDevices, updateChanges);
     const updateData = new UpdateData(fog);
     const updateConfig = new UpdateConfig(fog);
     const updateProperties = new UpdateProperties(fog);
-    const publishData = new PublishData(cloud);
     const requestData = new RequestData(fog);
     const dataService = new DataService(
       updateData,
