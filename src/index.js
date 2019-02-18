@@ -72,9 +72,11 @@ async function main() {
 
     await devicesService.load();
 
-    await cloud.onDataUpdated(async (id, sensorId, data) => {
-      logger.debug(`Update data from ${sensorId} of thing ${id}: ${data}`);
-      await dataService.update(id, sensorId, data);
+    await cloud.onDataUpdated(async (id, data) => {
+      data.forEach(({ sensorId, value }) => {
+        logger.debug(`Update data from ${sensorId} of thing ${id}: ${value}`);
+      });
+      await dataService.update(id, data);
     });
 
     await cloud.onConfigUpdated(async (id, config) => {
