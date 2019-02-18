@@ -114,11 +114,11 @@ class FogConnection {
 
   async setData(id, data) {
     data.forEach(element => validateValue(element.value));
-    const uuid = await getDeviceUuid(this.connection, id);
+    const device = await this.getDevice(id);
     return new Promise((resolve) => {
       this.connection.update({
-        uuid,
-        set_data: data,
+        uuid: device.uuid,
+        set_data: device.set_data.concat(data),
       }, () => {
         resolve();
       });
@@ -151,11 +151,11 @@ class FogConnection {
 
 
   async requestData(id, sensorIds) {
-    const uuid = await getDeviceUuid(this.connection, id);
+    const device = await this.getDevice(id);
     return new Promise((resolve) => {
       this.connection.update({
-        uuid,
-        get_data: sensorIds,
+        uuid: device.uuid,
+        get_data: device.get_data.concat(sensorIds),
       }, () => {
         resolve();
       });
