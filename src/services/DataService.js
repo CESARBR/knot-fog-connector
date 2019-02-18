@@ -25,8 +25,8 @@ class DataService {
     await this.updatePropertiesInteractor.execute(id, properties);
   }
 
-  async request(id, sensorId) {
-    await this.requestDataInteractor.execute(id, sensorId);
+  async request(id, sensorIds) {
+    await this.requestDataInteractor.execute(id, sensorIds);
   }
 
   async publish(id, data) {
