@@ -161,12 +161,12 @@ class FogConnection {
   }
 
 
-  async requestData(id, sensorId) {
+  async requestData(id, sensorIds) {
     const uuid = await getDeviceUuid(this.connection, id);
     return new Promise((resolve) => {
       this.connection.update({
         uuid,
-        get_data: [{ sensor_id: sensorId }],
+        get_data: sensorIds,
       }, () => {
         resolve();
       });

@@ -87,9 +87,9 @@ async function main() {
       await dataService.updateProperties(id, properties);
     });
 
-    await cloud.onDataRequested(async (id, sensorId) => {
-      logger.debug(`Data requested from ${sensorId} of thing ${id}`);
-      await dataService.request(id, sensorId);
+    await cloud.onDataRequested(async (id, sensorIds) => {
+      logger.debug(`Data requested from ${sensorIds} of thing ${id}`);
+      await dataService.request(id, sensorIds);
     });
 
     await fog.on('config', async (device) => {
