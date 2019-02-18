@@ -120,16 +120,12 @@ class FogConnection {
     return device;
   }
 
-  async setData(id, sensorId, value) {
-    const parsedValue = parseValue(value); // throws if value is invalid
+  async setData(id, data) {
     const uuid = await getDeviceUuid(this.connection, id);
     return new Promise((resolve) => {
       this.connection.update({
         uuid,
-        set_data: [{
-          sensor_id: sensorId,
-          value: parsedValue,
-        }],
+        set_data: data,
       }, () => {
         resolve();
       });
