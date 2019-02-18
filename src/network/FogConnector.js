@@ -62,18 +62,10 @@ async function getDeviceUuid(connection, id) {
   return device.uuid;
 }
 
-function parseValue(value) {
-  if (isNaN(value)) { // eslint-disable-line no-restricted-globals
-    if (value === 'true' || value === 'false') {
-      return (value === 'true');
-    }
-    if (!isBase64(value)) {
-      throw new Error('Supported types are boolean, number or Base64 strings');
-    }
-    return value;
+function validateValue(value) {
+  if (!_.isBoolean(value) || !_.isNumber(value) || !isBase64(value)) {
+    throw new Error('Supported types are boolean, number or Base64 strings');
   }
-
-  return parseFloat(value);
 }
 
 class FogConnection {
@@ -121,6 +113,7 @@ class FogConnection {
   }
 
   async setData(id, data) {
+    data.forEach(element => validateValue(element.value));
     const uuid = await getDeviceUuid(this.connection, id);
     return new Promise((resolve) => {
       this.connection.update({
