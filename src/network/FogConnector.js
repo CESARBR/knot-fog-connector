@@ -63,7 +63,7 @@ async function getDeviceUuid(connection, id) {
 }
 
 function validateValue(value) {
-  if (!_.isBoolean(value) || !_.isNumber(value) || !isBase64(value)) {
+  if (!_.isBoolean(value) && !_.isNumber(value) && !isBase64(value)) {
     throw new Error('Supported types are boolean, number or Base64 strings');
   }
 }
