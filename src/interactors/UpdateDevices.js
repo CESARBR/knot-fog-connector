@@ -21,7 +21,7 @@ class UpdateDevices {
   }
 
   async execute() {
-    const cloudDevices = await this.deviceStore.list();
+    const cloudDevices = await this.cloudConnector.listDevices();
     const fogDevices = await this.fogConnector.getMyDevices();
     _.mapValues(fogDevices, (value) => {
       const device = value;
