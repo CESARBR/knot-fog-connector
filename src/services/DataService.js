@@ -1,28 +1,16 @@
 class DataService {
   constructor(
     updateDataInteractor,
-    updateConfigInteractor,
-    updatePropertiesInteractor,
     requestDataInteractor,
     publishDataInteractor,
   ) {
     this.updateDataInteractor = updateDataInteractor;
-    this.updateConfigInteractor = updateConfigInteractor;
-    this.updatePropertiesInteractor = updatePropertiesInteractor;
     this.requestDataInteractor = requestDataInteractor;
     this.publishDataInteractor = publishDataInteractor;
   }
 
   async update(id, data) {
     await this.updateDataInteractor.execute(id, data);
-  }
-
-  async updateConfig(id, config) {
-    await this.updateConfigInteractor.execute(id, config);
-  }
-
-  async updateProperties(id, properties) {
-    await this.updatePropertiesInteractor.execute(id, properties);
   }
 
   async request(id, sensorIds) {

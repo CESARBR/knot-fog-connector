@@ -32,7 +32,6 @@ class UpdateChanges {
       return;
     }
 
-    await this.cloudConnector.updateProperties(device.id, diff);
     await this.deviceStore.update(device.id, diff);
   }
 }

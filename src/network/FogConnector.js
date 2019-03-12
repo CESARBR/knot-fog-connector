@@ -1,9 +1,6 @@
 import meshblu from 'meshblu';
-import request from 'request';
 import isBase64 from 'is-base64';
 import _ from 'lodash';
-
-import logger from 'util/logger';
 
 function createConnection(hostname, port, uuid, token) {
   return meshblu.createConnection({
@@ -126,31 +123,6 @@ class FogConnection {
     });
   }
 
-  async updateConfig(id, config) {
-    const uuid = await getDeviceUuid(this.connection, id);
-    return new Promise((resolve) => {
-      this.connection.update({
-        uuid,
-        config,
-      }, () => {
-        resolve();
-      });
-    });
-  }
-
-
-  async updateProperties(id, properties) {
-    const uuid = await getDeviceUuid(this.connection, id);
-    const query = properties;
-    query.uuid = uuid;
-    return new Promise((resolve) => {
-      this.connection.update(query, () => {
-        resolve();
-      });
-    });
-  }
-
-
   async requestData(id, sensorIds) {
     const uuid = await getDeviceUuid(this.connection, id);
     const device = await this.getDevice(id);
@@ -159,29 +131,6 @@ class FogConnection {
         uuid,
         get_data: device.get_data ? device.get_data.concat(sensorIds) : sensorIds,
       }, () => {
-        resolve();
-      });
-    });
-  }
-
-  async publishData(id, data) {
-    const uuid = await getDeviceUuid(this.connection, id);
-    const postOptions = {
-      url: `http://${this.hostname}:${this.port}/data/${uuid}`,
-      method: 'POST',
-      headers: {
-        meshblu_auth_uuid: this.uuid,
-        meshblu_auth_token: this.token,
-        'Content-Type': 'application/json',
-      },
-      form: data,
-    };
-
-    return new Promise((resolve) => {
-      request(postOptions, (err) => {
-        if (err) {
-          logger.error(err);
-        }
         resolve();
       });
     });
