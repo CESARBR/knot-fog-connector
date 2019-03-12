@@ -22,6 +22,30 @@
       "revId": "95d55b6fc46f88bcccb328d7e73aa490e1911492",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d839a3_cc7f92a7",
+        "filename": "src/network/FogConnector.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1013086
+      },
+      "writtenOn": "2019-03-12T21:10:49Z",
+      "side": 0,
+      "message": "It isn\u0027t being used, we don\u0027t post data from the cloud to the fog.",
+      "parentUuid": "f0a07f8b_a92ea6d9",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "95d55b6fc46f88bcccb328d7e73aa490e1911492",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
