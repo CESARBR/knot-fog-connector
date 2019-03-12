@@ -15,7 +15,7 @@
     "start:dev": "babel-node src"
   },
   "dependencies": {
-    "@cesarbr/knot-fog-connector-knot-cloud": "^0.1.0",
+    "@cesarbr/knot-fog-connector-knot-cloud": "^1.0.1",
     "config": "^2.0.1",
     "is-base64": "0.0.6",
     "lodash": "^4.17.10",
