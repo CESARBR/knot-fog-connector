@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0a07f8b_a92ea6d9",
+        "filename": "src/network/FogConnector.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-03-12T21:08:21Z",
+      "side": 0,
+      "message": "Should this be removed?",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "95d55b6fc46f88bcccb328d7e73aa490e1911492",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
