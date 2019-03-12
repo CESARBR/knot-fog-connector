@@ -10,8 +10,6 @@ import UpdateDevices from 'interactors/UpdateDevices';
 import UpdateChanges from 'interactors/UpdateChanges';
 import DevicesService from 'services/DevicesService';
 import UpdateData from 'interactors/UpdateData';
-import UpdateConfig from 'interactors/UpdateConfig';
-import UpdateProperties from 'interactors/UpdateProperties';
 import RequestData from 'interactors/RequestData';
 import DataService from 'services/DataService';
 import PublishData from 'interactors/PublishData';
@@ -54,16 +52,12 @@ async function main() {
 
     const updateDevices = new UpdateDevices(deviceStore, fog, cloud);
     const updateChanges = new UpdateChanges(deviceStore, cloud);
-    const publishData = new PublishData(deviceStore, cloud);
     const devicesService = new DevicesService(updateDevices, updateChanges);
     const updateData = new UpdateData(fog);
-    const updateConfig = new UpdateConfig(fog);
-    const updateProperties = new UpdateProperties(fog);
     const requestData = new RequestData(fog);
+    const publishData = new PublishData(deviceStore, cloud);
     const dataService = new DataService(
       updateData,
-      updateConfig,
-      updateProperties,
       requestData,
       publishData,
     );
@@ -75,16 +69,6 @@ async function main() {
         logger.debug(`Update data from ${sensorId} of thing ${id}: ${value}`);
       });
       await dataService.update(id, data);
-    });
-
-    await cloud.onConfigUpdated(async (id, config) => {
-      logger.debug(`Update thing config ${id}: ${config}`);
-      await dataService.updateConfig(id, config);
-    });
-
-    await cloud.onPropertiesUpdated(async (id, properties) => {
-      logger.debug(`Update thing property ${id}: ${properties}`);
-      await dataService.updateProperties(id, properties);
     });
 
     await cloud.onDataRequested(async (id, sensorIds) => {
