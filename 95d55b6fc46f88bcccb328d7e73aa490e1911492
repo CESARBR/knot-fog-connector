@@ -46,6 +46,30 @@
       "revId": "95d55b6fc46f88bcccb328d7e73aa490e1911492",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9121142_12f04ea4",
+        "filename": "src/network/FogConnector.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-03-12T21:13:19Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "b6d839a3_cc7f92a7",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 0
+      },
+      "revId": "95d55b6fc46f88bcccb328d7e73aa490e1911492",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
