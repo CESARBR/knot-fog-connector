@@ -1,4 +1,4 @@
-import meshblu from 'meshblu';
+import meshblu from '@cesarbr/meshblu';
 import isBase64 from 'is-base64';
 import _ from 'lodash';
 
