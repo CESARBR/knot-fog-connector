@@ -1,7 +1,7 @@
 import KnotCloudConnector from '@cesarbr/knot-fog-connector-knot-cloud';
 import logger from 'util/logger';
 
-class ConnectorFactory {
+class CloudConnectorFactory {
   static create(type, settings) {
     switch (type) {
       case 'KNOT_CLOUD':
@@ -13,4 +13,4 @@ class ConnectorFactory {
   }
 }
 
-export default ConnectorFactory;
+export default CloudConnectorFactory;
