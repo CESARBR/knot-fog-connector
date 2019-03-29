@@ -4,7 +4,8 @@ import SettingsFactory from 'data/SettingsFactory';
 import DeviceStore from 'data/DeviceStore';
 import CloudConnectorFactory from 'network/CloudConnectorFactory';
 import CloudConnectionHandler from 'network/CloudConnectionHandler';
-import FogConnector from 'network/FogConnector';
+import FogConnectorFactory from 'network/FogConnectorFactory';
+import FogConnectionHandler from 'network/FogConnectionHandler';
 
 // Domain
 import UpdateDevices from 'interactors/UpdateDevices';
@@ -29,13 +30,7 @@ async function main() {
     let fog;
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
     if (settings.fog.uuid && settings.fog.token) {
-      fog = new FogConnector(
-        settings.fog.hostname,
-        settings.fog.port,
-        settings.fog.uuid,
-        settings.fog.token,
-      );
-
+      fog = new FogConnectorFactory(settings.fog).create();
       await fog.connect();
       await cloud.start();
     } else {
@@ -61,29 +56,11 @@ async function main() {
     );
 
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, dataService);
+    const fogConnectionHandler = new FogConnectionHandler(fog, devicesService, dataService);
 
     await devicesService.load();
     await cloudConnectionHandler.start();
-
-    await fog.on('config', async (device) => {
-      try {
-        logger.debug('Receive fog changes');
-        logger.debug(`Device ${device.id} has changed`);
-        await devicesService.updateChanges(device);
-      } catch (err) {
-        logger.error(err);
-      }
-    });
-
-    await fog.on('message', async (msg) => {
-      try {
-        logger.debug(`Receive fog message from ${msg.fromId}`);
-        logger.debug(`Payload message: ${msg.payload}`);
-        await dataService.publish(msg.fromId, msg.payload);
-      } catch (err) {
-        logger.error(err);
-      }
-    });
+    await fogConnectionHandler.start();
 
     setInterval(devicesService.update.bind(devicesService), 5000);
   } catch (err) {
