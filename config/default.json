@@ -1,6 +1,6 @@
 {
 	"fog": {
-		"host": "localhost",
+		"hostname": "localhost",
 		"port": 3000
 	},
 	"runAs": {
