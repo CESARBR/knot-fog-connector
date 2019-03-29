@@ -2,7 +2,8 @@
 // Infrastructure
 import SettingsFactory from 'data/SettingsFactory';
 import DeviceStore from 'data/DeviceStore';
-import ConnectorFactory from 'network/ConnectorFactory';
+import CloudConnectorFactory from 'network/CloudConnectorFactory';
+import CloudConnectionHandler from 'network/CloudConnectionHandler';
 import FogConnector from 'network/FogConnector';
 
 // Domain
@@ -26,7 +27,7 @@ async function main() {
 
   try {
     let fog;
-    const cloud = ConnectorFactory.create(settings.cloudType, settings.cloud);
+    const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
     if (settings.fog.uuid && settings.fog.token) {
       fog = new FogConnector(
         settings.fog.hostname,
@@ -59,19 +60,10 @@ async function main() {
       publishData,
     );
 
+    const cloudConnectionHandler = new CloudConnectionHandler(cloud, dataService);
+
     await devicesService.load();
-
-    await cloud.onDataUpdated(async (id, data) => {
-      data.forEach(({ sensorId, value }) => {
-        logger.debug(`Update data from ${sensorId} of thing ${id}: ${value}`);
-      });
-      await dataService.update(id, data);
-    });
-
-    await cloud.onDataRequested(async (id, sensorIds) => {
-      logger.debug(`Data requested from ${sensorIds} of thing ${id}`);
-      await dataService.request(id, sensorIds);
-    });
+    await cloudConnectionHandler.start();
 
     await fog.on('config', async (device) => {
       try {
