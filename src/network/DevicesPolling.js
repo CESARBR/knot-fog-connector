@@ -1,7 +1,6 @@
 import _ from 'lodash';
-
-import difference from 'util/difference';
 import logger from 'util/logger';
+import difference from 'util/difference';
 import convertToCamelCase from 'util/camelCase';
 
 function comparator(elem1, elem2) {
@@ -13,21 +12,27 @@ function comparator(elem1, elem2) {
   return !(diff.schema && diff.schema.length > 0);
 }
 
-class UpdateDevices {
-  constructor(deviceStore, fogConnector, cloudConnector) {
-    this.deviceStore = deviceStore;
+function convertSchemaToCamelCase(value) {
+  const device = value;
+  device.schema = convertToCamelCase(device.schema);
+  return device;
+}
+
+class DevicesPolling {
+  constructor(fogConnector, cloudConnector, devicesService) {
     this.fogConnector = fogConnector;
     this.cloudConnector = cloudConnector;
+    this.devicesService = devicesService;
   }
 
-  async execute() {
+  async start() {
+    setInterval(this.syncDevices.bind(this), 5000);
+  }
+
+  async syncDevices() {
     const cloudDevices = await this.cloudConnector.listDevices();
     const fogDevices = await this.fogConnector.getMyDevices();
-    _.mapValues(fogDevices, (value) => {
-      const device = value;
-      device.schema = convertToCamelCase(device.schema);
-      return device;
-    });
+    _.mapValues(fogDevices, value => convertSchemaToCamelCase(value));
 
     await this.updateDevicesAdded(cloudDevices, fogDevices);
     await this.updateDevicesRemoved(cloudDevices, fogDevices);
@@ -38,14 +43,7 @@ class UpdateDevices {
     const devices = _.differenceBy(fogDevices, cloudDevices, 'id');
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} added`);
-      const deviceToBeSaved = {
-        id: device.id,
-        name: device.name,
-      };
-
-      await this.deviceStore.add(deviceToBeSaved);
-      await this.cloudConnector.addDevice(deviceToBeSaved);
-      await this.fogConnector.subscribe(device.id, 'broadcast');
+      await this.devicesService.register(device);
     }));
   }
 
@@ -53,8 +51,7 @@ class UpdateDevices {
     const devices = _.differenceBy(cloudDevices, fogDevices, 'id');
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} removed`);
-      await this.deviceStore.remove(device);
-      await this.cloudConnector.removeDevice(device.id);
+      await this.devicesService.unregister(device);
     }));
   }
 
@@ -62,10 +59,9 @@ class UpdateDevices {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} schema updated`);
-      await this.deviceStore.update(device.id, { schema: convertToCamelCase(device.schema) });
-      await this.cloudConnector.updateSchema(device.id, convertToCamelCase(device.schema));
+      await this.devicesService.updateSchema(device);
     }));
   }
 }
 
-export default UpdateDevices;
+export default DevicesPolling;
