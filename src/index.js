@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // Infrastructure
-import Settings from 'data/Settings';
+import SettingsFactory from 'data/SettingsFactory';
 import DeviceStore from 'data/DeviceStore';
 import ConnectorFactory from 'network/ConnectorFactory';
 import FogConnector from 'network/FogConnector';
@@ -18,37 +18,27 @@ import PublishData from 'interactors/PublishData';
 // Logger
 import logger from 'util/logger';
 
-const settings = new Settings();
+const settings = new SettingsFactory().create();
 const deviceStore = new DeviceStore();
 
 async function main() {
   logger.info('KNoT Fog Connnector started');
-  const fogCredentials = await settings.getFogCredentials();
-  const fogAddress = await settings.getFogAddress();
-  const cloudSettings = await settings.getCloudSettings();
-  const cloudType = await settings.getCloudType();
-  const runAs = await settings.getRunAs();
 
   try {
-    let fog;
-    const cloud = ConnectorFactory.create(cloudType, cloudSettings);
-    if (fogCredentials.uuid && fogCredentials.token) {
-      fog = new FogConnector(
-        fogAddress.host,
-        fogAddress.port,
-        fogCredentials.uuid,
-        fogCredentials.token,
-      );
+    const cloud = ConnectorFactory.create(settings.cloudType, settings.cloud);
+    const fog = new FogConnector(
+      settings.fog.hostname,
+      settings.fog.port,
+      settings.fog.uuid,
+      settings.fog.token,
+    );
 
-      await fog.connect();
-      await cloud.start();
-    } else {
-      throw Error('Missing uuid and token');
-    }
+    await fog.connect();
+    await cloud.start();
 
     if (process.env.NODE_ENV === 'production') {
-      process.setgid(runAs.group);
-      process.setuid(runAs.user);
+      process.setgid(settings.runAs.group);
+      process.setuid(settings.runAs.user);
     }
 
     const updateDevices = new UpdateDevices(deviceStore, fog, cloud);
