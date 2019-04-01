@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4520ba98_2814cc4d",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-01T12:06:56Z",
+      "side": 1,
+      "message": "You should rename this argument in another patch. Doing this the git will recognize this file as `renamed` besides a deletion from older file and a creation of new one.\nIf you don\u0027t do this we will lose the git history from this file",
+      "range": {
+        "startLine": 5,
+        "startChar": 16,
+        "endLine": 5,
+        "endChar": 25
+      },
+      "revId": "b37c8ce9c607eabfff2b893bc9baf35cba5c3dda",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
