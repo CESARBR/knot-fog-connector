@@ -46,6 +46,30 @@
       "revId": "b37c8ce9c607eabfff2b893bc9baf35cba5c3dda",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20010bf7_3ce939e0",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-01T21:34:39Z",
+      "side": 1,
+      "message": "Ack. Thinking better these renamings aren\u0027t necessary because the parameter names are already in the `CloudConnectorFactory` scope. I.e. `type`and `settings` are naturally associated with the cloud connector that is being instantiated.",
+      "parentUuid": "9b0063af_b24ddfa6",
+      "range": {
+        "startLine": 5,
+        "startChar": 16,
+        "endLine": 5,
+        "endChar": 25
+      },
+      "revId": "b37c8ce9c607eabfff2b893bc9baf35cba5c3dda",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
