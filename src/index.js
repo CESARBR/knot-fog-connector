@@ -7,6 +7,7 @@ import CloudConnectionHandler from 'network/CloudConnectionHandler';
 import FogConnectorFactory from 'network/FogConnectorFactory';
 import FogConnectionHandler from 'network/FogConnectionHandler';
 import DevicesPolling from 'network/DevicesPolling';
+import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
 
 // Domain
 import LoadDevices from 'interactors/LoadDevices';
@@ -69,12 +70,15 @@ async function main() {
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, dataService);
     const fogConnectionHandler = new FogConnectionHandler(fog, devicesService, dataService);
     const devicesPolling = new DevicesPolling(fog, cloud, devicesService);
+    const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
 
     await devicesService.load();
     await cloudConnectionHandler.start();
     await fogConnectionHandler.start();
     await devicesPolling.start();
+    await amqpConnection.start();
   } catch (err) {
+    console.log(err);
     logger.error(err);
   }
 }
