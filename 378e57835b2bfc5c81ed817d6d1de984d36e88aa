@@ -46,6 +46,30 @@
       "revId": "378e57835b2bfc5c81ed817d6d1de984d36e88aa",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce59a76_77188f80",
+        "filename": "src/index.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-01T21:32:29Z",
+      "side": 0,
+      "message": "I\u0027ve forgotten to remove it in this patch. Should I do it in another patch?",
+      "parentUuid": "c26a022d_78191b66",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "378e57835b2bfc5c81ed817d6d1de984d36e88aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
