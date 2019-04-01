@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "116a7299_9ddfd001",
+        "filename": "config/default.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1013086
+      },
+      "writtenOn": "2019-04-01T19:03:21Z",
+      "side": 1,
+      "message": "Mind that this will require changes to WebUI as well.",
+      "revId": "8a228a7a3d0e1982dbb7899190182573c9fa8300",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff591750_8b8191d2",
         "filename": "src/data/SettingsFactory.js",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2019-04-01T12:07:46Z",
       "side": 1,
       "message": "Should this settings be required? Because in the raspberry we have the user knot but not other hosts",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "8a228a7a3d0e1982dbb7899190182573c9fa8300",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d29257f_8c1a5bc9",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013086
+      },
+      "writtenOn": "2019-04-01T19:03:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ff591750_8b8191d2",
       "range": {
         "startLine": 17,
         "startChar": 2,
