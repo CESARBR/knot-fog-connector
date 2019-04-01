@@ -11,5 +11,9 @@
 		"console": true,
 		"syslog": false,
 		"level": "info"
+	},
+	"rabbitMQ": {
+		"hostname": "localhost",
+		"port": 5672
 	}
 }
