@@ -16,10 +16,6 @@ import RegisterDevice from 'interactors/RegisterDevice';
 import UnregisterDevice from 'interactors/UnregisterDevice';
 import UpdateSchema from 'interactors/UpdateSchema';
 import DevicesService from 'services/DevicesService';
-import UpdateData from 'interactors/UpdateData';
-import RequestData from 'interactors/RequestData';
-import DataService from 'services/DataService';
-import PublishData from 'interactors/PublishData';
 
 // Logger
 import logger from 'util/logger';
@@ -54,25 +50,17 @@ async function main() {
       unregisterDevice,
       updateSchema,
     );
-    const updateData = new UpdateData(fog);
-    const requestData = new RequestData(fog);
-    const publishData = new PublishData(deviceStore, cloud);
-    const dataService = new DataService(
-      updateData,
-      requestData,
-      publishData,
-    );
 
-    const cloudConnectionHandler = new CloudConnectionHandler(cloud, dataService);
-    const fogConnectionHandler = new FogConnectionHandler(fog, devicesService, dataService);
-    const devicesPolling = new DevicesPolling(fog, cloud, devicesService);
     const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
+    const cloudConnectionHandler = new CloudConnectionHandler(cloud, amqpConnection);
+    const fogConnectionHandler = new FogConnectionHandler(fog, amqpConnection);
+    const devicesPolling = new DevicesPolling(fog, cloud, amqpConnection);
 
     await devicesService.load();
+    await amqpConnection.start();
     await cloudConnectionHandler.start();
     await fogConnectionHandler.start();
     await devicesPolling.start();
-    await amqpConnection.start();
   } catch (err) {
     logger.error(err);
   }
