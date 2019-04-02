@@ -22,6 +22,30 @@
       "revId": "10397e3d601a4917a79532e10206a3f5dcc4c56a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead58acf_6aa3b9dd",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-02T16:25:24Z",
+      "side": 1,
+      "message": "This isn\u0027t a problem because there is a default config in \u0027default.json\u0027.",
+      "parentUuid": "102621d1_d8378150",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "10397e3d601a4917a79532e10206a3f5dcc4c56a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
