@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "102621d1_d8378150",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-02T16:22:26Z",
+      "side": 1,
+      "message": "I am not sure but I think you should use `config.has` here because config package throws an error if there is nothing to get.\nSee https://github.com/CESARBR/knot-cloud-authenticator/blob/master/src/data/SettingsFactory.js#L91",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "10397e3d601a4917a79532e10206a3f5dcc4c56a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
