@@ -1,9 +1,9 @@
 import logger from 'util/logger';
 
 class CloudConnectionHandler {
-  constructor(cloud, dataService) {
+  constructor(cloud, queue) {
     this.cloud = cloud;
-    this.dataService = dataService;
+    this.queue = queue;
   }
 
   async start() {
@@ -15,12 +15,13 @@ class CloudConnectionHandler {
     data.forEach(({ sensorId, value }) => {
       logger.debug(`Update data from ${sensorId} of thing ${id}: ${value}`);
     });
-    await this.dataService.update(id, data);
+
+    await this.queue.send('fog', 'data.update', { id, data });
   }
 
   async onDataRequested(id, sensorIds) {
     logger.debug(`Data requested from ${sensorIds} of thing ${id}`);
-    await this.dataService.request(id, sensorIds);
+    await this.queue.send('fog', 'data.request', { id, sensorIds });
   }
 }
 
