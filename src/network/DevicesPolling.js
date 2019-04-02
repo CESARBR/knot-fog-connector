@@ -19,10 +19,10 @@ function convertSchemaToCamelCase(value) {
 }
 
 class DevicesPolling {
-  constructor(fogConnector, cloudConnector, devicesService) {
+  constructor(fogConnector, cloudConnector, queue) {
     this.fogConnector = fogConnector;
     this.cloudConnector = cloudConnector;
-    this.devicesService = devicesService;
+    this.queue = queue;
   }
 
   async start() {
@@ -43,7 +43,7 @@ class DevicesPolling {
     const devices = _.differenceBy(fogDevices, cloudDevices, 'id');
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} added`);
-      await this.devicesService.register(device);
+      await this.queue.send('cloud', 'device.register', device);
     }));
   }
 
@@ -51,7 +51,7 @@ class DevicesPolling {
     const devices = _.differenceBy(cloudDevices, fogDevices, 'id');
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} removed`);
-      await this.devicesService.unregister(device);
+      await this.queue.send('cloud', 'device.unregister', device);
     }));
   }
 
@@ -59,7 +59,7 @@ class DevicesPolling {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
       logger.debug(`Device ${device.id} schema updated`);
-      await this.devicesService.updateSchema(device);
+      await this.queue.send('cloud', 'schema.update', device);
     }));
   }
 }

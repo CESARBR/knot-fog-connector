@@ -1,10 +1,9 @@
 import logger from 'util/logger';
 
 class FogConnectionHandler {
-  constructor(fog, devicesService, dataService) {
+  constructor(fog, queue) {
     this.fog = fog;
-    this.devicesService = devicesService;
-    this.dataService = dataService;
+    this.queue = queue;
   }
 
   async start() {
@@ -16,7 +15,7 @@ class FogConnectionHandler {
     try {
       logger.debug('Receive fog changes');
       logger.debug(`Device ${device.id} has changed`);
-      await this.devicesService.updateChanges(device);
+      await this.queue.send('cloud', 'config.update');
     } catch (err) {
       logger.error(err);
     }
@@ -26,7 +25,7 @@ class FogConnectionHandler {
     try {
       logger.debug(`Receive fog message from ${msg.fromId}`);
       logger.debug(`Payload message: ${msg.payload}`);
-      await this.dataService.publish(msg.fromId, msg.payload);
+      await this.queue.publish('cloud', 'data.publish');
     } catch (err) {
       logger.error(err);
     }
