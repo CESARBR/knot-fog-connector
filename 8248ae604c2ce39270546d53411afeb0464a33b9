@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c956ac0_534cdf0e",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-03T16:46:38Z",
+      "side": 1,
+      "message": "Done in this commit: https://review.gerrithub.io/c/CESARBR/knot-fog-connector/+/449606/4",
+      "parentUuid": "8f327f2e_6f03c0c9",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "8248ae604c2ce39270546d53411afeb0464a33b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff3b303f_4fa2d1d7",
         "filename": "src/network/DevicesPolling.js",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "91596184_6805e336",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-03T16:46:38Z",
+      "side": 1,
+      "message": "Done in this commit: https://review.gerrithub.io/c/CESARBR/knot-fog-connector/+/449606/4",
+      "parentUuid": "ff3b303f_4fa2d1d7",
+      "range": {
+        "startLine": 53,
+        "startChar": 40,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "8248ae604c2ce39270546d53411afeb0464a33b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "693792f6_02614dc1",
         "filename": "src/network/DevicesPolling.js",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-03T14:23:57Z",
       "side": 1,
       "message": "remove this log and put in the interactor",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 57
+      },
+      "revId": "8248ae604c2ce39270546d53411afeb0464a33b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25b2c24e_4165c1ff",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-03T16:46:38Z",
+      "side": 1,
+      "message": "Done in this commit: https://review.gerrithub.io/c/CESARBR/knot-fog-connector/+/449606/4",
+      "parentUuid": "693792f6_02614dc1",
       "range": {
         "startLine": 61,
         "startChar": 6,
