@@ -22,6 +22,30 @@
       "revId": "adc935eef8c151e3570085cedbc6050174d21af1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f6d94bd_7e493799",
+        "filename": "src/network/AMQPConnection.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-03T16:41:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8e9341_4c51a194",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "adc935eef8c151e3570085cedbc6050174d21af1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
