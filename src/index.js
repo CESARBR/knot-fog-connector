@@ -8,14 +8,7 @@ import FogConnectorFactory from 'network/FogConnectorFactory';
 import FogConnectionHandler from 'network/FogConnectionHandler';
 import DevicesPolling from 'network/DevicesPolling';
 import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
-
-// Domain
-import LoadDevices from 'interactors/LoadDevices';
-import UpdateChanges from 'interactors/UpdateChanges';
-import RegisterDevice from 'interactors/RegisterDevice';
-import UnregisterDevice from 'interactors/UnregisterDevice';
-import UpdateSchema from 'interactors/UpdateSchema';
-import DevicesService from 'services/DevicesService';
+import MessageHandlerFactory from 'network/MessageHandlerFactory';
 
 // Logger
 import logger from 'util/logger';
@@ -38,26 +31,18 @@ async function main() {
       process.setuid(settings.runAs.user);
     }
 
-    const loadDevices = new LoadDevices(deviceStore, cloud, fog);
-    const updateChanges = new UpdateChanges(deviceStore, cloud);
-    const registerDevice = new RegisterDevice(deviceStore, fog, cloud);
-    const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
-    const updateSchema = new UpdateSchema(deviceStore, cloud);
-    const devicesService = new DevicesService(
-      loadDevices,
-      updateChanges,
-      registerDevice,
-      unregisterDevice,
-      updateSchema,
-    );
-
     const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, amqpConnection);
     const fogConnectionHandler = new FogConnectionHandler(fog, amqpConnection);
     const devicesPolling = new DevicesPolling(fog, cloud, amqpConnection);
+    const messageHandler = new MessageHandlerFactory(
+      deviceStore,
+      cloud,
+      fog,
+      amqpConnection,
+    ).create();
 
-    await devicesService.load();
-    await amqpConnection.start();
+    await messageHandler.start();
     await cloudConnectionHandler.start();
     await fogConnectionHandler.start();
     await devicesPolling.start();
