@@ -7,16 +7,16 @@ class RegisterDevice {
     this.cloudConnector = cloudConnector;
   }
 
-  async execute(device) {
-    logger.debug(`Device ${device.id} added`);
+  async execute({ id, name }) {
+    logger.debug(`Device ${id} added`);
     const deviceToBeSaved = {
-      id: device.id,
-      name: device.name,
+      id,
+      name,
     };
 
     await this.deviceStore.add(deviceToBeSaved);
     await this.cloudConnector.addDevice(deviceToBeSaved);
-    await this.fogConnector.subscribe(device.id, 'broadcast');
+    await this.fogConnector.subscribe(id, 'broadcast');
   }
 }
 
