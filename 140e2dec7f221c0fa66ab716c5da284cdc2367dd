@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59ca73dc_a13eac21",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-05T12:21:52Z",
+      "side": 1,
+      "message": "Shouldn\u0027t those operations be put on queue too?",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 62
+      },
+      "revId": "140e2dec7f221c0fa66ab716c5da284cdc2367dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
