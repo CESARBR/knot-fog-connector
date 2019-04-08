@@ -12,7 +12,6 @@ class MessageHandler {
         'device.unregister': this.devicesService.unregister.bind(this.devicesService),
         'schema.update': this.devicesService.updateSchema.bind(this.devicesService),
         'data.publish': this.dataService.publish.bind(this.dataService),
-        'config.update': this.devicesService.updateChanges.bind(this.devicesService),
       },
       fog: {
         'data.update': this.dataService.update.bind(this.dataService),
