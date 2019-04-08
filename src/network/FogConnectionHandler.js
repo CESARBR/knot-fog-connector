@@ -1,4 +1,5 @@
 import logger from 'util/logger';
+import _ from 'lodash';
 
 class FogConnectionHandler {
   constructor(fog, queue) {
@@ -25,7 +26,11 @@ class FogConnectionHandler {
     try {
       logger.debug(`Receive fog message from ${msg.fromId}`);
       logger.debug(`Payload message: ${msg.payload}`);
-      await this.queue.send('cloud', 'data.publish', { id: msg.fromId, payload: msg.payload });
+      if (_.has(msg.payload, 'online')) { // The fog emits a broadcast saying that the online was updated
+        await this.queue.send('cloud', 'config.update', { id: msg.fromId, online: msg.payload.online });
+      } else {
+        await this.queue.send('cloud', 'data.publish', { id: msg.fromId, payload: msg.payload });
+      }
     } catch (err) {
       logger.error(err);
     }
