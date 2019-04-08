@@ -1,7 +1,6 @@
 import MessageHandler from 'network/MessageHandler';
 
 import LoadDevices from 'interactors/LoadDevices';
-import UpdateChanges from 'interactors/UpdateChanges';
 import RegisterDevice from 'interactors/RegisterDevice';
 import UnregisterDevice from 'interactors/UnregisterDevice';
 import UpdateSchema from 'interactors/UpdateSchema';
@@ -26,13 +25,11 @@ class MessageHandlerFactory {
     } = this;
 
     const loadDevices = new LoadDevices(deviceStore, cloud, fog);
-    const updateChanges = new UpdateChanges(deviceStore, cloud);
     const registerDevice = new RegisterDevice(deviceStore, fog, cloud);
     const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
     const updateSchema = new UpdateSchema(deviceStore, cloud);
     const devicesService = new DevicesService(
       loadDevices,
-      updateChanges,
       registerDevice,
       unregisterDevice,
       updateSchema,
