@@ -1,13 +1,11 @@
 class DevicesService {
   constructor(
     loadDevicesInteractor,
-    updateChangesInteractor,
     registerDeviceInteractor,
     unregisterDeviceInteractor,
     updateSchemaInteractor,
   ) {
     this.loadDevicesInteractor = loadDevicesInteractor;
-    this.updateChangesInteractor = updateChangesInteractor;
     this.registerDeviceInteractor = registerDeviceInteractor;
     this.unregisterDeviceInteractor = unregisterDeviceInteractor;
     this.updateSchemaInteractor = updateSchemaInteractor;
@@ -27,10 +25,6 @@ class DevicesService {
 
   async load() {
     await this.loadDevicesInteractor.execute();
-  }
-
-  async updateChanges(device) {
-    await this.updateChangesInteractor.execute(device);
   }
 }
 
