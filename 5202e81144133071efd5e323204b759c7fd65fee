@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36abee3f_ca053c79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-10T18:56:20Z",
+      "side": 1,
+      "message": "I think \"Add/create message queue handler\" is enough for the title and you can give more details on the message.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "5202e81144133071efd5e323204b759c7fd65fee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7991eb33_630484f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-10T18:56:20Z",
+      "side": 1,
+      "message": "End the message with a dot. \n\"[...] the commands.\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 66,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "5202e81144133071efd5e323204b759c7fd65fee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c3face_df794139",
+        "filename": "src/network/MessageHandler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-10T18:56:20Z",
+      "side": 1,
+      "message": "Create another function and move this code to it in order to keep the `listenToQueueMessages()` more readable.",
+      "range": {
+        "startLine": 40,
+        "startChar": 46,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "5202e81144133071efd5e323204b759c7fd65fee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "746e86e7_b9f5e5a0",
+        "filename": "src/network/MessageHandler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-04-10T18:56:20Z",
+      "side": 1,
+      "message": "Should this comment be here?",
+      "range": {
+        "startLine": 61,
+        "startChar": 38,
+        "endLine": 61,
+        "endChar": 85
+      },
+      "revId": "5202e81144133071efd5e323204b759c7fd65fee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
