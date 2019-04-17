@@ -224,3 +224,37 @@ await connector.onDataUpdated((id, sensorId, data) => {
   // Update actuator '2' on device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' to 1000
 });
 ```
+
+#### onDisconnected(cb): Promise&lt;Void&gt;
+
+Register a callback to handle gateway disconnection.
+
+##### Arguments
+
+* `cb` **Function** event handler.
+
+##### Example
+
+```javascript
+await connector.start();
+await connector.onDisconnected(() => {
+  console.log('Disconnected');
+});
+```
+
+#### onReconnected(cb): Promise&lt;Void&gt;
+
+Register a callback to handle gateway reconnection.
+
+##### Arguments
+
+* `cb` **Function** event handler.
+
+##### Example
+
+```javascript
+await connector.start();
+await connector.onReconnected(() => {
+  console.log('Reconnected');
+});
+```
