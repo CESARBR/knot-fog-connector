@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c068b01_8c81ade0",
+        "filename": "src/network/CloudConnectionHandler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-17T19:58:22Z",
+      "side": 1,
+      "message": "Cloud disconnected",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "71da224a42de1d117774649ca77b9de438be8321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f69dcd_11ef8b3a",
+        "filename": "src/network/CloudConnectionHandler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-17T19:58:22Z",
+      "side": 1,
+      "message": "Cloud reconnected",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "71da224a42de1d117774649ca77b9de438be8321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "787236dc_d6aaeaac",
+        "filename": "src/network/MessageHandler.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-04-17T19:58:22Z",
+      "side": 1,
+      "message": "Why don\u0027t use `_.keys(this.handlers)` here?",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "71da224a42de1d117774649ca77b9de438be8321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
