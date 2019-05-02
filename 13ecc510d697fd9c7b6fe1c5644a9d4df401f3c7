@@ -1,0 +1,231 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7b20a4d_4661e692",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "Add some description explaining who/when would this setup be used. It\u0027s necessary that the reader understands that this configurations will be done only for testing purposes (and only in a first level of testing, it\u0027s necessary to test everything properly on KNoT Gateway).",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f095eaa5_a7a0dbc6",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "Notice that it\u0027s necessary to have rabbitMQ running in your machine (or somewhere else to access it via localhost), it\u0027s valid to point this out here.\n\nThe knot-fog-connector requires [rabbitMQ](https://www.rabbitmq.com/) to be running. The default is to be accessed on `localhost:5672`.",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f9ec9d_e153e506",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "There is no need to have the instruction on how to create a file. At most you can suggest the creation of the local.json file.\n\nIMO you could have only something like the same as we have in https://github.com/CESARBR/knot-cloud-protocol-adapter-websocket\n```\nConfiguration is made via a JSON file placed into config folder (see [config (https://www.npmjs.com/package/config) package documentation for more info). \n```\n\nIt\u0027s expected that the developer have some knowledge about javascript and its packages (or how to read their documentation).",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "682a73b5_c453ec62",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "I\u0027d add something in the lines of: \n\nTo retrieve user related parameters (e.g. `uuid` and `token`), it is necessary to access the KNoT Gateway through your web browser.",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e73c384_8722c00b",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "* `hostname` **String** fog hostname. (Default: **localhost**)\n  * `port` **Number** fog port. (Default: 3000)\n  * `uuid` **String** user UUID\n  * `token` **String** user token",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b008de_e14d99e8",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "Missing space after \u0027.\u0027",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577d4b26_d48da09f",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "`cloud` **Object** CloudType specific parameters (see below).",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc325d1_0ac79664",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "(Default: **wss**)",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e41c6a_5e8eedba",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "KNoT Cloud hostname",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5280f12b_413cf319",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "(Default: 443)",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f633e5_2c7cccaa",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "iota is an object with hostname and port parameters.",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123ef985_170dca4a",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "same as iota",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91a15306_c39ae8c6",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T17:00:11Z",
+      "side": 1,
+      "message": "Keep the new line at the end of file.",
+      "revId": "13ecc510d697fd9c7b6fe1c5644a9d4df401f3c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
