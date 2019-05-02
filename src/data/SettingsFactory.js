@@ -13,6 +13,17 @@ const fogCloudSchema = Joi.object().keys({
   token: Joi.string().required(),
 });
 
+const fiwareCloudSchema = Joi.object().keys({
+  iota: Joi.object().keys({
+    hostname: Joi.string().required(),
+    port: Joi.number().port().required()
+  }).required(),
+  orion: Joi.object().keys({
+    hostname: Joi.string().required(),
+    port: Joi.number().port().required()
+  }).required()
+})
+
 const runAsSchema = Joi.object().keys({
   user: Joi.string(),
   group: Joi.string(),
@@ -41,7 +52,14 @@ class SettingsFactory {
 
   loadCloudSettings() {
     const cloud = config.get('cloud');
-    this.validate('cloud', cloud, fogCloudSchema);
+    const cloudType = config.get('cloudType')
+    if (cloudType == "FIWARE"){
+      this.validate('cloud',cloud,fiwareCloudSchema);
+    } else if (cloudType == "KNOT_CLOUD"){
+      this.validate('cloud',cloud,fogCloudSchema);
+    } else {
+      throw Error('Unknown cloud');
+    }
     return cloud;
   }
 
