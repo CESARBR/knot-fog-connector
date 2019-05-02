@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c63797a_85f0ddfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T16:02:24Z",
+      "side": 1,
+      "message": "If necessary to have a commit body message, use it to explain WHAT e WHY, instead of HOW.\n\nThis could go as something like: \n```\nRe-enable FIWARE support\n\nUpdate CloudConnectorFactory to load FIWARE settings.\n```\n\nTake a look at some hints to improve the commit message.\nhttps://chris.beams.io/posts/git-commit/",
+      "revId": "00fbf0c58758443b0d7e4963c44e15a944bcf992",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d1f74a_8f2abc67",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T16:02:24Z",
+      "side": 1,
+      "message": "FiwareConnector",
+      "range": {
+        "startLine": 2,
+        "startChar": 7,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "00fbf0c58758443b0d7e4963c44e15a944bcf992",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de509b00_7efe60f5",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-02T16:02:24Z",
+      "side": 1,
+      "message": "log it as info, same as KNoT Cloud",
+      "range": {
+        "startLine": 13,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "00fbf0c58758443b0d7e4963c44e15a944bcf992",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
