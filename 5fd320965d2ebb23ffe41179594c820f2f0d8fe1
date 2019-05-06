@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3241e0d4_1be371ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-06T22:36:42Z",
+      "side": 1,
+      "message": "The commit subject should have at most 50 characters.\nNo need to specify the folder that was changed (it is not the standard for this project), see previous commits on the tree.\n\nhttps://chris.beams.io/posts/git-commit/",
+      "revId": "5fd320965d2ebb23ffe41179594c820f2f0d8fe1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e32a705_d7aa09b9",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-06T22:36:42Z",
+      "side": 1,
+      "message": "What should happen here? \nIf a new error should be thrown, throw it.\nthrow new Error(\u0027Invalid cloud\u0027);\n\nActually, I think you can define a list of allowed clouds and check its properties based on it.\nSee for a better understanding on how to do it: \nhttps://github.com/CESARBR/knot-cloud-authenticator/blob/master/src/data/SettingsFactory.js\nhttps://github.com/hapijs/joi/blob/v15.0.1/API.md",
+      "revId": "5fd320965d2ebb23ffe41179594c820f2f0d8fe1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
