@@ -1,0 +1,9 @@
+FROM node:10
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm i
+
+ENV NODE_ENV=development
+CMD [ "npm", "run", "start:watch" ]
