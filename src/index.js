@@ -13,13 +13,13 @@ import MessageHandlerFactory from 'network/MessageHandlerFactory';
 // Logger
 import logger from 'util/logger';
 
-const settings = new SettingsFactory().create();
-const deviceStore = new DeviceStore();
-
 async function main() {
   logger.info('KNoT Fog Connnector started');
 
   try {
+    const settings = new SettingsFactory().create();
+    const deviceStore = new DeviceStore();
+
     logger.info(`Connecting to '${settings.cloudType}' cloud`);
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
     const fog = new FogConnectorFactory(settings.fog).create();
@@ -48,7 +48,7 @@ async function main() {
     await fogConnectionHandler.start();
     await devicesPolling.start();
   } catch (err) {
-    logger.error(err);
+    logger.error(err.stack);
   }
 }
 
