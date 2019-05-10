@@ -19,7 +19,7 @@ class FogConnectionHandler {
         await this.queue.send('cloud', 'data.publish', { id: msg.fromId, payload: msg.payload });
       }
     } catch (err) {
-      logger.error(err);
+      logger.error(err.stack);
     }
   }
 }
