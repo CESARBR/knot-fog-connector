@@ -2,11 +2,11 @@ import KnotCloudConnector from '@cesarbr/knot-fog-connector-knot-cloud';
 import logger from 'util/logger';
 
 class CloudConnectorFactory {
-  static create(type, settings) {
-    switch (type) {
+  static create(cloud) {
+    switch (cloud.type) {
       case 'KNOT_CLOUD':
         logger.info('KNoT Cloud Connector selected');
-        return new KnotCloudConnector(settings);
+        return new KnotCloudConnector(cloud.settings);
       default:
         throw Error('Unknown cloud');
     }

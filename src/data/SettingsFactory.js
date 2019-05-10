@@ -4,7 +4,10 @@ import _ from 'lodash';
 
 import Settings from 'data/Settings';
 
-const cloudTypeSchema = Joi.string().required();
+const cloudSchema = Joi.object().keys({
+  type: Joi.string().required(),
+  settings: Joi.object().required(),
+});
 
 const fogCloudSchema = Joi.object().keys({
   hostname: Joi.string().required(),
@@ -26,29 +29,22 @@ const rabbitMQSchema = Joi.object().keys({
 class SettingsFactory {
   create() {
     const fog = this.loadFogSettings();
-    const cloudType = this.loadCloudTypeSettings();
     const cloud = this.loadCloudSettings();
     const runAs = this.loadRunAsSettings();
     const rabbitMQ = this.loadRabbitMQSettings();
-    return new Settings(fog, cloudType, cloud, runAs, rabbitMQ);
-  }
-
-  loadCloudTypeSettings() {
-    const cloudType = config.get('cloudType');
-    this.validate('cloudType', cloudType, cloudTypeSchema);
-    return cloudType;
-  }
-
-  loadCloudSettings() {
-    const cloud = config.get('cloud');
-    this.validate('cloud', cloud, fogCloudSchema);
-    return cloud;
+    return new Settings(fog, cloud, runAs, rabbitMQ);
   }
 
   loadFogSettings() {
     const fog = config.get('fog');
     this.validate('fog', fog, fogCloudSchema);
     return fog;
+  }
+
+  loadCloudSettings() {
+    const cloud = config.get('cloud');
+    this.validate('cloud', cloud, cloudSchema);
+    return cloud;
   }
 
   loadRunAsSettings() {
