@@ -10,8 +10,14 @@
 		"group": "RUN_AS_GROUP"
 	},
 	"log": {
-		"console": "LOG_CONSOLE",
-		"syslog": "LOG_SYSLOG",
+		"console": {
+			"__name": "LOG_CONSOLE",
+			"__format": "json"
+		},
+		"syslog": {
+			"__name": "LOG_SYSLOG",
+			"__format": "json"
+		},
 		"level": "LOG_LEVEL"
 	},
 	"rabbitMQ": {
