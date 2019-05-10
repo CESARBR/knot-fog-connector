@@ -77,7 +77,7 @@ class MessageHandler {
       await handler(data);
       this.channel.ack(msg);
     } catch (err) {
-      logger.error(err);
+      logger.error(err.stack);
       this.channel.nack(msg);
     }
   }
