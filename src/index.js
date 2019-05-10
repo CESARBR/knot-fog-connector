@@ -47,7 +47,7 @@ async function main() {
     await fogConnectionHandler.start();
     await devicesPolling.start();
   } catch (err) {
-    logger.error(err);
+    logger.error(err.message);
   }
 }
 
