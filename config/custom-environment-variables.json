@@ -6,6 +6,10 @@
 		"token": "FOG_GATEWAY_TOKEN"
 	},
 	"runAs": {
+		"enabled": {
+			"__name": "RUN_AS_ENABLED",
+			"__format": "json"
+		},
 		"user": "RUN_AS_USER",
 		"group": "RUN_AS_GROUP"
 	},

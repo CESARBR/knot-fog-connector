@@ -16,6 +16,7 @@ const fogSchema = Joi.object().keys({
 });
 
 const runAsSchema = Joi.object().keys({
+  enabled: Joi.boolean(),
   user: Joi.string(),
   group: Joi.string(),
 });
