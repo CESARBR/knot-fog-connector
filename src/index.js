@@ -26,7 +26,7 @@ async function main() {
     await fog.connect();
     await cloud.start();
 
-    if (process.env.NODE_ENV === 'production') {
+    if (settings.runAs.enabled) {
       process.setgid(settings.runAs.group);
       process.setuid(settings.runAs.user);
     }
