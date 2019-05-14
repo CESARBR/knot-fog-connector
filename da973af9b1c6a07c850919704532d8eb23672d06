@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f88d6fa7_20ad9f26",
+        "filename": "config/custom-environment-variables.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-14T11:04:40Z",
+      "side": 1,
+      "message": "The tabulation seems odd here.",
+      "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96dc9c35_28ff7f3e",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-14T11:04:40Z",
+      "side": 1,
+      "message": "Using the idea of `mailServices` in \nhttps://github.com/CESARBR/knot-cloud-authenticator/blob/master/src/data/SettingsFactory.js\nperhaps we could check `type` using joi methods. Meaning that we would only need to \nI think it would be something like:\n\nconst cloudTypes \u003d [\u0027KNOT_CLOUD\u0027]\nconst cloudSchema \u003d Joi.object().keys({\n  type: Joi.string().valid(cloudTypes).required(),\n  settings: Joi.object().required(),\n});",
+      "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a071f20e_8389c3e4",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-14T11:04:40Z",
+      "side": 1,
+      "message": "This verification if the type is valid or not could be done using joi, instead of here (or even in both points). \nWhat do you think?",
+      "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
