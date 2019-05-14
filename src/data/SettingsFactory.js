@@ -4,7 +4,8 @@ import _ from 'lodash';
 
 import Settings from 'data/Settings';
 
-const cloudTypeSchema = Joi.string().required();
+const cloudTypes = ['KNOT_CLOUD'];
+const cloudTypeSchema = Joi.string().valid(cloudTypes).required();
 
 const fogCloudSchema = Joi.object().keys({
   hostname: Joi.string().required(),

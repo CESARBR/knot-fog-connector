@@ -20,6 +20,7 @@ async function main() {
   logger.info('KNoT Fog Connnector started');
 
   try {
+    logger.info(`Connecting to '${settings.cloudType}' cloud`);
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
     const fog = new FogConnectorFactory(settings.fog).create();
 
