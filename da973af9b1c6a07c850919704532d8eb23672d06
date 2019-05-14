@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "74bc69dc_ebc1d390",
+        "filename": "src/data/SettingsFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-05-14T14:31:01Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "96dc9c35_28ff7f3e",
+      "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a071f20e_8389c3e4",
         "filename": "src/network/CloudConnectorFactory.js",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2019-05-14T11:04:40Z",
       "side": 1,
       "message": "This verification if the type is valid or not could be done using joi, instead of here (or even in both points). \nWhat do you think?",
+      "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fa5c515_5c4c8278",
+        "filename": "src/network/CloudConnectorFactory.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-05-14T14:31:01Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a071f20e_8389c3e4",
       "revId": "da973af9b1c6a07c850919704532d8eb23672d06",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
