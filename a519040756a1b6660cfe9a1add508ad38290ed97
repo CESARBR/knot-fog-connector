@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40368d32_4a48d81a",
+        "filename": "src/index.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-14T11:07:53Z",
+      "side": 1,
+      "message": "If this solves the issue of logger.error not printing correctly, should we fix in all (3) occurrences?\n\n```\n/knot-fog-connector/src$ grep -rni logger.error\nnetwork/FogConnectionHandler.js:22:      logger.error(err);\nnetwork/MessageHandler.js:80:      logger.error(err);\nindex.js:50:    logger.error(err);\n```",
+      "revId": "a519040756a1b6660cfe9a1add508ad38290ed97",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
