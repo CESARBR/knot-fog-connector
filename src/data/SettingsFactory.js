@@ -6,8 +6,9 @@ import Settings from 'data/Settings';
 
 const cloudTypes = ['KNOT_CLOUD'];
 const cloudTypeSchema = Joi.string().valid(cloudTypes).required();
+const cloudSchema = Joi.object().required();
 
-const fogCloudSchema = Joi.object().keys({
+const fogSchema = Joi.object().keys({
   hostname: Joi.string().required(),
   port: Joi.number().port().required(),
   uuid: Joi.string().guid().required(),
@@ -42,13 +43,13 @@ class SettingsFactory {
 
   loadCloudSettings() {
     const cloud = config.get('cloud');
-    this.validate('cloud', cloud, fogCloudSchema);
+    this.validate('cloud', cloud, cloudSchema);
     return cloud;
   }
 
   loadFogSettings() {
     const fog = config.get('fog');
-    this.validate('fog', fog, fogCloudSchema);
+    this.validate('fog', fog, fogSchema);
     return fog;
   }
 
