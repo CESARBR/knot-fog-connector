@@ -1,0 +1,32 @@
+{
+	"fog": {
+		"hostname": "FOG_HOSTNAME",
+		"port": "FOG_PORT",
+		"uuid": "FOG_GATEWAY_UUID",
+		"token": "FOG_GATEWAY_TOKEN"
+	},
+	"runAs": {
+		"user": "RUN_AS_USER",
+		"group": "RUN_AS_GROUP"
+	},
+	"log": {
+		"console": {
+			"__name": "LOG_CONSOLE",
+			"__format": "json"
+		},
+		"syslog": {
+			"__name": "LOG_SYSLOG",
+			"__format": "json"
+		},
+		"level": "LOG_LEVEL"
+	},
+	"rabbitMQ": {
+		"hostname": "RABBITMQ_HOSTNAME",
+		"port": "RABBITMQ_PORT"
+	},
+	"cloudType": "CLOUD_TYPE",
+	"cloud": {
+		"__name": "CLOUD_SETTINGS",
+		"__format": "json"
+	}
+}
