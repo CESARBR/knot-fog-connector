@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbae589e_7e23b061",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015148
+      },
+      "writtenOn": "2019-05-14T10:15:41Z",
+      "side": 1,
+      "message": "Read https://chris.beams.io/posts/git-commit/\n\n**A properly formed Git commit subject line should always be able to complete the following sentence:**\n\nIf applied, this commit will \u003cyour subject line here\u003e",
+      "revId": "307f232ce34ae93cf2a2240d4f3175ba99ab4aed",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
