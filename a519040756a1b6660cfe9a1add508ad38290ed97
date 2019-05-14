@@ -16,6 +16,24 @@
       "revId": "a519040756a1b6660cfe9a1add508ad38290ed97",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b33a5bd1_fa278095",
+        "filename": "src/index.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-05-14T14:31:56Z",
+      "side": 1,
+      "message": "What about printing `err.stack` instead?",
+      "parentUuid": "40368d32_4a48d81a",
+      "revId": "a519040756a1b6660cfe9a1add508ad38290ed97",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
