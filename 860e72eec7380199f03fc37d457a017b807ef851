@@ -34,6 +34,24 @@
       "revId": "860e72eec7380199f03fc37d457a017b807ef851",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbf0aac9_cf1c37be",
+        "filename": "config/custom-environment-variables.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013086
+      },
+      "writtenOn": "2019-05-15T14:53:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de9150d_82b3c197",
+      "revId": "860e72eec7380199f03fc37d457a017b807ef851",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
