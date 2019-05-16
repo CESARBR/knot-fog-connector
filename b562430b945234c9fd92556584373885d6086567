@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11408c02_89c75928",
+        "filename": "config/custom-environment-variables.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1013096
+      },
+      "writtenOn": "2019-05-16T13:47:27Z",
+      "side": 1,
+      "message": "Missing\n\"connector\": {\n  \"configFile\": \"CONNECTOR_CONFIG_FILE\"\n}",
+      "revId": "b562430b945234c9fd92556584373885d6086567",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
