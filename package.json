@@ -16,6 +16,7 @@
     "start:debug": "babel-node debug src"
   },
   "dependencies": {
+    "@cesarbr/knot-fog-connector-fiware": "2.0.0",
     "@cesarbr/knot-fog-connector-knot-cloud": "^1.1.0",
     "@cesarbr/meshblu": "^1.34.3",
     "amqplib": "^0.5.3",
