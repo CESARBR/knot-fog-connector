@@ -4,7 +4,7 @@ This is a KNoT gateway service that connects the fog with a cloud service.
 
 ## Supported services
 
-* [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud) (under development)
+* [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud)
 
 ### Supported only in previous versions
 
