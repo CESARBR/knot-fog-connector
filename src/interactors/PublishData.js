@@ -6,15 +6,13 @@ class PublishData {
     this.cloudConnector = cloudConnector;
   }
 
-  async convertData(id, data) {
-    const devices = await this.deviceStore.list();
-    const device = devices.find(dev => dev.id === id);
+  async convertData(schema, data) {
     const dataToSend = convertToCamelCase(data);
     dataToSend.sensorId = Number(dataToSend.sensorId);
 
-    const schema = device.schema.find(value => value.sensorId === dataToSend.sensorId);
+    const sensorSchema = schema.find(value => value.sensorId === dataToSend.sensorId);
 
-    switch (schema.valueType) {
+    switch (sensorSchema.valueType) {
       case 1:
       case 2:
         dataToSend.value = Number(dataToSend.value);
@@ -33,7 +31,13 @@ class PublishData {
   }
 
   async execute(id, data) {
-    await this.cloudConnector.publishData(id, [await this.convertData(id, data)]);
+    const devices = await this.deviceStore.list();
+    const device = devices.find(dev => dev.id === id);
+    if (!device.schema) {
+      return;
+    }
+
+    await this.cloudConnector.publishData(id, [await this.convertData(device.schema, data)]);
   }
 }
 
