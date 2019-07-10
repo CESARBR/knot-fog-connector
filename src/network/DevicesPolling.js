@@ -55,7 +55,9 @@ class DevicesPolling {
   async updateDevicesSchema(cloudDevices, fogDevices) {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'schema.update', device);
+      if (_.isArray(device.schema)) {
+        await this.queue.send('cloud', 'schema.update', device);
+      }
     }));
   }
 }
