@@ -17,6 +17,13 @@ function convertSchemaToCamelCase(value) {
   return device;
 }
 
+function deviceIsValid(device) {
+  if (_.isArray(device.schema)) {
+    return true;
+  }
+  return false;
+}
+
 class DevicesPolling {
   constructor(fogConnector, cloudConnector, queue) {
     this.fogConnector = fogConnector;
@@ -41,21 +48,27 @@ class DevicesPolling {
   async updateDevicesAdded(cloudDevices, fogDevices) {
     const devices = _.differenceBy(fogDevices, cloudDevices, 'id');
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'device.register', device);
+      if (deviceIsValid(device)) {
+        await this.queue.send('cloud', 'device.register', device);
+      }
     }));
   }
 
   async updateDevicesRemoved(cloudDevices, fogDevices) {
     const devices = _.differenceBy(cloudDevices, fogDevices, 'id');
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'device.unregister', device);
+      if (deviceIsValid(device)) {
+        await this.queue.send('cloud', 'device.unregister', device);
+      }
     }));
   }
 
   async updateDevicesSchema(cloudDevices, fogDevices) {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'schema.update', device);
+      if (deviceIsValid(device)) {
+        await this.queue.send('cloud', 'schema.update', device);
+      }
     }));
   }
 }
