@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import _ from 'lodash';
 import difference from 'util/difference';
 import convertToCamelCase from 'util/camelCase';
@@ -16,6 +17,24 @@ function convertSchemaToCamelCase(value) {
   device.schema = convertToCamelCase(device.schema);
   return device;
 }
+
+function schemaIsValid(propertyValue, schema) {
+  const { error } = Joi.validate(propertyValue, schema, { abortEarly: false });
+  if (error) {
+    console.log("invalid!");
+    return false;
+  }
+  console.log("valid!");
+  return true;
+}  
+
+const deviceSchema = Joi.array().items(Joi.object().keys({
+  sensorId: Joi.number().required(),
+  valueType: Joi.number().required(),
+  unit: Joi.number().required(),
+  typeId: Joi.number().required(),
+  name: Joi.string().required(),
+}));
 
 class DevicesPolling {
   constructor(fogConnector, cloudConnector, queue) {
@@ -55,9 +74,12 @@ class DevicesPolling {
   async updateDevicesSchema(cloudDevices, fogDevices) {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'schema.update', device);
+      if (schemaIsValid(device.schema,deviceSchema)){
+        await this.queue.send('cloud', 'schema.update', device);
+      };
     }));
   }
+
 }
 
 export default DevicesPolling;
