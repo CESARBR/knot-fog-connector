@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import _ from 'lodash';
 import difference from 'util/difference';
 import convertToCamelCase from 'util/camelCase';
@@ -16,6 +17,14 @@ function convertSchemaToCamelCase(value) {
   device.schema = convertToCamelCase(device.schema);
   return device;
 }
+
+const deviceSchema = Joi.array().items(Joi.object().keys({
+  sensorId: Joi.number().required(),
+  valueType: Joi.number().required(),
+  unit: Joi.number().required(),
+  typeId: Joi.number().required(),
+  name: Joi.string().required(),
+}));
 
 class DevicesPolling {
   constructor(fogConnector, cloudConnector, queue) {
@@ -55,9 +64,30 @@ class DevicesPolling {
   async updateDevicesSchema(cloudDevices, fogDevices) {
     const devices = _.differenceWith(fogDevices, cloudDevices, comparator);
     return Promise.all(devices.map(async (device) => {
-      await this.queue.send('cloud', 'schema.update', device);
+      try{
+        this.validate('device.Schema',device.schema,deviceSchema);
+        await this.queue.send('cloud', 'schema.update', device);
+      }
+      catch(err){
+      }
     }));
   }
+
+  validate(propertyName, propertyValue, schema) {
+    const { error } = Joi.validate(propertyValue, schema, { abortEarly: false });
+    if (error) {
+      throw this.mapJoiError(propertyName, error);
+    }
+  }
+
+  mapJoiError(propertyName, error) {
+    const reasons = _.map(error.details, 'message');
+    const formattedReasons = reasons.length > 1
+      ? `\n${_.chain(reasons).map(reason => `- ${reason}`).join('\n').value()}`
+      : reasons[0];
+    return new Error(`Invalid "${propertyName}" property: ${formattedReasons}`);
+  }
+
 }
 
 export default DevicesPolling;
