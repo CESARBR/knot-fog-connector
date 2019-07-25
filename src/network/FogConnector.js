@@ -1,6 +1,7 @@
 import meshblu from '@cesarbr/meshblu';
 import isBase64 from 'is-base64';
 import _ from 'lodash';
+import DataFormatError from 'entities/DataFormatError';
 
 function createConnection(hostname, port, uuid, token) {
   return meshblu.createConnection({
@@ -61,7 +62,7 @@ async function getDeviceUuid(connection, id) {
 
 function validateValue(value) {
   if (!_.isBoolean(value) && !_.isNumber(value) && !isBase64(value)) {
-    throw new Error('Supported types are boolean, number or Base64 strings');
+    throw new DataFormatError('Supported types are boolean, number or Base64 strings');
   }
 }
 

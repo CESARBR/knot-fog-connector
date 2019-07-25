@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import logger from 'util/logger';
+import DataFormatError from 'entities/DataFormatError';
 
 class MessageHandler {
   constructor(devicesService, dataService, queue) {
@@ -78,6 +79,11 @@ class MessageHandler {
       this.channel.ack(msg);
     } catch (err) {
       logger.error(err.stack);
+      if (err instanceof DataFormatError) {
+        this.channel.ack(msg);
+        return;
+      }
+
       this.channel.nack(msg);
     }
   }
