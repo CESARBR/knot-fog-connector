@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "939636ec_f03084d4",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-07-25T21:00:30Z",
+      "side": 1,
+      "message": "Why are you validating the schema here if the error is only threw when a \u0027schema.update\u0027 is sent?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "a47ffabff4933df4418868377ae3ac778c44e77e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ffe8b59_2e8be0a9",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-07-25T21:00:30Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "a47ffabff4933df4418868377ae3ac778c44e77e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9068bff9_931446d6",
+        "filename": "src/network/DevicesPolling.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1013169
+      },
+      "writtenOn": "2019-07-25T21:00:30Z",
+      "side": 1,
+      "message": "If the comments I\u0027ve made above are valid, you can call the lodash method directly without creating another method. Otherwise, I would suggest you to validate the schema by using the Joi library.",
+      "revId": "a47ffabff4933df4418868377ae3ac778c44e77e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
