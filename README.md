@@ -1,19 +1,82 @@
 # KNoT Fog connector service
 
-This is a KNoT gateway service that connects the fog with a cloud service.
+This is a KNoT Gateway service that connects the fog to a cloud service.
 
 ## Supported services
 
 * [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud)
-
-### Supported only in previous versions
-
 * [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
 
-1. Build: `npm run build`
-1. Start: `npm start`
+```bash
+$ npm run build
+$ npm start
+```
+
+## Development Environment Setup
+
+In order to test changes made to the [supported services](#supported-services), one must setup a development environment and run required services locally. Let it be noted, though, that changes should also be properly tested directly on KNoT Gateway.
+
+### Prerequisites
+
+**knot-fog-connector** requires [rabbitMQ](https://www.rabbitmq.com/) to be running. The default access ip and port for RabbitMQ are `localhost:5672`.
+
+### Configuration
+
+Configuration is made via a JSON file placed into `knot-fog-connector/config/` folder (see [config](https://www.npmjs.com/package/config) package documentation for more information). Find below, the parameters for such file.
+
+* `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) or [FIWARE](####fiware) are supported options.
+* `cloud` **Object** CloudType specific parameters (see below).
+
+#### KNoT-Cloud
+
+* `cloud` **Object** cloud parameters
+  * `protocol` **String** (Optional) Either `'ws'` or `'wss'` (Default: **wss**)
+  * `hostname` **String** KNoT Cloud hostname
+  * `port` **Number** (Optional) knot cloud protocol adapter instance port (Default: **443**)
+  * `pathname` **String** (Optional) path name on the server
+  * `id` **String** device ID
+  * `token` **String** device token
+
+```json
+{
+  "cloudType": "KNOT_CLOUD",
+  "cloud": {
+    "hostname": "localhost",
+    "port": 3004,
+    "pathname": "/ws",
+    "uuid": "78159106-41ca-4022-95e8-2511695ce64c",
+    "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574",
+  }
+}
+```
+
+#### FIWARE
+
+* `cloud` **Object** cloud parameters
+  * `iota` **Object** object with hostname and port parameters
+    * `hostname` **String**
+    * `port` **Number**
+  * `orion` **Object** object with hostname and port parameters
+    * `hostname` **String**
+    * `port` **Number**
+
+```json
+{
+  "cloudType": "FIWARE",
+  "cloud": {
+      "iota": {
+          "hostname": "localhost",
+          "port": 4041
+      },
+      "orion": {
+          "hostname": "localhost",
+          "port": 1026
+      }
+  }
+}
+```
 
 ## Creating a connector
 
