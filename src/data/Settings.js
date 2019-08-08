@@ -1,6 +1,5 @@
 class Settings {
-  constructor(fog, cloudType, cloud, runAs, rabbitMQ) {
-    this.fog = fog;
+  constructor(cloudType, cloud, runAs, rabbitMQ) {
     this.cloudType = cloudType;
     this.cloud = cloud;
     this.runAs = runAs;

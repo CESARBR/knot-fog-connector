@@ -8,13 +8,6 @@ const cloudTypes = ['KNOT_CLOUD', 'FIWARE'];
 const cloudTypeSchema = Joi.string().valid(cloudTypes).required();
 const cloudSchema = Joi.object().required();
 
-const fogSchema = Joi.object().keys({
-  hostname: Joi.string().required(),
-  port: Joi.number().port().required(),
-  uuid: Joi.string().guid().required(),
-  token: Joi.string().required(),
-});
-
 const runAsSchema = Joi.object().keys({
   enabled: Joi.boolean(),
   user: Joi.string(),
@@ -28,12 +21,11 @@ const rabbitMQSchema = Joi.object().keys({
 
 class SettingsFactory {
   create() {
-    const fog = this.loadFogSettings();
     const cloudType = this.loadCloudTypeSettings();
     const cloud = this.loadCloudSettings();
     const runAs = this.loadRunAsSettings();
     const rabbitMQ = this.loadRabbitMQSettings();
-    return new Settings(fog, cloudType, cloud, runAs, rabbitMQ);
+    return new Settings(cloudType, cloud, runAs, rabbitMQ);
   }
 
   loadCloudTypeSettings() {
@@ -46,12 +38,6 @@ class SettingsFactory {
     const cloud = config.get('cloud');
     this.validate('cloud', cloud, cloudSchema);
     return cloud;
-  }
-
-  loadFogSettings() {
-    const fog = config.get('fog');
-    this.validate('fog', fog, fogSchema);
-    return fog;
   }
 
   loadRunAsSettings() {
