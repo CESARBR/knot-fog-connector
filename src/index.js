@@ -5,7 +5,6 @@ import DeviceStore from 'data/DeviceStore';
 import CloudConnectorFactory from 'network/CloudConnectorFactory';
 import CloudConnectionHandler from 'network/CloudConnectionHandler';
 import FogConnectorFactory from 'network/FogConnectorFactory';
-import FogConnectionHandler from 'network/FogConnectionHandler';
 import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
 import MessageHandlerFactory from 'network/MessageHandlerFactory';
 
@@ -33,7 +32,6 @@ async function main() {
 
     const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, amqpConnection);
-    const fogConnectionHandler = new FogConnectionHandler(fog, amqpConnection);
     const messageHandler = new MessageHandlerFactory(
       deviceStore,
       cloud,
@@ -43,7 +41,6 @@ async function main() {
 
     await messageHandler.start();
     await cloudConnectionHandler.start();
-    await fogConnectionHandler.start();
   } catch (err) {
     logger.error(err.stack);
   }
