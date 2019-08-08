@@ -4,7 +4,6 @@ import SettingsFactory from 'data/SettingsFactory';
 import DeviceStore from 'data/DeviceStore';
 import CloudConnectorFactory from 'network/CloudConnectorFactory';
 import CloudConnectionHandler from 'network/CloudConnectionHandler';
-import FogConnectorFactory from 'network/FogConnectorFactory';
 import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
 import MessageHandlerFactory from 'network/MessageHandlerFactory';
 
@@ -20,9 +19,7 @@ async function main() {
 
     logger.info(`Connecting to '${settings.cloudType}' cloud`);
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
-    const fog = new FogConnectorFactory(settings.fog).create();
 
-    await fog.connect();
     await cloud.start();
 
     if (settings.runAs.enabled) {
