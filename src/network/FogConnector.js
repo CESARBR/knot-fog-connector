@@ -1,5 +1,4 @@
 import meshblu from '@cesarbr/meshblu';
-import isBase64 from 'is-base64';
 import _ from 'lodash';
 
 function createConnection(hostname, port, uuid, token) {
@@ -50,21 +49,6 @@ function getMyDevices(connection, uuid) {
   });
 }
 
-async function getDeviceUuid(connection, id) {
-  const devices = await getMyDevices(connection);
-  const device = devices.find(d => d.id === id);
-  if (!device) {
-    throw new Error('Not found');
-  }
-  return device.uuid;
-}
-
-function validateValue(value) {
-  if (!_.isBoolean(value) && !_.isNumber(value) && !isBase64(value)) {
-    throw new Error('Supported types are boolean, number or Base64 strings');
-  }
-}
-
 class FogConnection {
   constructor(hostname, port, uuid, token) {
     this.hostname = hostname;
@@ -107,33 +91,6 @@ class FogConnection {
       throw new Error('Not found');
     }
     return device;
-  }
-
-  async setData(id, data) {
-    data.forEach(element => validateValue(element.value));
-    const uuid = await getDeviceUuid(this.connection, id);
-    const device = await this.getDevice(id);
-    return new Promise((resolve) => {
-      this.connection.update({
-        uuid,
-        set_data: device.set_data ? device.set_data.concat(data) : data,
-      }, () => {
-        resolve();
-      });
-    });
-  }
-
-  async requestData(id, sensorIds) {
-    const uuid = await getDeviceUuid(this.connection, id);
-    const device = await this.getDevice(id);
-    return new Promise((resolve) => {
-      this.connection.update({
-        uuid,
-        get_data: device.get_data ? device.get_data.concat(sensorIds) : sensorIds,
-      }, () => {
-        resolve();
-      });
-    });
   }
 
   on(event, callback) {
