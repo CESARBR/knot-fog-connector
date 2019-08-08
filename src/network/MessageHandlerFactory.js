@@ -6,22 +6,19 @@ import UnregisterDevice from 'interactors/UnregisterDevice';
 import UpdateSchema from 'interactors/UpdateSchema';
 import DevicesService from 'services/DevicesService';
 
-import UpdateData from 'interactors/UpdateData';
-import RequestData from 'interactors/RequestData';
 import PublishData from 'interactors/PublishData';
 import DataService from 'services/DataService';
 
 class MessageHandlerFactory {
-  constructor(deviceStore, cloud, fog, amqpConnection) {
+  constructor(deviceStore, cloud, amqpConnection) {
     this.deviceStore = deviceStore;
     this.cloud = cloud;
-    this.fog = fog;
     this.amqpConnection = amqpConnection;
   }
 
   create() {
     const {
-      deviceStore, cloud, fog, amqpConnection,
+      deviceStore, cloud, amqpConnection,
     } = this;
 
     const loadDevices = new LoadDevices(deviceStore, cloud);
@@ -34,12 +31,9 @@ class MessageHandlerFactory {
       unregisterDevice,
       updateSchema,
     );
-    const updateData = new UpdateData(fog);
-    const requestData = new RequestData(fog);
+
     const publishData = new PublishData(deviceStore, cloud);
     const dataService = new DataService(
-      updateData,
-      requestData,
       publishData,
     );
 

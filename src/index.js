@@ -35,7 +35,6 @@ async function main() {
     const messageHandler = new MessageHandlerFactory(
       deviceStore,
       cloud,
-      fog,
       amqpConnection,
     ).create();
 

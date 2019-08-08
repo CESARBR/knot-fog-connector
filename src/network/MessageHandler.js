@@ -25,14 +25,6 @@ class MessageHandler {
           method: this.dataService.publish.bind(this.dataService),
         },
       },
-      fog: {
-        'data.update': {
-          method: this.dataService.update.bind(this.dataService),
-        },
-        'data.request': {
-          method: this.dataService.request.bind(this.dataService),
-        },
-      },
       control: {
         disconnected: {
           method: this.handleDisconnected.bind(this),
