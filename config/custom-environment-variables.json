@@ -1,10 +1,4 @@
 {
-	"fog": {
-		"hostname": "FOG_HOSTNAME",
-		"port": "FOG_PORT",
-		"uuid": "FOG_GATEWAY_UUID",
-		"token": "FOG_GATEWAY_TOKEN"
-	},
 	"runAs": {
 		"enabled": {
 			"__name": "RUN_AS_ENABLED",
