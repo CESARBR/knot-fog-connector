@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const yargs = require('yargs');
 const isBase64 = require('is-base64');
-const amqplib = require('amqplib/callback_api');
+const amqpConnection = require('./../network/connection').connection;
 
 const extractData = args => ({
   id: args['device-id'],
@@ -14,29 +14,18 @@ const extractData = args => ({
 const publishData = (args) => {
   const topic = 'cloud';
   const key = 'data.publish';
-  amqplib.connect(`amqp://${args.hostname}:${args.port}`, (connectionErr, connection) => {
-    if (connectionErr) {
-      throw connectionErr;
-    }
+  amqpConnection(args.hostname, args.port, topic, (connection, channel) => {
+    channel.publish(
+      topic,
+      key,
+      Buffer.from(JSON.stringify(extractData(args))),
+      { persistent: true },
+    );
 
-    connection.createChannel((channelErr, channel) => {
-      if (channelErr) {
-        throw channelErr;
-      }
-
-      channel.assertExchange(topic, 'topic', { durable: true });
-      channel.publish(
-        topic,
-        key,
-        Buffer.from(JSON.stringify(extractData(args))),
-        { persistent: true },
-      );
-
-      setTimeout(() => {
-        connection.close();
-        process.exit(0);
-      }, 500);
-    });
+    setTimeout(() => {
+      connection.close();
+      process.exit(0);
+    }, 500);
   });
 };
 
