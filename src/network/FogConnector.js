@@ -136,22 +136,6 @@ class FogConnection {
     });
   }
 
-  async subscribe(id, type) {
-    const uuid = await getDeviceUuid(this.connection, id);
-    return new Promise((resolve, reject) => {
-      this.connection.subscribe({
-        uuid,
-        type: [type],
-      }, (result) => {
-        if (result.error) {
-          reject(result.error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
   on(event, callback) {
     if (!this.connection) {
       throw new Error('Not connected');
