@@ -6,6 +6,7 @@ This document specifies the messages expected by the connector through a publish
 
 - Update data
 - Request data
+- Devices list
 
 ### Northbound traffic (control, measurements):
 
@@ -13,6 +14,7 @@ This document specifies the messages expected by the connector through a publish
 - Unregister thing
 - Update thing's schema
 - Publish thing's data
+- List devices command
 
 ## Message types (Southbound)
 
@@ -75,21 +77,42 @@ JSON in the following format:
 }
 ```
 
-<!-- #### Response
+### Devices list
 
-Replies with `ready` when successful or `error` otherwise.
+Message with the list of devices registered on the cloud.
+
+#### Exchange
+
+* `fog`
+
+#### Binding Key
+
+* `device.list`
+
+#### Expected Response
+
+JSON in the following format:
+  * `devices` **Array (Object)** devices representation
 
 #### Example
 
 ```json
-{
-  "type": "identity",
-  "data": {
-    "id": "78159106-41ca-4022-95e8-2511695ce64c",
-    "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574"
+[
+  {
+    "id":"3aa21010cda96fe9",
+    "name":"KNoT Dongle",
+    "schema":[
+      {
+        "sensorId":0,
+        "valueType":3,
+        "unit":0,
+        "typeId":65521,
+        "name":"LED"
+      }
+    ]
   }
-}
-``` -->
+]
+```
 
 ## Message types (Northbound)
 
@@ -219,4 +242,27 @@ JSON in the following format:
     }
   ]
 }
+```
+
+### List devices command
+
+Receive a command to list the devices registered on cloud and return the data through [`device.list`](#devices-list) message.
+
+#### Exchange
+
+* `cloud`
+
+#### Binding Key
+
+* `device.cmd.list`
+
+#### Data
+
+JSON in the following format:
+  * Empty object
+
+#### Example
+
+```json
+{}
 ```

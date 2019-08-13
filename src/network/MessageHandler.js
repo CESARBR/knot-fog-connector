@@ -18,6 +18,9 @@ class MessageHandler {
         'device.unregister': {
           method: this.devicesService.unregister.bind(this.devicesService),
         },
+        'device.cmd.list': {
+          method: this.devicesService.list.bind(this.devicesService),
+        },
         'schema.update': {
           method: this.devicesService.updateSchema.bind(this.devicesService),
         },

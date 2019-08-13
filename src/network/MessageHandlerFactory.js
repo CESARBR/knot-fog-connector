@@ -3,6 +3,7 @@ import MessageHandler from 'network/MessageHandler';
 import LoadDevices from 'interactors/LoadDevices';
 import RegisterDevice from 'interactors/RegisterDevice';
 import UnregisterDevice from 'interactors/UnregisterDevice';
+import ListDevices from 'interactors/ListDevices';
 import UpdateSchema from 'interactors/UpdateSchema';
 import DevicesService from 'services/DevicesService';
 
@@ -25,10 +26,12 @@ class MessageHandlerFactory {
     const registerDevice = new RegisterDevice(deviceStore, cloud);
     const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
     const updateSchema = new UpdateSchema(deviceStore, cloud);
+    const listDevices = new ListDevices(cloud, amqpConnection);
     const devicesService = new DevicesService(
       loadDevices,
       registerDevice,
       unregisterDevice,
+      listDevices,
       updateSchema,
     );
 
