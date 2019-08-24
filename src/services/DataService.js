@@ -5,8 +5,8 @@ class DataService {
     this.publishDataInteractor = publishDataInteractor;
   }
 
-  async publish({ id, payload }) {
-    await this.publishDataInteractor.execute(id, payload);
+  async publish({ id, data }) {
+    await this.publishDataInteractor.execute(id, data);
   }
 }
 
