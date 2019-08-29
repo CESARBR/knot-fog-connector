@@ -1,3 +1,5 @@
+import convertToSnakeCase from '../util/snakeCase';
+
 class ListDevices {
   constructor(cloudConnector, queue) {
     this.cloudConnector = cloudConnector;
@@ -6,7 +8,11 @@ class ListDevices {
 
   async execute() {
     const devices = await this.cloudConnector.listDevices();
-    await this.queue.send('fog', 'device.list', devices);
+    await this.queue.send('fog', 'device.list', devices.map((dev) => {
+      const device = dev;
+      device.schema = convertToSnakeCase(dev.schema);
+      return device;
+    }));
   }
 }
 

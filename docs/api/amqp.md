@@ -103,10 +103,10 @@ JSON in the following format:
     "name":"KNoT Dongle",
     "schema":[
       {
-        "sensorId":0,
-        "valueType":3,
+        "sensor_id":0,
+        "value_type":3,
         "unit":0,
-        "typeId":65521,
+        "type_id":65521,
         "name":"LED"
       }
     ]
