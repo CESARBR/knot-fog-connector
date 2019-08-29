@@ -326,6 +326,25 @@ await connector.onDataUpdated((id, sensorId, data) => {
 });
 ```
 
+#### onDeviceUnregistered(cb): Promise&lt;Void&gt;
+
+Register a callback to handle devices removed from the cloud. Called when a cloud removes a device.
+
+##### Arguments
+
+* `cb` **Function** event handler defined as `cb(id)` where:
+  * `id` **Number** device ID (KNoT ID)
+
+##### Example
+
+```javascript
+await connector.start();
+await connector.onDeviceUnregistered((id) => {
+  console.log(`Device '${id}' removed`);
+  // Device '2' removed
+});
+```
+
 #### onDisconnected(cb): Promise&lt;Void&gt;
 
 Register a callback to handle gateway disconnection.

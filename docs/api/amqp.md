@@ -10,6 +10,7 @@ This document specifies the messages expected by the connector through a publish
 - Device auth status
 - Registered device
 - Schema status
+- Removed device
 
 ### Northbound traffic (control, measurements):
 
@@ -206,6 +207,31 @@ JSON in the following format:
 {
   "id": "3aa21010cda96fe9",
   "error": "- \"valueType\" must be larger than or equal to 1\n- \"name\" must be a string\n- \"value\" does not contain 1 required value(s)"
+}
+```
+
+### Device removed
+
+Message with the device unregistered on the cloud.
+
+#### Exchange
+
+* `fog`
+
+#### Binding Key
+
+* `device.unregistered`
+
+#### Expected Response
+
+JSON in the following format:
+  * `id` **String** device ID
+
+#### Example
+
+```json
+{
+  "id":"3aa21010cda96fe9"
 }
 ```
 
