@@ -24,7 +24,7 @@ class MessageHandlerFactory {
     } = this;
 
     const loadDevices = new LoadDevices(deviceStore, cloud);
-    const registerDevice = new RegisterDevice(deviceStore, cloud);
+    const registerDevice = new RegisterDevice(deviceStore, cloud, amqpConnection);
     const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
     const authDevice = new AuthDevice(cloud, amqpConnection);
     const updateSchema = new UpdateSchema(deviceStore, cloud);
