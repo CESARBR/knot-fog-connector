@@ -73,14 +73,27 @@ Add a device to the cloud. Called when a new device is added to the fog.
   * `id` **String** device ID (KNoT ID)
   * `name` **String** device name
 
+##### Result
+
+* `device` **Object** device registered on the cloud.
+  * `id` **String** device ID (KNoT ID)
+  * `token` **String** device token
+
+
 ##### Example
 
 ```javascript
 await connector.start();
 await connector.addDevice({
-  id: '656123c6-5666-4a5c-9e8e-e2b611a2e66b',
+  id: '918f2e0f4e19f990',
   name: 'Front door'
 });
+
+// {
+//   id: '918f2e0f4e19f990',
+//   token: '5b67ce6bef21701331152d6297e1bd2b22f91787'
+// }
+
 ```
 
 #### removeDevice(id): Promise&lt;Void&gt;

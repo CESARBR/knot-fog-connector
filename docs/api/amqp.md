@@ -2,12 +2,13 @@
 
 This document specifies the messages expected by the connector through a publish/subscriber middleware that supports the AMPQ protocol. These messages can be listed in two main categories:
 
-### Southbound traffic (commands):
+### Southbound traffic (commands, northbound commmands response):
 
 - Update data
 - Request data
 - Devices list
 - Device auth status
+- Registered device
 
 ### Northbound traffic (control, measurements):
 
@@ -143,11 +144,39 @@ JSON in the following format:
 }
 ```
 
+### Registered device
+
+Message with the device credentials.
+
+#### Exchange
+
+* `fog`
+
+#### Binding Key
+
+* `device.registered`
+
+#### Expected Response
+
+JSON in the following format:
+  * `device` **Object** device credentials
+    * `id` **String** device ID
+    * `token` **String** device token
+
+#### Example
+
+```json
+{
+  "id":"3aa21010cda96fe9",
+  "token":"5b67ce6bef21701331152d6297e1bd2b22f91787",
+}
+```
+
 ## Message types (Northbound)
 
 ### Register thing
 
-Registers a thing on the cloud.
+Registers a thing on the cloud and return its credentials through [`device.registered`](#registered-device) message.
 
 #### Exchange
 

@@ -1,9 +1,10 @@
 import logger from 'util/logger';
 
 class RegisterDevice {
-  constructor(deviceStore, cloudConnector) {
+  constructor(deviceStore, cloudConnector, queue) {
     this.deviceStore = deviceStore;
     this.cloudConnector = cloudConnector;
+    this.queue = queue;
   }
 
   async execute({ id, name }) {
@@ -14,7 +15,8 @@ class RegisterDevice {
     };
 
     await this.deviceStore.add(deviceToBeSaved);
-    await this.cloudConnector.addDevice(deviceToBeSaved);
+    const registeredDevice = await this.cloudConnector.addDevice(deviceToBeSaved);
+    await this.queue.send('fog', 'device.registered', registeredDevice);
   }
 }
 
