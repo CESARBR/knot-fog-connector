@@ -98,6 +98,31 @@ await connector.start();
 await connector.removeDevice('656123c6-5666-4a5c-9e8e-e2b611a2e66b');
 ```
 
+#### authDevice(id, token): Promise&lt;Boolean&gt;
+
+Authenticate a device on the cloud. Called when it's necessary to verify if a device is valid on the cloud provider.
+
+##### Arguments
+
+* `id` **String** device ID (KNoT ID)
+* `token` **String** device token
+
+##### Result
+
+* `status` **Boolean** response that represents the authentication status (true/false).
+
+##### Example
+
+```javascript
+await connector.start();
+const status = await connector.authDevice(
+  'ea9798ed48d73dd0',
+  '0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d'
+);
+console.log(status);
+// true
+```
+
 #### listDevices(): Promise&lt;Object&gt;
 
 List the devices registered on the cloud for the current gateway.

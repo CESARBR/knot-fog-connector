@@ -7,6 +7,7 @@ This document specifies the messages expected by the connector through a publish
 - Update data
 - Request data
 - Devices list
+- Device auth status
 
 ### Northbound traffic (control, measurements):
 
@@ -15,6 +16,7 @@ This document specifies the messages expected by the connector through a publish
 - Update thing's schema
 - Publish thing's data
 - List devices command
+- Authenticate device command
 
 ## Message types (Southbound)
 
@@ -112,6 +114,33 @@ JSON in the following format:
     ]
   }
 ]
+```
+
+### Device authentication status
+
+Message with the status of device authentication command.
+
+#### Exchange
+
+* `fog`
+
+#### Binding Key
+
+* `device.auth`
+
+#### Expected Response
+
+JSON in the following format:
+  * `id` **String** device's ID
+  * `authenticated` **Boolean** authentication result
+
+#### Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "authenticated": true
+}
 ```
 
 ## Message types (Northbound)
@@ -265,4 +294,31 @@ JSON in the following format:
 
 ```json
 {}
+```
+
+### Authenticate device command
+
+Receive a command to authenticate the device on cloud and return the status through [`device.auth`](#device-authentication-status) message.
+
+#### Exchange
+
+* `cloud`
+
+#### Binding Key
+
+* `device.cmd.auth`
+
+#### Data
+
+JSON in the following format:
+  * `id` **String** device's ID
+  * `token` **String** device's token
+
+#### Example
+
+```json
+{
+  "id": "fbe64efa6c7f717e",
+  "token": "0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d"
+}
 ```
