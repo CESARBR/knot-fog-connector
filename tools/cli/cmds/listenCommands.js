@@ -12,7 +12,7 @@ const parseBuffer = buffer => JSON.parse(buffer.toString('utf-8'));
 
 const listenCommands = (args) => {
   const topic = 'fog';
-  const commands = ['data.update', 'data.request'];
+  const commands = ['data.update', 'data.request', 'device.auth'];
 
   amqpConnection(args.hostname, args.port, topic, (connection, channel) => {
     commands.forEach((cmd) => {
