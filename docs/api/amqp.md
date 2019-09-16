@@ -9,6 +9,7 @@ This document specifies the messages expected by the connector through a publish
 - Devices list
 - Device auth status
 - Registered device
+- Schema status
 
 ### Northbound traffic (control, measurements):
 
@@ -172,6 +173,42 @@ JSON in the following format:
 }
 ```
 
+### Schema status
+
+Message with the status of schema update command.
+
+#### Exchange
+
+* `fog`
+
+#### Binding Key
+
+* `schema.updated`
+
+#### Expected Response
+
+JSON in the following format:
+  * `id` **String** device's ID
+  * `error` **String** a string with detailed error message.
+
+#### Success Response Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "error": null
+}
+```
+
+#### Error Response Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "error": "- \"valueType\" must be larger than or equal to 1\n- \"name\" must be a string\n- \"value\" does not contain 1 required value(s)"
+}
+```
+
 ## Message types (Northbound)
 
 ### Register thing
@@ -228,7 +265,7 @@ JSON in the following format:
 
 ### Update schema
 
-Updates thing's schema on the cloud.
+Updates thing's schema on the cloud and returns the status through [`schema.updated`](#schema-status) message.
 
 #### Exchange
 
