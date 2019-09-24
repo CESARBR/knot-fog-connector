@@ -23,7 +23,7 @@ class CloudConnectionHandler {
 
   async onDataRequested(id, sensorIds) {
     logger.debug(`Data requested from ${sensorIds} of thing ${id}`);
-    await this.queue.send('fog', 'data.request', { id, sensorIds });
+    await this.queue.send('fog', 'data.request', { id, data: sensorIds });
   }
 
   async onDisconnected() {
