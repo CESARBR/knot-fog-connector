@@ -1,4 +1,5 @@
 import logger from 'util/logger';
+import convertToSnakeCase from 'util/snakeCase';
 
 class CloudConnectionHandler {
   constructor(cloud, queue) {
@@ -18,7 +19,7 @@ class CloudConnectionHandler {
       logger.debug(`Update data from ${sensorId} of thing ${id}: ${value}`);
     });
 
-    await this.queue.send('fog', 'data.update', { id, data });
+    await this.queue.send('fog', 'data.update', { id, data: convertToSnakeCase(data) });
   }
 
   async onDataRequested(id, sensorIds) {
