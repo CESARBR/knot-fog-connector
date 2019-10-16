@@ -41,7 +41,7 @@ JSON in the following format:
   * `id` **String** thing's ID
   * `data` **Array (Object)** updates for sensors/actuators, each one formed by:
     * `sensorId` **Number** ID of the sensor to update
-    * `data` **Number|Boolean|String** data to be written
+    * `value` **Number|Boolean|String** data to be written
 
 #### Example
 
@@ -50,7 +50,7 @@ JSON in the following format:
   "id": "fbe64efa6c7f717e",
   "data": [{
       "sensorId": 1,
-      "data": true
+      "value": true
   }]
 }
 ```
