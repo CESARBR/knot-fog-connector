@@ -5,6 +5,9 @@ This is a KNoT Gateway service that connects the fog to a cloud service.
 ## Supported services
 
 * [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud)
+
+## Under Development
+
 * [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
@@ -26,7 +29,7 @@ In order to test changes made to the [supported services](#supported-services), 
 
 Configuration is made via a JSON file placed into `knot-fog-connector/config/` folder (see [config](https://www.npmjs.com/package/config) package documentation for more information). Find below, the parameters for such file.
 
-* `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) or [FIWARE](####fiware) are supported options.
+* `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) is supported.
 * `cloud` **Object** CloudType specific parameters (see below).
 
 #### KNoT-Cloud
@@ -48,32 +51,6 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
     "pathname": "/ws",
     "uuid": "78159106-41ca-4022-95e8-2511695ce64c",
     "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574",
-  }
-}
-```
-
-#### FIWARE
-
-* `cloud` **Object** cloud parameters
-  * `iota` **Object** object with hostname and port parameters
-    * `hostname` **String**
-    * `port` **Number**
-  * `orion` **Object** object with hostname and port parameters
-    * `hostname` **String**
-    * `port` **Number**
-
-```json
-{
-  "cloudType": "FIWARE",
-  "cloud": {
-      "iota": {
-          "hostname": "localhost",
-          "port": 4041
-      },
-      "orion": {
-          "hostname": "localhost",
-          "port": 1026
-      }
   }
 }
 ```
