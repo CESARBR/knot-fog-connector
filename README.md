@@ -13,6 +13,7 @@ This is a KNoT Gateway service that connects the fog to a cloud service.
 ## Quickstart
 
 ```bash
+$ npm install
 $ npm run build
 $ npm start
 ```
