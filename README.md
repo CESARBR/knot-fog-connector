@@ -51,7 +51,7 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
     "port": 3004,
     "pathname": "/ws",
     "uuid": "78159106-41ca-4022-95e8-2511695ce64c",
-    "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574",
+    "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574"
   }
 }
 ```
