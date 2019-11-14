@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import Settings from 'data/Settings';
 
-const cloudTypes = ['KNOT_CLOUD'];
+const cloudTypes = ['KNOT_CLOUD','KNOT_AWS_IOT'];
 const cloudTypeSchema = Joi.string().valid(cloudTypes).required();
 const cloudSchema = Joi.object().required();
 
