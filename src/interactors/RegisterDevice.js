@@ -14,8 +14,8 @@ class RegisterDevice {
       name,
     };
 
-    await this.deviceStore.add(deviceToBeSaved);
     const registeredDevice = await this.cloudConnector.addDevice(deviceToBeSaved);
+    await this.deviceStore.add(deviceToBeSaved);
     await this.queue.sendRegisteredDevice(registeredDevice);
   }
 }
