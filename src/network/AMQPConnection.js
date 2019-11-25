@@ -26,11 +26,11 @@ class AMQPConnection {
     );
   }
 
-  async onMessage(topic, key, callback) {
+  async onMessage(topic, key, callback, noAck) {
     await this.channel.assertExchange(topic, 'topic', { durable: true });
     const { queue } = await this.channel.assertQueue(`${topic}-messages`, { durable: true });
     await this.channel.bindQueue(queue, topic, key);
-    return this.channel.consume(queue, callback);
+    return this.channel.consume(queue, callback, { noAck });
   }
 
   async cancelConsume(consumerTag) {

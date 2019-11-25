@@ -16,29 +16,37 @@ class MessageHandler {
       [exchangeConnectorIn]: {
         'device.register': {
           method: this.devicesService.register.bind(this.devicesService),
+          noAck: true,
         },
         'device.unregister': {
           method: this.devicesService.unregister.bind(this.devicesService),
+          noAck: true,
         },
         'device.cmd.auth': {
           method: this.devicesService.auth.bind(this.devicesService),
+          noAck: true,
         },
         'device.cmd.list': {
           method: this.devicesService.list.bind(this.devicesService),
+          noAck: true,
         },
         'schema.update': {
           method: this.devicesService.updateSchema.bind(this.devicesService),
+          noAck: true,
         },
         'data.publish': {
           method: this.dataService.publish.bind(this.dataService),
+          noAck: true,
         },
       },
       control: {
         disconnected: {
           method: this.handleDisconnected.bind(this),
+          noAck: false,
         },
         reconnected: {
           method: this.handleReconnected.bind(this),
+          noAck: false,
         },
       },
     };
@@ -53,6 +61,10 @@ class MessageHandler {
       throw new Error(`Unknown event type ${type}.${key}`);
     }
     return this.handlers[type][key].method;
+  }
+
+  isNoAck(type, key) {
+    return this.handlers[type][key].noAck;
   }
 
   async handleDisconnected() {
@@ -75,16 +87,23 @@ class MessageHandler {
     logger.debug(JSON.stringify(data));
     try {
       await handler(data);
-      this.channel.ack(msg);
+      if (!this.isNoAck(exchange, routingKey)) {
+        this.channel.ack(msg);
+      }
     } catch (err) {
       logger.error(err.stack);
-      this.channel.nack(msg);
+      if (!this.isNoAck(exchange, routingKey)) {
+        this.channel.nack(msg);
+      }
     }
   }
 
   async listenToQueueMessages(type) {
     _.keys(this.handlers[type]).forEach(async (key) => {
-      const { consumerTag } = await this.queue.onMessage(type, key, this.handleMessage.bind(this));
+      const { noAck } = this.handlers[type][key];
+      const { consumerTag } = await this.queue.onMessage(
+        type, key, this.handleMessage.bind(this), noAck,
+      );
       this.handlers[type][key].consumerTag = consumerTag;
     });
   }
