@@ -16,7 +16,7 @@ class RegisterDevice {
 
     await this.deviceStore.add(deviceToBeSaved);
     const registeredDevice = await this.cloudConnector.addDevice(deviceToBeSaved);
-    await this.queue.send('fog', 'device.registered', registeredDevice);
+    await this.queue.sendRegisteredDevice(registeredDevice);
   }
 }
 

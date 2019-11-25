@@ -12,23 +12,24 @@ import PublishData from 'interactors/PublishData';
 import DataService from 'services/DataService';
 
 class MessageHandlerFactory {
-  constructor(deviceStore, cloud, amqpConnection) {
+  constructor(deviceStore, cloud, amqpConnection, publisher) {
     this.deviceStore = deviceStore;
     this.cloud = cloud;
     this.amqpConnection = amqpConnection;
+    this.publisher = publisher;
   }
 
   create() {
     const {
-      deviceStore, cloud, amqpConnection,
+      deviceStore, cloud, amqpConnection, publisher,
     } = this;
 
     const loadDevices = new LoadDevices(deviceStore, cloud);
-    const registerDevice = new RegisterDevice(deviceStore, cloud, amqpConnection);
+    const registerDevice = new RegisterDevice(deviceStore, cloud, publisher);
     const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
-    const authDevice = new AuthDevice(cloud, amqpConnection);
-    const updateSchema = new UpdateSchema(deviceStore, cloud, amqpConnection);
-    const listDevices = new ListDevices(cloud, amqpConnection);
+    const authDevice = new AuthDevice(cloud, publisher);
+    const updateSchema = new UpdateSchema(deviceStore, cloud, publisher);
+    const listDevices = new ListDevices(cloud, publisher);
     const devicesService = new DevicesService(
       loadDevices,
       registerDevice,

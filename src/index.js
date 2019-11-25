@@ -5,6 +5,7 @@ import DeviceStore from 'data/DeviceStore';
 import CloudConnectorFactory from 'network/CloudConnectorFactory';
 import CloudConnectionHandler from 'network/CloudConnectionHandler';
 import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
+import MessagePublisher from 'network/MessagePublisher';
 import MessageHandlerFactory from 'network/MessageHandlerFactory';
 
 // Logger
@@ -28,11 +29,13 @@ async function main() {
     }
 
     const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
-    const cloudConnectionHandler = new CloudConnectionHandler(cloud, amqpConnection);
+    const publisher = new MessagePublisher(amqpConnection);
+    const cloudConnectionHandler = new CloudConnectionHandler(cloud, publisher);
     const messageHandler = new MessageHandlerFactory(
       deviceStore,
       cloud,
       amqpConnection,
+      publisher,
     ).create();
 
     await messageHandler.start();

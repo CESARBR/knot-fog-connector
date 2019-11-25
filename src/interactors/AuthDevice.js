@@ -6,7 +6,7 @@ class AuthenticateDevice {
 
   async execute(id, token) {
     const status = await this.cloud.authDevice(id, token);
-    return this.queue.send('fog', 'device.auth', { id, authenticated: status });
+    return this.queue.sendAuthenticatedDevice({ id, authenticated: status });
   }
 }
 

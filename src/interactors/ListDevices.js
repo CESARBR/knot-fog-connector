@@ -8,7 +8,7 @@ class ListDevices {
 
   async execute() {
     const devices = await this.cloudConnector.listDevices();
-    await this.queue.send('fog', 'device.list', devices.map((dev) => {
+    await this.queue.sendList(devices.map((dev) => {
       const device = dev;
       device.schema = convertToSnakeCase(dev.schema);
       return device;
