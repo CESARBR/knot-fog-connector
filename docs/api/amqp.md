@@ -165,12 +165,23 @@ JSON in the following format:
     * `id` **String** device ID
     * `token` **String** device token
 
-#### Example
+#### Success Response Example
 
 ```json
 {
-  "id":"3aa21010cda96fe9",
-  "token":"5b67ce6bef21701331152d6297e1bd2b22f91787",
+  "id": "3aa21010cda96fe9",
+  "token": "5b67ce6bef21701331152d6297e1bd2b22f91787",
+  "error": null
+}
+```
+
+#### Error Response Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "token": "",
+  "error": "Device already exists"
 }
 ```
 
