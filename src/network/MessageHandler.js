@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import logger from 'util/logger';
 
+const exchangeConnectorIn = 'connIn';
+
 class MessageHandler {
   constructor(devicesService, dataService, queue) {
     this.devicesService = devicesService;
@@ -11,7 +13,7 @@ class MessageHandler {
 
   mapMessageHandlers() {
     return {
-      cloud: {
+      [exchangeConnectorIn]: {
         'device.register': {
           method: this.devicesService.register.bind(this.devicesService),
         },
@@ -54,13 +56,13 @@ class MessageHandler {
   }
 
   async handleDisconnected() {
-    _.keys(this.handlers.cloud).forEach(async (key) => {
-      await this.queue.cancelConsume(this.handlers.cloud[key].consumerTag);
+    _.keys(this.handlers[exchangeConnectorIn]).forEach(async (key) => {
+      await this.queue.cancelConsume(this.handlers[exchangeConnectorIn][key].consumerTag);
     });
   }
 
   async handleReconnected() {
-    await this.listenToQueueMessages('cloud');
+    await this.listenToQueueMessages(exchangeConnectorIn);
   }
 
   async handleMessage(msg) {

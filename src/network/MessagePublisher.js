@@ -1,4 +1,4 @@
-const exchangeName = 'fog';
+const exchangeName = 'connOut';
 const exchangeControl = 'control';
 
 class MessagePublisher {
