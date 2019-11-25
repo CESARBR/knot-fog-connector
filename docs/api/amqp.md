@@ -99,24 +99,36 @@ Message with the list of devices registered on the cloud.
 JSON in the following format:
   * `devices` **Array (Object)** devices representation
 
-#### Example
+#### Success Response Example
 
 ```json
-[
-  {
-    "id":"3aa21010cda96fe9",
-    "name":"KNoT Dongle",
-    "schema":[
-      {
-        "sensor_id":0,
-        "value_type":3,
-        "unit":0,
-        "type_id":65521,
-        "name":"LED"
-      }
-    ]
-  }
-]
+{
+  "devices": [
+    {
+      "id": "3aa21010cda96fe9",
+      "name": "KNoT Dongle",
+      "schema": [
+        {
+          "sensor_id": 0,
+          "value_type": 3,
+          "unit": 0,
+          "type_id": 65521,
+          "name": "LED"
+        }
+      ]
+    }
+  ],
+  "error": null,
+}
+```
+
+#### Error Response Example
+
+```json
+{
+  "devices": [],
+  "error": "Connection refused"
+}
 ```
 
 ### Device authentication status
