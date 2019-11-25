@@ -8,8 +8,8 @@ class UnregisterDevice {
 
   async execute(device) {
     logger.debug(`Device ${device.id} removed`);
-    await this.deviceStore.remove(device);
     await this.cloudConnector.removeDevice(device.id);
+    await this.deviceStore.remove(device);
   }
 }
 
