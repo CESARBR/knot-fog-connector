@@ -1,18 +1,25 @@
 import convertToSnakeCase from '../util/snakeCase';
 
 class ListDevices {
-  constructor(cloudConnector, queue) {
+  constructor(cloudConnector, publisher) {
     this.cloudConnector = cloudConnector;
-    this.queue = queue;
+    this.publisher = publisher;
   }
 
   async execute() {
-    const devices = await this.cloudConnector.listDevices();
-    await this.queue.sendList(devices.map((dev) => {
-      const device = dev;
-      device.schema = convertToSnakeCase(dev.schema);
-      return device;
-    }));
+    try {
+      const devices = await this.cloudConnector.listDevices();
+      await this.publisher.sendList({
+        devices: devices.map((dev) => {
+          const device = dev;
+          device.schema = convertToSnakeCase(dev.schema);
+          return device;
+        }),
+        error: null,
+      });
+    } catch (error) {
+      await this.publisher.sendList({ devices: [], error: error.message });
+    }
   }
 }
 
