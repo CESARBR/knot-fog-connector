@@ -249,12 +249,23 @@ Message with the device unregistered on the cloud.
 
 JSON in the following format:
   * `id` **String** device ID
+  * `error` **String** a string with detailed error message.
 
-#### Example
+#### Success Response Example
 
 ```json
 {
-  "id":"3aa21010cda96fe9"
+  "id": "3aa21010cda96fe9",
+  "error": null,
+}
+```
+
+#### Error Response Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "error": "Forbidden",
 }
 ```
 
