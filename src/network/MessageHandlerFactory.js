@@ -26,7 +26,7 @@ class MessageHandlerFactory {
 
     const loadDevices = new LoadDevices(deviceStore, cloud);
     const registerDevice = new RegisterDevice(deviceStore, cloud, publisher);
-    const unregisterDevice = new UnregisterDevice(deviceStore, cloud);
+    const unregisterDevice = new UnregisterDevice(deviceStore, cloud, publisher);
     const authDevice = new AuthDevice(cloud, publisher);
     const updateSchema = new UpdateSchema(deviceStore, cloud, publisher);
     const listDevices = new ListDevices(cloud, publisher);

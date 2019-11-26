@@ -30,7 +30,7 @@ class CloudConnectionHandler {
 
   async onDeviceUnregistered(id) {
     logger.debug(`Device ${id} unregistered`);
-    await this.queue.sendUnregisteredDevice({ id });
+    await this.queue.sendUnregisteredDevice({ id, error: null });
   }
 
   async onDisconnected() {
