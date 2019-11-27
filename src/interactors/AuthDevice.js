@@ -1,12 +1,20 @@
 class AuthenticateDevice {
-  constructor(cloud, queue) {
+  constructor(cloud, publisher) {
     this.cloud = cloud;
-    this.queue = queue;
+    this.publisher = publisher;
   }
 
   async execute(id, token) {
-    const status = await this.cloud.authDevice(id, token);
-    return this.queue.sendAuthenticatedDevice({ id, authenticated: status });
+    let error;
+
+    try {
+      const status = await this.cloud.authDevice(id, token);
+      error = status ? null : 'Unauthorized';
+    } catch (err) {
+      error = err.message;
+    }
+
+    return this.publisher.sendAuthenticatedDevice({ id, error });
   }
 }
 
