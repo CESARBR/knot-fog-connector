@@ -147,17 +147,25 @@ Message with the status of device authentication command.
 
 JSON in the following format:
   * `id` **String** device's ID
-  * `authenticated` **Boolean** authentication result
+  * `error` **String** a string with detailed error message.
 
-#### Example
+#### Success Response Example
 
 ```json
 {
   "id": "3aa21010cda96fe9",
-  "authenticated": true
+  "error": null
 }
 ```
 
+#### Error Response Example
+
+```json
+{
+  "id": "3aa21010cda96fe9",
+  "error": "Unauthorized"
+}
+```
 ### Registered device
 
 Message with the device credentials.
