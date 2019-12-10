@@ -9,6 +9,7 @@ This is a KNoT Gateway service that connects the fog to a cloud service.
 ## Under Development
 
 * [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
+* [AWS IoT](https://github.com/dssv/knot-fog-connector-aws-iot)
 
 ## Quickstart
 
@@ -51,6 +52,50 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
     "pathname": "/ws",
     "uuid": "78159106-41ca-4022-95e8-2511695ce64c",
     "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574",
+  }
+}
+```
+
+#### KNoT-AWS-IoT
+
+* `cloud` **Object** cloud parameters
+  * `protocol` **String** Either `'wss'` or `'mqtt'` (Default: **wss**)
+  * `host` **String** AWS IoT Core Thing application hostname
+  * `portMQTT` **Number** AWS IoT MQTT protocol port (Default: **443**)
+  * `portHTTP` **Number** AWS IoT HTTPS protocol port (Default: **8443**)
+  * `pathname` **String** path name on the server
+  * `id` **String** device ID
+  * `token` **String** device token
+  * `region` **String** region of AWS IoT application
+  * `debug` **Boolean** flag to indicate mode (Default: **false**)
+  * `nodeId` **String** Name of AWS IoT application
+  * `clientId` **String** Client Id of KNoT's application
+  * `accessKeyId` **String** Serial code of user's Amazon Account Access Key
+  * `secretKey` **String** Serial code of user's Amazon Account Secret Key
+  * `key` **String** Base64 string of private key application
+  * `cert` **String** Base64 string of certificate application
+  * `ca` **String** Base64 string of root certificate authentication application
+  * `keyPath` **String** Path to the private key file (Default: **"./certs/private.pem.key"**)
+  * `certPath` **String** Path to the certificate file (Default: **"./certs/certificate.pem.crt"**)
+  * `caPath` **String** Path to the root certificate authentication file (Default: **"./certs/root-CA.crt"**)
+
+```json
+{
+  "cloudType": "KNOT_AWS_IOT",
+	"cloud": {
+		"host": "7a6fg5a6g5r-ats.iot.us-east-2.amazonaws.com",
+		"portMQTT": 443,
+		"portHTTP": 8443,
+		"keyPath": "./certs/private.pem.key",
+        "certPath": "./certs/certificate.pem.crt",
+        "caPath": "./certs/root-CA.crt",
+        "clientId": "KNoT-THING",
+		"protocol": "wss",
+		"region": "us-east-2",
+		"debug": false,
+		"nodeId": "KNoT-THING",
+		"accessKeyId": "ABCDEFGHIJKLMNOPQRSTUVXZ",
+		"secretKey": "uegvnqorg9285345tbf385tg728634gt=26qoy3"
   }
 }
 ```
