@@ -1,14 +1,19 @@
-import amqplib from 'amqplib';
+import amqplib from 'amqp-connection-manager';
 
 class AMQPConnection {
   constructor(settings) {
     this.url = `amqp://${settings.hostname}:${settings.port}`;
   }
 
-  async start() {
-    const connection = await amqplib.connect(this.url);
-    this.channel = await connection.createChannel();
-    return this.channel;
+  async start(setupFunction) {
+    const connection = await amqplib.connect([this.url]);
+    connection.createChannel({
+      json: true,
+      setup: (channel) => {
+        this.channel = channel;
+        setupFunction(channel);
+      },
+    });
   }
 
   async send(topic, key, message) {
