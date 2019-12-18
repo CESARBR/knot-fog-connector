@@ -89,10 +89,12 @@ class MessageHandler {
 
   async start() {
     await this.devicesService.load();
-    this.channel = await this.queue.start();
-
-    _.keys(this.handlers).forEach(async (key) => {
-      await this.listenToQueueMessages(key);
+    await this.queue.start((channel) => {
+      logger.info('Connected to RabbitMQ');
+      this.channel = channel;
+      _.keys(this.handlers).forEach(async (key) => {
+        await this.listenToQueueMessages(key);
+      });
     });
   }
 }

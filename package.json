@@ -18,7 +18,8 @@
   "dependencies": {
     "@cesarbr/knot-fog-connector-knot-cloud": "^2.0.0",
     "@cesarbr/meshblu": "^1.34.3",
-    "amqplib": "^0.5.3",
+    "amqp-connection-manager": "^3.1.0",
+    "amqplib": "^0.5.5",
     "config": "^2.0.1",
     "is-base64": "0.0.6",
     "joi": "^14.3.1",
