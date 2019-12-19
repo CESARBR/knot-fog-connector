@@ -1,5 +1,6 @@
 const exchangeName = 'connOut';
 const exchangeControl = 'control';
+const expirationTime = 10000;
 
 class MessagePublisher {
   constructor(queue) {
@@ -23,11 +24,11 @@ class MessagePublisher {
   }
 
   async sendDataUpdate(body) {
-    await this.queue.send(exchangeName, 'data.update', body);
+    await this.queue.send(exchangeName, 'data.update', body, expirationTime);
   }
 
   async sendDataRequest(body) {
-    await this.queue.send(exchangeName, 'data.request', body);
+    await this.queue.send(exchangeName, 'data.request', body, expirationTime);
   }
 
   async sendUnregisteredDevice(body) {
