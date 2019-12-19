@@ -16,13 +16,13 @@ class AMQPConnection {
     });
   }
 
-  async send(topic, key, message) {
+  async send(topic, key, message, expiration) {
     await this.channel.assertExchange(topic, 'topic', { durable: true });
     await this.channel.publish(
       topic,
       key,
       Buffer.from(JSON.stringify(message)),
-      { persistent: true },
+      { persistent: true, expiration },
     );
   }
 

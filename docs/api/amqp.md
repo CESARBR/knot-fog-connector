@@ -25,7 +25,8 @@ This document specifies the messages expected by the connector through a publish
 
 ### Update data
 
-Updates a thing's sensor value.
+Updates a thing's sensor value. This message will be on the queue for 10 seconds
+before expires.
 
 #### Exchange
 
@@ -57,7 +58,8 @@ JSON in the following format:
 
 ### Request data
 
-Request a thing's sensor value.
+Request a thing's sensor value. This message will be on the queue for 10 seconds
+before expires.
 
 #### Exchange
 
