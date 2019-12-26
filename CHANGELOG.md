@@ -1,3 +1,30 @@
+# [4.0.0](https://github.com/CESARBR/knot-fog-connector/compare/v3.0.0...v4.0.0)
+
+### Features
+
+- Add AMQP connection manager.
+- Add AMQP publisher to encapsulate specific fields.
+- Add device in store after add in connector.
+- Send error property in registered device.
+- Add option to auto ack messages.
+- Remove device in store after remove in connector.
+- Send error property in list devices
+- Send error property in unregistered device.
+- Send error property in authenticated device.
+- Add expiration time for each message.
+- Re-enable FIWARE support.
+
+### Bug Fixes
+
+- Synchronize package-lock.json.
+- Update dependency knot-cloud to v2.0.1.
+
+### Improvements
+
+- Add dependency install step to quick-start.
+- Change environment setup JSON
+- Change northbound exchange name.
+
 # [3.0.0](https://github.com/CESARBR/knot-fog-connector/compare/v2.1.0...v3.0.0)
 
 ### Features
