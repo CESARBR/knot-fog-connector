@@ -20,7 +20,9 @@
 	},
 	"rabbitMQ": {
 		"hostname": "RABBITMQ_HOSTNAME",
-		"port": "RABBITMQ_PORT"
+		"port": "RABBITMQ_PORT",
+		"username": "RABBITMQ_USERNAME",
+		"password": "RABBITMQ_PASSWORD"
 	},
 	"cloudType": "CLOUD_TYPE",
 	"cloud": {

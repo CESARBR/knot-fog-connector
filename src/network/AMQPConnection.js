@@ -2,7 +2,7 @@ import amqplib from 'amqp-connection-manager';
 
 class AMQPConnection {
   constructor(settings) {
-    this.url = `amqp://${settings.hostname}:${settings.port}`;
+    this.url = `amqp://${settings.username}:${settings.password}@${settings.hostname}:${settings.port}`;
   }
 
   async start(setupFunction) {
