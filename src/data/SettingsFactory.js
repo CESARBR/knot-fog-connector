@@ -17,6 +17,8 @@ const runAsSchema = Joi.object().keys({
 const rabbitMQSchema = Joi.object().keys({
   hostname: Joi.string().required(),
   port: Joi.number().port().required(),
+  username: Joi.string().required(),
+  password: Joi.string().required(),
 });
 
 class SettingsFactory {
