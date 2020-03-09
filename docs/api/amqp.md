@@ -1,8 +1,8 @@
 # AMQP API
 
-This document specifies the messages expected by the connector through a publish/subscriber middleware that supports the AMPQ protocol. These messages can be listed in two main categories:
+This document specifies the messages expected by the connector through a publish/subscriber middleware that supports the AMQP protocol. These messages can be listed in two main categories:
 
-### Southbound traffic (commands, northbound commmands response):
+### Southbound traffic (commands, northbound commands response):
 
 - Update data
 - Request data
