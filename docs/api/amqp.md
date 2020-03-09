@@ -30,7 +30,7 @@ before expires.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -63,7 +63,7 @@ before expires.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -90,7 +90,7 @@ Message with the list of devices registered on the cloud.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -139,7 +139,7 @@ Message with the status of device authentication command.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -174,7 +174,7 @@ Message with the device credentials.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -213,7 +213,7 @@ Message with the status of schema update command.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -249,7 +249,7 @@ Message with the device unregistered on the cloud.
 
 #### Exchange
 
-* `fog`
+* `connOut`
 
 #### Binding Key
 
@@ -287,7 +287,7 @@ Registers a thing on the cloud and return its credentials through [`device.regis
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
@@ -314,7 +314,7 @@ Unregisters a thing on the cloud.
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
@@ -339,7 +339,7 @@ Updates thing's schema on the cloud and returns the status through [`schema.upda
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
@@ -377,7 +377,7 @@ Publishes thing's data.
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
@@ -415,7 +415,7 @@ Receive a command to list the devices registered on cloud and return the data th
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
@@ -438,7 +438,7 @@ Receive a command to authenticate the device on cloud and return the status thro
 
 #### Exchange
 
-* `cloud`
+* `connIn`
 
 #### Binding Key
 
