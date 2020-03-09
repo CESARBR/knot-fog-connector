@@ -4,22 +4,22 @@ This document specifies the messages expected by the connector through a publish
 
 ### Southbound traffic (commands, northbound commands response):
 
-- Update data
-- Request data
-- Devices list
-- Device auth status
-- Registered device
-- Schema status
-- Removed device
+- [Update data](#update-data)
+- [Request data](#request-data)
+- [Devices list](#devices-list)
+- [Device auth status](#device-authentication-status)
+- [Registered device](#registered-device)
+- [Schema status](#schema-status)
+- [Removed device](#device-removed)
 
 ### Northbound traffic (control, measurements):
 
-- Register thing
-- Unregister thing
-- Update thing's schema
-- Publish thing's data
-- List devices command
-- Authenticate device command
+- [Register thing](#register-thing)
+- [Unregister thing](#unregister-thing)
+- [Update thing's schema](#update-schema)
+- [Publish thing's data](#publish-data)
+- [List devices command](#list-devices-command)
+- [Authenticate device command](#authenticate-device-command)
 
 ## Message types (Southbound)
 
