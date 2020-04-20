@@ -21,8 +21,6 @@ async function main() {
     logger.info(`Connecting to '${settings.cloudType}' cloud`);
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
 
-    await cloud.start();
-
     if (settings.runAs.enabled) {
       process.setgid(settings.runAs.group);
       process.setuid(settings.runAs.user);
@@ -41,8 +39,9 @@ async function main() {
       publisher,
     ).create();
 
-    await messageHandler.start();
     await cloudConnectionHandler.start();
+    await cloud.start();
+    await messageHandler.start();
   } catch (err) {
     logger.error(err.stack);
   }
