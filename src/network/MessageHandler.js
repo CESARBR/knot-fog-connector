@@ -4,10 +4,11 @@ import logger from 'util/logger';
 const exchangeConnectorIn = 'connIn';
 
 class MessageHandler {
-  constructor(devicesService, dataService, queue) {
+  constructor(devicesService, dataService, amqpConnection, amqpChannel) {
     this.devicesService = devicesService;
     this.dataService = dataService;
-    this.queue = queue;
+    this.amqpConnection = amqpConnection;
+    this.amqpChannel = amqpChannel;
     this.handlers = this.mapMessageHandlers();
   }
 
@@ -69,7 +70,7 @@ class MessageHandler {
 
   async handleDisconnected() {
     _.keys(this.handlers[exchangeConnectorIn]).forEach(async (key) => {
-      await this.queue.cancelConsume(this.handlers[exchangeConnectorIn][key].consumerTag);
+      await this.amqpConnection.cancelConsume(this.handlers[exchangeConnectorIn][key].consumerTag);
     });
   }
 
@@ -88,12 +89,12 @@ class MessageHandler {
     try {
       await handler(data);
       if (!this.isNoAck(exchange, routingKey)) {
-        this.channel.ack(msg);
+        this.amqpChannel.ack(msg);
       }
     } catch (err) {
       logger.error(err.stack);
       if (!this.isNoAck(exchange, routingKey)) {
-        this.channel.nack(msg);
+        this.amqpChannel.nack(msg);
       }
     }
   }
@@ -101,7 +102,7 @@ class MessageHandler {
   async listenToQueueMessages(type) {
     _.keys(this.handlers[type]).forEach(async (key) => {
       const { noAck } = this.handlers[type][key];
-      const { consumerTag } = await this.queue.onMessage(
+      const { consumerTag } = await this.amqpConnection.onMessage(
         type, key, this.handleMessage.bind(this), noAck,
       );
       this.handlers[type][key].consumerTag = consumerTag;
@@ -110,12 +111,9 @@ class MessageHandler {
 
   async start() {
     await this.devicesService.load();
-    await this.queue.start((channel) => {
-      logger.info('Connected to RabbitMQ');
-      this.channel = channel;
-      _.keys(this.handlers).forEach(async (key) => {
-        await this.listenToQueueMessages(key);
-      });
+
+    _.keys(this.handlers).forEach(async (key) => {
+      await this.listenToQueueMessages(key);
     });
   }
 }
