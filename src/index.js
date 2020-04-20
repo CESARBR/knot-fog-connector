@@ -31,7 +31,7 @@ async function main() {
     const amqpConnection = new AMQPConnectionFactory(settings.fog).create();
     const amqpChannel = await amqpConnection.start();
 
-    const publisher = new MessagePublisher(amqpConnection);
+    const publisher = new MessagePublisher(amqpConnection, settings.fog.token);
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, publisher);
     const messageHandler = new MessageHandlerFactory(
       deviceStore,
