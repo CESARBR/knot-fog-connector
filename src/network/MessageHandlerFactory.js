@@ -12,10 +12,11 @@ import PublishData from 'interactors/PublishData';
 import DataService from 'services/DataService';
 
 class MessageHandlerFactory {
-  constructor(deviceStore, cloud, amqpConnection, publisher) {
+  constructor(deviceStore, cloud, amqpConnection, amqpChannel, publisher) {
     this.deviceStore = deviceStore;
     this.cloud = cloud;
     this.amqpConnection = amqpConnection;
+    this.amqpChannel = amqpChannel;
     this.publisher = publisher;
   }
 
@@ -48,6 +49,7 @@ class MessageHandlerFactory {
       devicesService,
       dataService,
       amqpConnection,
+      this.amqpChannel,
     );
   }
 }
