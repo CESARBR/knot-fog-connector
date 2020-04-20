@@ -18,11 +18,12 @@
 		},
 		"level": "LOG_LEVEL"
 	},
-	"rabbitMQ": {
-		"hostname": "RABBITMQ_HOSTNAME",
-		"port": "RABBITMQ_PORT",
-		"username": "RABBITMQ_USERNAME",
-		"password": "RABBITMQ_PASSWORD"
+	"fog": {
+		"hostname": "FOG_HOSTNAME",
+		"port": "FOG_PORT",
+		"username": "FOG_USERNAME",
+		"password": "FOG_PASSWORD",
+		"token": "FOG_USER_TOKEN"
 	},
 	"cloudType": "CLOUD_TYPE",
 	"cloud": {

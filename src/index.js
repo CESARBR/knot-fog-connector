@@ -28,7 +28,7 @@ async function main() {
       process.setuid(settings.runAs.user);
     }
 
-    const amqpConnection = new AMQPConnectionFactory(settings.rabbitMQ).create();
+    const amqpConnection = new AMQPConnectionFactory(settings.fog).create();
     const publisher = new MessagePublisher(amqpConnection);
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, publisher);
     const messageHandler = new MessageHandlerFactory(

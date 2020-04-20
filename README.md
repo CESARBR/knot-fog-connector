@@ -27,10 +27,34 @@ In order to test changes made to the [supported services](#supported-services), 
 
 Configuration is made via a JSON file placed into `knot-fog-connector/config/` folder (see [config](https://www.npmjs.com/package/config) package documentation for more information). Find below, the parameters for such file.
 
+- `fog` **Object** Fog service parameters.
 - `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) or [FIWARE](####fiware) are supported options.
 - `cloud` **Object** CloudType specific parameters (see below).
 
+#### Fog
+
+- `fog` **Object** fog parameters
+  - `token` **String** User access token.
+  - `hostname` **String** AMQP broker hostname.
+  - `port` **Number** AMQP broker port.
+  - `username` **String** AMQP broker username.
+  - `password` **String** AMQP broker password.
+
+```json
+{
+  "fog": {
+    "token": "<knot-fog-user-token>",
+    "hostname": "localhost",
+    "port": 5672,
+    "username": "knot",
+    "password": "knot"
+  }
+}
+```
+
 #### KNoT-Cloud
+
+> **_NOTE:_** The KNoT Cloud is an extended version of the currently supported fog solution and for that reason, their configuration looks similar. However, it's important to notice the `cloud` instance should be running with its own message broker instance.
 
 - `cloud` **Object** cloud parameters
   - `token` **String** User access token.
@@ -43,8 +67,8 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
 {
   "cloudType": "KNOT_CLOUD",
   "cloud": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODc0MzI2NjQsImlhdCI6MTU4NzM5NjY2NCwiaXNzIjoibWFpbmZsdXguYXV0aG4iLCJzdWIiOiJsZWxlY28yQGtub3QuY29tIiwidHlwZSI6MH0.LW-z53DYEYd5NCck1PnBOjDT3a7plWST_8CfEwrHoUs",
-    "hostname": "localhost",
+    "token": "<knot-cloud-user-token>",
+    "hostname": "broker.knot.cloud",
     "port": 5672,
     "username": "knot",
     "password": "knot"

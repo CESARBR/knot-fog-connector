@@ -14,11 +14,12 @@ const runAsSchema = Joi.object().keys({
   group: Joi.string(),
 });
 
-const rabbitMQSchema = Joi.object().keys({
+const fogSchema = Joi.object().keys({
   hostname: Joi.string().required(),
   port: Joi.number().port().required(),
   username: Joi.string().required(),
   password: Joi.string().required(),
+  token: Joi.string().required(),
 });
 
 class SettingsFactory {
@@ -26,8 +27,8 @@ class SettingsFactory {
     const cloudType = this.loadCloudTypeSettings();
     const cloud = this.loadCloudSettings();
     const runAs = this.loadRunAsSettings();
-    const rabbitMQ = this.loadRabbitMQSettings();
-    return new Settings(cloudType, cloud, runAs, rabbitMQ);
+    const fog = this.loadFogSettings();
+    return new Settings(cloudType, cloud, fog, runAs);
   }
 
   loadCloudTypeSettings() {
@@ -48,10 +49,10 @@ class SettingsFactory {
     return runAs;
   }
 
-  loadRabbitMQSettings() {
-    const rabbitMQ = config.get('rabbitMQ');
-    this.validate('rabbitMQ', rabbitMQ, rabbitMQSchema);
-    return rabbitMQ;
+  loadFogSettings() {
+    const fog = config.get('fog');
+    this.validate('fog', fog, fogSchema);
+    return fog;
   }
 
   validate(propertyName, propertyValue, schema) {
