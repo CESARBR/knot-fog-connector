@@ -4,8 +4,8 @@ This is a KNoT Gateway service that connects the fog to a cloud service.
 
 ## Supported services
 
-* [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud)
-* [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
+- [KNoT Cloud](https://github.com/CESARBR/knot-fog-connector-knot-cloud)
+- [FIWARE](https://github.com/CESARBR/knot-fog-connector-fiware)
 
 ## Quickstart
 
@@ -27,17 +27,17 @@ In order to test changes made to the [supported services](#supported-services), 
 
 Configuration is made via a JSON file placed into `knot-fog-connector/config/` folder (see [config](https://www.npmjs.com/package/config) package documentation for more information). Find below, the parameters for such file.
 
-* `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) or [FIWARE](####fiware) are supported options.
-* `cloud` **Object** CloudType specific parameters (see below).
+- `cloudType` **String** cloud provider name. Currently, only [KNOT_CLOUD](####knot-cloud) or [FIWARE](####fiware) are supported options.
+- `cloud` **Object** CloudType specific parameters (see below).
 
 #### KNoT-Cloud
 
-* `cloud` **Object** cloud parameters
-  * `token` **String** User access token.
-  * `hostname` **String** AMQP broker hostname.
-  * `port` **Number** AMQP broker port.
-  * `username` **String** AMQP broker username.
-  * `password` **String** AMQP broker password.
+- `cloud` **Object** cloud parameters
+  - `token` **String** User access token.
+  - `hostname` **String** AMQP broker hostname.
+  - `port` **Number** AMQP broker port.
+  - `username` **String** AMQP broker username.
+  - `password` **String** AMQP broker password.
 
 ```json
 {
@@ -48,32 +48,32 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
     "port": 5672,
     "username": "knot",
     "password": "knot"
-  },
+  }
 }
 ```
 
 #### FIWARE
 
-* `cloud` **Object** cloud parameters
-  * `iota` **Object** object with hostname and port parameters
-    * `hostname` **String**
-    * `port` **Number**
-  * `orion` **Object** object with hostname and port parameters
-    * `hostname` **String**
-    * `port` **Number**
+- `cloud` **Object** cloud parameters
+  - `iota` **Object** object with hostname and port parameters
+    - `hostname` **String**
+    - `port` **Number**
+  - `orion` **Object** object with hostname and port parameters
+    - `hostname` **String**
+    - `port` **Number**
 
 ```json
 {
   "cloudType": "FIWARE",
   "cloud": {
-      "iota": {
-          "hostname": "localhost",
-          "port": 4041
-      },
-      "orion": {
-          "hostname": "localhost",
-          "port": 1026
-      }
+    "iota": {
+      "hostname": "localhost",
+      "port": 4041
+    },
+    "orion": {
+      "hostname": "localhost",
+      "port": 1026
+    }
   }
 }
 ```
@@ -98,7 +98,7 @@ Create the connector using a configuration object that will be loaded from a JSO
 
 ##### Arguments
 
-* `config` **Object** configuration parameters defined by the connector
+- `config` **Object** configuration parameters defined by the connector
 
 ##### Example
 
@@ -108,8 +108,7 @@ import CustomCloudConnector from '@cesarbr/knot-fog-connector-customcloud';
 const connector = new CustomCloudConnector({
   hostname: 'localhost',
   port: 3000,
-  protocol: 'ws',
-  ...
+  ...,
 });
 ```
 
@@ -132,31 +131,29 @@ Add a device to the cloud. Called when a new device is added to the fog.
 
 ##### Arguments
 
-* `device` **Object** device specification containing the following properties:
-  * `id` **String** device ID (KNoT ID)
-  * `name` **String** device name
+- `device` **Object** device specification containing the following properties:
+  - `id` **String** device ID (KNoT ID)
+  - `name` **String** device name
 
 ##### Result
 
-* `device` **Object** device registered on the cloud.
-  * `id` **String** device ID (KNoT ID)
-  * `token` **String** device token
-
+- `device` **Object** device registered on the cloud.
+  - `id` **String** device ID (KNoT ID)
+  - `token` **String** device token
 
 ##### Example
 
 ```javascript
 await connector.start();
 await connector.addDevice({
-  id: '918f2e0f4e19f990',
-  name: 'Front door'
+  id: "918f2e0f4e19f990",
+  name: "Front door",
 });
 
 // {
 //   id: '918f2e0f4e19f990',
 //   token: '5b67ce6bef21701331152d6297e1bd2b22f91787'
 // }
-
 ```
 
 #### removeDevice(id): Promise&lt;Void&gt;
@@ -165,13 +162,13 @@ Remove a device from the cloud. Called when a device is removed from the fog.
 
 ##### Arguments
 
-* `id` **String** device ID (KNoT ID)
+- `id` **String** device ID (KNoT ID)
 
 ##### Example
 
 ```javascript
 await connector.start();
-await connector.removeDevice('656123c6-5666-4a5c-9e8e-e2b611a2e66b');
+await connector.removeDevice("918f2e0f4e19f990");
 ```
 
 #### authDevice(id, token): Promise&lt;Boolean&gt;
@@ -180,22 +177,23 @@ Authenticate a device on the cloud. Called when it's necessary to verify if a de
 
 ##### Arguments
 
-* `id` **String** device ID (KNoT ID)
-* `token` **String** device token
+- `id` **String** device ID (KNoT ID)
+- `token` **String** device token
 
 ##### Result
 
-* `status` **Boolean** response that represents the authentication status (true/false).
+- `status` **Boolean** response that represents the authentication status (true/false).
 
 ##### Example
 
 ```javascript
 await connector.start();
 const status = await connector.authDevice(
-  'ea9798ed48d73dd0',
-  '0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d'
+  "918f2e0f4e19f990",
+  "0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d"
 );
 console.log(status);
+
 // true
 ```
 
@@ -205,10 +203,10 @@ List the devices registered on the cloud for the current gateway.
 
 ##### Result
 
-* `devices` **Array** devices registered on the cloud or an empty array. Each device is an object in the following format:
-  * `id` **String** device ID (KNoT ID)
-  * `name` **String** device name
-  * `schema` **Array** schema items, as specified in [`updateSchema()`](#updateschemaid-schema-promisevoid)
+- `devices` **Array** devices registered on the cloud or an empty array. Each device is an object in the following format:
+  - `id` **String** device ID (KNoT ID)
+  - `name` **String** device name
+  - `schema` **Array** schema items, as specified in [`updateSchema()`](#updateschemaid-schema-promisevoid)
 
 ##### Example
 
@@ -216,8 +214,11 @@ List the devices registered on the cloud for the current gateway.
 await connector.start();
 const devices = await connector.listDevices();
 console.log(devices);
-// [ { id: '656123c6-5666-4a5c-9e8e-e2b611a2e66b', name: 'Front door', schema: [{ sensorId: 1, ... }, ...] },
-//   { id: '254d62a9-2118-4229-8b07-5084c4cc3db6', name: 'Back door', schema: [{ sensorId: 1, ... }, ...] } ]
+
+// [
+//   { id: '918f2e0f4e19f990', name: 'Front door', schema: [{ sensorId: 1, ... }, ...] },
+//   { id: '918f2e0f4e19f990', name: 'Back door', schema: [{ sensorId: 1, ... }, ...] }
+// ]
 ```
 
 #### publishData(id, data): Promise&lt;Void&gt;
@@ -226,24 +227,24 @@ Publish data as a device. Called when a device publishes data on the fog.
 
 ##### Arguments
 
-* `id` **String** device ID (KNoT ID)
-* `data` **Array** data items to be published, each one formed by:
-  * `sensorId` **Number** sensor ID
-  * `value` **Number|Boolean|String** sensor value
+- `id` **String** device ID (KNoT ID)
+- `data` **Array** data items to be published, each one formed by:
+  - `sensorId` **Number** sensor ID
+  - `value` **Number|Boolean|String** sensor value
 
 ##### Example
 
 ```javascript
 await connector.start();
-await connector.publishData('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
+await connector.publishData("918f2e0f4e19f990", [
   {
     sensorId: 1,
-    value: false
+    value: false,
   },
   {
     sensorId: 2,
     value: 1000,
-  }
+  },
 ]);
 ```
 
@@ -253,13 +254,13 @@ Update the device schema. Called when a device updates its schema on the fog.
 
 ##### Arguments
 
-* `id` **String** device ID (KNoT ID)
-* `schema` **Array** schema items, each one formed by:
-  * `sensorId` **Number** sensor ID
-  * `valueType` **Number** semantic value type (voltage, current, temperature, etc)
-  * `unit` **Number** sensor unit (V, A, W, W, etc)
-  * `typeId` **Number** data value type (boolean, integer, etc)
-  * `name` **String** sensor name
+- `id` **String** device ID (KNoT ID)
+- `schema` **Array** schema items, each one formed by:
+  - `sensorId` **Number** sensor ID
+  - `valueType` **Number** semantic value type (voltage, current, temperature, etc)
+  - `unit` **Number** sensor unit (V, A, W, W, etc)
+  - `typeId` **Number** data value type (boolean, integer, etc)
+  - `name` **String** sensor name
 
 Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for more information on the possible values for each field.
 
@@ -269,12 +270,12 @@ Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for mor
 
 ```javascript
 await connector.start();
-await connector.updateSchema('656123c6-5666-4a5c-9e8e-e2b611a2e66b', [
+await connector.updateSchema('918f2e0f4e19f990', [
   {
     sensorId: 1,
     valueType: 0xFFF1, // Switch
-    unit: 0, // NA
-    typeId: 3, // Boolean
+    unit: 0,           // NA
+    typeId: 3,         // Boolean
     name: 'Door lock',
   },
   {
@@ -290,18 +291,21 @@ Register a callback to handle data requests from the cloud. Called when a cloud 
 
 ##### Arguments
 
-* `cb` **Function** event handler defined as `cb(id, sensorId)` where:
-  * `id` **Number** device ID (KNoT ID)
-  * `sensorIds` **Array** IDs of the sensor to send last value (**Number**)
+- `cb` **Function** event handler defined as `cb(id, sensorId)` where:
+  - `id` **Number** device ID (KNoT ID)
+  - `sensorIds` **Array** IDs of the sensor to send last value (**Number**)
 
 ##### Example
 
 ```javascript
 await connector.start();
 await connector.onDataRequested((id, sensorIds) => {
-  console.log(`New data from '${sensorIds}' on device '${id}' is being requested`);
-  // New data from '1,2' on device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' is being requested
+  console.log(
+    `New data from '${sensorIds}' on device '${id}' is being requested`
+  );
 });
+
+// New data from '1,2' on device '918f2e0f4e19f990' is being requested
 ```
 
 #### onDataUpdated(cb): Promise&lt;Void&gt;
@@ -310,11 +314,11 @@ Register a callback to handle data updates from the cloud. Called when a cloud a
 
 ##### Arguments
 
-* `cb` **Function** event handler defined as `cb(id, data)` where:
-  * `id` **Number** device ID (KNoT ID)
-  * `data` **Array** updates for sensors/actuators, each one formed by:
-    * `sensorId` **Number** ID of the sensor to update
-    * `data` **Number|Boolean|String** data to be written
+- `cb` **Function** event handler defined as `cb(id, data)` where:
+  - `id` **Number** device ID (KNoT ID)
+  - `data` **Array** updates for sensors/actuators, each one formed by:
+    - `sensorId` **Number** ID of the sensor to update
+    - `data` **Number|Boolean|String** data to be written
 
 ##### Example
 
@@ -322,8 +326,9 @@ Register a callback to handle data updates from the cloud. Called when a cloud a
 await connector.start();
 await connector.onDataUpdated((id, sensorId, data) => {
   console.log(`Update actuator '${sensorId}' on device '${id}' to ${data}`);
-  // Update actuator '2' on device '656123c6-5666-4a5c-9e8e-e2b611a2e66b' to 1000
 });
+
+// Update actuator '2' on device '918f2e0f4e19f990' to 1000
 ```
 
 #### onDeviceUnregistered(cb): Promise&lt;Void&gt;
@@ -332,8 +337,8 @@ Register a callback to handle devices removed from the cloud. Called when a clou
 
 ##### Arguments
 
-* `cb` **Function** event handler defined as `cb(id)` where:
-  * `id` **Number** device ID (KNoT ID)
+- `cb` **Function** event handler defined as `cb(id)` where:
+  - `id` **Number** device ID (KNoT ID)
 
 ##### Example
 
@@ -341,8 +346,9 @@ Register a callback to handle devices removed from the cloud. Called when a clou
 await connector.start();
 await connector.onDeviceUnregistered((id) => {
   console.log(`Device '${id}' removed`);
-  // Device '2' removed
 });
+
+// Device '2' removed
 ```
 
 #### onDisconnected(cb): Promise&lt;Void&gt;
@@ -351,15 +357,17 @@ Register a callback to handle gateway disconnection.
 
 ##### Arguments
 
-* `cb` **Function** event handler.
+- `cb` **Function** event handler.
 
 ##### Example
 
 ```javascript
 await connector.start();
 await connector.onDisconnected(() => {
-  console.log('Disconnected');
+  console.log("Disconnected");
 });
+
+// Disconnected
 ```
 
 #### onReconnected(cb): Promise&lt;Void&gt;
@@ -368,13 +376,15 @@ Register a callback to handle gateway reconnection.
 
 ##### Arguments
 
-* `cb` **Function** event handler.
+- `cb` **Function** event handler.
 
 ##### Example
 
 ```javascript
 await connector.start();
 await connector.onReconnected(() => {
-  console.log('Reconnected');
+  console.log("Reconnected");
 });
+
+// Reconnected
 ```
