@@ -33,23 +33,22 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
 #### KNoT-Cloud
 
 * `cloud` **Object** cloud parameters
-  * `protocol` **String** (Optional) Either `'ws'` or `'wss'` (Default: **wss**)
-  * `hostname` **String** KNoT Cloud hostname
-  * `port` **Number** (Optional) knot cloud protocol adapter instance port (Default: **443**)
-  * `pathname` **String** (Optional) path name on the server
-  * `id` **String** device ID
-  * `token` **String** device token
+  * `token` **String** User access token.
+  * `hostname` **String** AMQP broker hostname.
+  * `port` **Number** AMQP broker port.
+  * `username` **String** AMQP broker username.
+  * `password` **String** AMQP broker password.
 
 ```json
 {
   "cloudType": "KNOT_CLOUD",
   "cloud": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODc0MzI2NjQsImlhdCI6MTU4NzM5NjY2NCwiaXNzIjoibWFpbmZsdXguYXV0aG4iLCJzdWIiOiJsZWxlY28yQGtub3QuY29tIiwidHlwZSI6MH0.LW-z53DYEYd5NCck1PnBOjDT3a7plWST_8CfEwrHoUs",
     "hostname": "localhost",
-    "port": 3004,
-    "pathname": "/ws",
-    "uuid": "78159106-41ca-4022-95e8-2511695ce64c",
-    "token": "d5265dbc4576a88f8654a8fc2c4d46a6d7b85574"
-  }
+    "port": 5672,
+    "username": "knot",
+    "password": "knot"
+  },
 }
 ```
 
