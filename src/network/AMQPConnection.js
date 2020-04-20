@@ -5,14 +5,16 @@ class AMQPConnection {
     this.url = `amqp://${settings.username}:${settings.password}@${settings.hostname}:${settings.port}`;
   }
 
-  async start(setupFunction) {
-    const connection = await amqplib.connect([this.url]);
-    connection.createChannel({
-      json: true,
-      setup: (channel) => {
-        this.channel = channel;
-        setupFunction(channel);
-      },
+  async start() {
+    return new Promise(async (resolve) => {
+      const connection = await amqplib.connect([this.url]);
+      connection.createChannel({
+        json: true,
+        setup: (channel) => {
+          this.channel = channel;
+          resolve(channel);
+        },
+      });
     });
   }
 
