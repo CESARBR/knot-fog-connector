@@ -9,7 +9,7 @@
 		"syslog": false,
 		"level": "info"
 	},
-	"rabbitMQ": {
+	"fog": {
 		"hostname": "localhost",
 		"port": 5672,
 		"username": "guest",
