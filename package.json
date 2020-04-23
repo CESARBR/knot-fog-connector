@@ -18,16 +18,13 @@
   "dependencies": {
     "@cesarbr/knot-fog-connector-fiware": "^3.0.0",
     "@cesarbr/knot-fog-connector-knot-cloud": "^2.1.0",
-    "@cesarbr/meshblu": "^1.34.3",
     "amqp-connection-manager": "^3.1.0",
     "amqplib": "^0.5.5",
     "config": "^2.0.1",
-    "is-base64": "0.0.6",
     "joi": "^14.3.1",
     "lodash": "^4.17.15",
     "nodemon": "^1.18.10",
     "pre-commit": "^1.2.2",
-    "request": "^2.87.0",
     "winston": "^3.0.0",
     "winston-syslog": "^2.0.0"
   },
