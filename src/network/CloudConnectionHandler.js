@@ -25,7 +25,7 @@ class CloudConnectionHandler {
 
   async onDataRequested(id, sensorIds) {
     logger.debug(`Data requested from ${sensorIds} of thing ${id}`);
-    await this.queue.sendDataRequest({ id, data: sensorIds });
+    await this.queue.sendDataRequest({ id, sensorIds });
   }
 
   async onDeviceUnregistered(id) {
