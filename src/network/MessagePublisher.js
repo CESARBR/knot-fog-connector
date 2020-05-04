@@ -1,5 +1,5 @@
-const exchangeName = 'connOut';
 const exchangeControl = 'control';
+const dataExchange = 'data';
 const expirationTime = 10000;
 
 class MessagePublisher {
@@ -9,11 +9,11 @@ class MessagePublisher {
   }
 
   async sendDataUpdate(body) {
-    await this.queue.send(exchangeName, 'topic', 'data.update', body, { Authorization: this.token }, expirationTime);
+    await this.queue.send(dataExchange, 'direct', 'data.update', body, { Authorization: this.token }, expirationTime);
   }
 
   async sendDataRequest(body) {
-    await this.queue.send(exchangeName, 'topic', 'data.request', body, { Authorization: this.token }, expirationTime);
+    await this.queue.send(dataExchange, 'direct', 'data.request', body, { Authorization: this.token }, expirationTime);
   }
 
   async sendDisconnected() {
