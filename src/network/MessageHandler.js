@@ -18,36 +18,44 @@ class MessageHandler {
         'device.register': {
           method: this.devicesService.register.bind(this.devicesService),
           noAck: true,
+          exchangeType: 'topic',
         },
         'device.unregister': {
           method: this.devicesService.unregister.bind(this.devicesService),
           noAck: true,
+          exchangeType: 'topic',
         },
         'device.cmd.auth': {
           method: this.devicesService.auth.bind(this.devicesService),
           noAck: true,
+          exchangeType: 'topic',
         },
         'device.cmd.list': {
           method: this.devicesService.list.bind(this.devicesService),
           noAck: true,
+          exchangeType: 'topic',
         },
         'schema.update': {
           method: this.devicesService.updateSchema.bind(this.devicesService),
           noAck: true,
+          exchangeType: 'topic',
         },
         'data.publish': {
           method: this.dataService.publish.bind(this.dataService),
           noAck: true,
+          exchangeType: 'topic',
         },
       },
       control: {
         disconnected: {
           method: this.handleDisconnected.bind(this),
           noAck: false,
+          exchangeType: 'topic',
         },
         reconnected: {
           method: this.handleReconnected.bind(this),
           noAck: false,
+          exchangeType: 'topic',
         },
       },
     };
@@ -101,9 +109,9 @@ class MessageHandler {
 
   async listenToQueueMessages(type) {
     _.keys(this.handlers[type]).forEach(async (key) => {
-      const { noAck } = this.handlers[type][key];
+      const { noAck, exchangeType } = this.handlers[type][key];
       const { consumerTag } = await this.amqpConnection.onMessage(
-        type, key, this.handleMessage.bind(this), noAck,
+        type, exchangeType, key, this.handleMessage.bind(this), noAck,
       );
       this.handlers[type][key].consumerTag = consumerTag;
     });
