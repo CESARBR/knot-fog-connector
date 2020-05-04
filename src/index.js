@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 // Infrastructure
 import SettingsFactory from 'data/SettingsFactory';
-import DeviceStore from 'data/DeviceStore';
 import CloudConnectorFactory from 'network/CloudConnectorFactory';
 import CloudConnectionHandler from 'network/CloudConnectionHandler';
 import AMQPConnectionFactory from 'network/AMQPConnectionFactory';
@@ -16,7 +15,6 @@ async function main() {
 
   try {
     const settings = new SettingsFactory().create();
-    const deviceStore = new DeviceStore();
 
     logger.info(`Connecting to '${settings.cloudType}' cloud`);
     const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
@@ -32,7 +30,6 @@ async function main() {
     const publisher = new MessagePublisher(amqpConnection, settings.fog.token);
     const cloudConnectionHandler = new CloudConnectionHandler(cloud, publisher);
     const messageHandler = new MessageHandlerFactory(
-      deviceStore,
       cloud,
       amqpConnection,
       amqpChannel,

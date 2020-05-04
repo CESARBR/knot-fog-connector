@@ -1,8 +1,7 @@
 import logger from 'util/logger';
 
 class UnregisterDevice {
-  constructor(deviceStore, cloudConnector, publisher) {
-    this.deviceStore = deviceStore;
+  constructor(cloudConnector, publisher) {
     this.cloudConnector = cloudConnector;
     this.publisher = publisher;
   }
@@ -11,7 +10,6 @@ class UnregisterDevice {
     logger.debug(`Device ${device.id} removed`);
     try {
       await this.cloudConnector.removeDevice(device.id);
-      await this.deviceStore.remove(device);
     } catch (err) {
       logger.error(err.stack);
       await this.publisher.sendUnregisteredDevice({ id: device.id, error: err.message });
