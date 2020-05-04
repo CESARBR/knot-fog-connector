@@ -1,8 +1,7 @@
 import logger from 'util/logger';
 
 class RegisterDevice {
-  constructor(deviceStore, cloudConnector, publisher) {
-    this.deviceStore = deviceStore;
+  constructor(cloudConnector, publisher) {
     this.cloudConnector = cloudConnector;
     this.publisher = publisher;
   }
@@ -18,7 +17,6 @@ class RegisterDevice {
     try {
       msgResponse = await this.cloudConnector.addDevice(deviceToBeSaved);
       msgResponse.error = null;
-      await this.deviceStore.add(deviceToBeSaved);
     } catch (error) {
       logger.error(error.message);
       msgResponse = { id, token: '', error: error.message };

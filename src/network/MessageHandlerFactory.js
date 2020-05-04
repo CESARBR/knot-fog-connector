@@ -9,8 +9,7 @@ import PublishData from 'interactors/PublishData';
 import DataService from 'services/DataService';
 
 class MessageHandlerFactory {
-  constructor(deviceStore, cloud, amqpConnection, amqpChannel, publisher) {
-    this.deviceStore = deviceStore;
+  constructor(cloud, amqpConnection, amqpChannel, publisher) {
     this.cloud = cloud;
     this.amqpConnection = amqpConnection;
     this.amqpChannel = amqpChannel;
@@ -19,19 +18,19 @@ class MessageHandlerFactory {
 
   create() {
     const {
-      deviceStore, cloud, amqpConnection, publisher,
+      cloud, amqpConnection, publisher,
     } = this;
 
-    const registerDevice = new RegisterDevice(deviceStore, cloud, publisher);
-    const unregisterDevice = new UnregisterDevice(deviceStore, cloud, publisher);
-    const updateSchema = new UpdateSchema(deviceStore, cloud, publisher);
+    const registerDevice = new RegisterDevice(cloud, publisher);
+    const unregisterDevice = new UnregisterDevice(cloud, publisher);
+    const updateSchema = new UpdateSchema(cloud, publisher);
     const devicesService = new DevicesService(
       registerDevice,
       unregisterDevice,
       updateSchema,
     );
 
-    const publishData = new PublishData(deviceStore, cloud);
+    const publishData = new PublishData(cloud);
     const dataService = new DataService(
       publishData,
     );
