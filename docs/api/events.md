@@ -29,6 +29,7 @@ Event that represents a thing was registered.
   JSON in the following format:
 
   - `id` **String** thing's ID
+  - `name` **String** thing's name
   - `token` **String** thing's token
   - `error` **String** detailed error message
 
@@ -37,6 +38,7 @@ Event that represents a thing was registered.
   ```json
   {
     "id": "fbe64efa6c7f717e",
+    "name": "my-thing",
     "token": "5b67ce6bef21701331152d6297e1bd2b22f91787",
     "error": null
   }
@@ -119,7 +121,15 @@ Event that represents a thing's schema was updated.
   JSON in the following format:
 
   - `id` **String** thing's ID
+  - `schema` **Array** schema items, each one formed by:
+    * `sensorId` **Number** sensor ID
+    * `typeId` **Number** semantic value type (voltage, current, temperature, etc)
+    * `valueType` **Number** data value type (boolean, integer, etc)
+    * `unit` **Number** sensor unit (V, A, W, etc)
+    * `name` **String** sensor name
   - `error` **String** detailed error message
+
+  The semantic specification that defines `valueType`, `unit` and `typeId` properties can be find [here](https://knot-devel.cesar.org.br/doc/thing/unit-type-value.html)
 
   Success example:
 
@@ -234,7 +244,7 @@ Event-command to request data from a thing's sensor. After receiving this event,
 
   - Exchange:
     - Type: direct
-    - Name: device
+    - Name: data
     - Durable: `true`
     - Auto-delete: `false`
   - Routing key: data.request
@@ -280,7 +290,7 @@ Event-command to update a thing's sensor data. After receiving this event, [`bab
 
   - Exchange:
     - Type: direct
-    - Name: device
+    - Name: data
     - Durable: `true`
     - Auto-delete: `false`
   - Routing key: data.update
