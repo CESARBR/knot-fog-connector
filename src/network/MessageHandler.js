@@ -25,16 +25,6 @@ class MessageHandler {
           noAck: true,
           exchangeType: 'topic',
         },
-        'device.cmd.auth': {
-          method: this.devicesService.auth.bind(this.devicesService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
-        'device.cmd.list': {
-          method: this.devicesService.list.bind(this.devicesService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
         'schema.update': {
           method: this.devicesService.updateSchema.bind(this.devicesService),
           noAck: true,
