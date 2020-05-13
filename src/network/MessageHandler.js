@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import logger from 'util/logger';
 
-const exchangeConnectorIn = 'connIn';
 const deviceExchange = 'device';
+const publishDataExchange = 'data.published';
 
 class MessageHandler {
   constructor(devicesService, dataService, amqpConnection, amqpChannel) {
@@ -15,13 +15,6 @@ class MessageHandler {
 
   mapMessageHandlers() {
     return {
-      [exchangeConnectorIn]: {
-        'data.publish': {
-          method: this.dataService.publish.bind(this.dataService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
-      },
       control: {
         disconnected: {
           method: this.handleDisconnected.bind(this),
@@ -63,6 +56,15 @@ class MessageHandler {
           exchangeType: 'direct',
         },
       },
+      [publishDataExchange]: {
+        '': {
+          method: (message) => {
+            this.dataService.publish(message);
+          },
+          noAck: true,
+          exchangeType: 'fanout',
+        },
+      },
     };
   }
 
@@ -83,13 +85,13 @@ class MessageHandler {
   }
 
   async handleDisconnected() {
-    _.keys(this.handlers[exchangeConnectorIn]).forEach(async (key) => {
-      await this.amqpConnection.cancelConsume(this.handlers[exchangeConnectorIn][key].consumerTag);
+    _.keys(this.handlers[deviceExchange]).forEach(async (key) => {
+      await this.amqpConnection.cancelConsume(this.handlers[deviceExchange][key].consumerTag);
     });
   }
 
   async handleReconnected() {
-    await this.listenToQueueMessages(exchangeConnectorIn);
+    await this.listenToQueueMessages(deviceExchange);
   }
 
   async handleMessage(msg) {
