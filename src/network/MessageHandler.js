@@ -67,7 +67,8 @@ class MessageHandler {
 
   getHandler(type, key) {
     if (!this.handlers[type][key]) {
-      throw new Error(`Unknown event type ${type}.${key}`);
+      logger.error(Error(`Unknown event type ${type}.${key}`));
+      return null;
     }
     return this.handlers[type][key].method;
   }
@@ -92,17 +93,19 @@ class MessageHandler {
     const { exchange, routingKey } = fields;
     const handler = this.getHandler(exchange, routingKey);
 
-    logger.debug(`Receive message ${exchange}.${routingKey}`);
-    logger.debug(JSON.stringify(data));
-    try {
-      await handler(data);
-      if (!this.isNoAck(exchange, routingKey)) {
-        this.amqpChannel.ack(msg);
-      }
-    } catch (err) {
-      logger.error(err.stack);
-      if (!this.isNoAck(exchange, routingKey)) {
-        this.amqpChannel.nack(msg);
+    if (handler) {
+      logger.debug(`Receive message ${exchange}.${routingKey}`);
+      logger.debug(JSON.stringify(data));
+      try {
+        await handler(data);
+        if (!this.isNoAck(exchange, routingKey)) {
+          this.amqpChannel.ack(msg);
+        }
+      } catch (err) {
+        logger.error(err.stack);
+        if (!this.isNoAck(exchange, routingKey)) {
+          this.amqpChannel.nack(msg);
+        }
       }
     }
   }
