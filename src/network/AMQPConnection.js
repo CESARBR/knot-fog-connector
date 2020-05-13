@@ -30,7 +30,7 @@ class AMQPConnection {
 
   async onMessage(exchangeName, exchangeType, key, callback, noAck) {
     await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
-    const { queue } = await this.channel.assertQueue(`${exchangeName}-messages`, { durable: true });
+    const { queue } = await this.channel.assertQueue('connector-event-messages', { durable: true });
     await this.channel.bindQueue(queue, exchangeName, key);
     return this.channel.consume(queue, callback, { noAck });
   }
