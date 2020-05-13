@@ -3,15 +3,11 @@ class DevicesService {
     loadDevicesInteractor,
     registerDeviceInteractor,
     unregisterDeviceInteractor,
-    authDeviceInteractor,
-    listDevicesInteractor,
     updateSchemaInteractor,
   ) {
     this.loadDevicesInteractor = loadDevicesInteractor;
     this.registerDeviceInteractor = registerDeviceInteractor;
     this.unregisterDeviceInteractor = unregisterDeviceInteractor;
-    this.authDeviceInteractor = authDeviceInteractor;
-    this.listDevicesInteractor = listDevicesInteractor;
     this.updateSchemaInteractor = updateSchemaInteractor;
   }
 
@@ -23,20 +19,12 @@ class DevicesService {
     await this.unregisterDeviceInteractor.execute(device);
   }
 
-  async auth(credentials) {
-    await this.authDeviceInteractor.execute(credentials.id, credentials.token);
-  }
-
   async updateSchema(device) {
     await this.updateSchemaInteractor.execute(device);
   }
 
   async load() {
     await this.loadDevicesInteractor.execute();
-  }
-
-  async list() {
-    return this.listDevicesInteractor.execute();
   }
 }
 
