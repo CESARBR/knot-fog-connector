@@ -2,6 +2,7 @@ import _ from 'lodash';
 import logger from 'util/logger';
 
 const exchangeConnectorIn = 'connIn';
+const deviceExchange = 'device';
 
 class MessageHandler {
   constructor(devicesService, dataService, amqpConnection, amqpChannel) {
@@ -15,21 +16,6 @@ class MessageHandler {
   mapMessageHandlers() {
     return {
       [exchangeConnectorIn]: {
-        'device.register': {
-          method: this.devicesService.register.bind(this.devicesService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
-        'device.unregister': {
-          method: this.devicesService.unregister.bind(this.devicesService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
-        'schema.update': {
-          method: this.devicesService.updateSchema.bind(this.devicesService),
-          noAck: true,
-          exchangeType: 'topic',
-        },
         'data.publish': {
           method: this.dataService.publish.bind(this.dataService),
           noAck: true,
@@ -46,6 +32,35 @@ class MessageHandler {
           method: this.handleReconnected.bind(this),
           noAck: false,
           exchangeType: 'topic',
+        },
+      },
+      [deviceExchange]: {
+        'device.registered': {
+          method: ({ error, ...message }) => {
+            if (!error) {
+              this.devicesService.register(message);
+            }
+          },
+          noAck: true,
+          exchangeType: 'direct',
+        },
+        'device.unregistered': {
+          method: ({ error, ...message }) => {
+            if (!error) {
+              this.devicesService.unregister(message);
+            }
+          },
+          noAck: true,
+          exchangeType: 'direct',
+        },
+        'device.schema.updated': {
+          method: ({ error, ...message }) => {
+            if (!error) {
+              this.devicesService.updateSchema(message);
+            }
+          },
+          noAck: true,
+          exchangeType: 'direct',
         },
       },
     };

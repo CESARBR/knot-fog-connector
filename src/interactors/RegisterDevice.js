@@ -6,23 +6,13 @@ class RegisterDevice {
     this.publisher = publisher;
   }
 
-  async execute({ id, name }) {
-    logger.debug(`Device ${id} added`);
-    const deviceToBeSaved = {
-      id,
-      name,
-    };
-    let msgResponse;
-
+  async execute(device) {
     try {
-      msgResponse = await this.cloudConnector.addDevice(deviceToBeSaved);
-      msgResponse.error = null;
-    } catch (error) {
-      logger.error(error.message);
-      msgResponse = { id, token: '', error: error.message };
+      await this.cloudConnector.addDevice(device);
+      logger.debug(`Device ${device.id} added`);
+    } catch (err) {
+      logger.error(err.message);
     }
-
-    await this.publisher.sendRegisteredDevice(msgResponse);
   }
 }
 
