@@ -111,8 +111,6 @@ class MessageHandler {
   }
 
   async start() {
-    await this.devicesService.load();
-
     _.keys(this.handlers).forEach(async (key) => {
       await this.listenToQueueMessages(key);
     });
