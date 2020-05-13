@@ -33,7 +33,6 @@ async function main() {
       cloud,
       amqpConnection,
       amqpChannel,
-      publisher,
     ).create();
 
     await cloudConnectionHandler.start();
