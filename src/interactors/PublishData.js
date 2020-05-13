@@ -1,3 +1,4 @@
+import logger from 'util/logger';
 import convertToCamelCase from 'util/camelCase';
 
 class PublishData {
@@ -6,7 +7,12 @@ class PublishData {
   }
 
   async execute(id, data) {
-    await this.cloudConnector.publishData(id, data.map(d => convertToCamelCase(d)));
+    try {
+      await this.cloudConnector.publishData(id, data.map(d => convertToCamelCase(d)));
+      logger.debug(`Device ${id} data sent`);
+    } catch (err) {
+      logger.error(err.message);
+    }
   }
 }
 
