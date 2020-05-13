@@ -7,12 +7,11 @@ class UnregisterDevice {
   }
 
   async execute(device) {
-    logger.debug(`Device ${device.id} removed`);
     try {
       await this.cloudConnector.removeDevice(device.id);
+      logger.debug(`Device ${device.id} removed`);
     } catch (err) {
-      logger.error(err.stack);
-      await this.publisher.sendUnregisteredDevice({ id: device.id, error: err.message });
+      logger.error(err.message);
     }
   }
 }
