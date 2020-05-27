@@ -1,5 +1,9 @@
 {
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "env": {
+    "jest/globals": true
+  },
+  "extends": ["airbnb-base", "plugin:jest/recommended", "plugin:jest/style", "plugin:prettier/recommended"],
+  "plugins": ["jest"],
   "rules": {
     "class-methods-use-this": "off"
   },
