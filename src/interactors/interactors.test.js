@@ -2,6 +2,7 @@ import Cloud, * as cloudMocks from '@cesarbr/knot-fog-connector-knot-cloud';
 import RegisterDevice from './RegisterDevice';
 import UnregisterDevice from './UnregisterDevice';
 import UpdateSchema from './UpdateSchema';
+import PublishData from './PublishData';
 
 jest.mock('@cesarbr/knot-fog-connector-knot-cloud');
 
@@ -18,6 +19,12 @@ const mockThing = {
     },
   ],
 };
+const mockData = [
+  {
+    sensorId: 0,
+    value: true,
+  },
+];
 
 describe('Interactors', () => {
   beforeEach(() => {
@@ -69,5 +76,19 @@ describe('Interactors', () => {
     const updateSchema = new UpdateSchema(cloud);
     await updateSchema.execute(mockThing);
     expect(cloudMocks.mockUpdateSchema).toHaveBeenCalled();
+  });
+
+  test("should execute correctly when publishing a thing's data to the cloud", async () => {
+    const cloud = new Cloud();
+    const publishData = new PublishData(cloud);
+    await publishData.execute(mockThing.id, mockData);
+    expect(cloudMocks.mockPublishData).toHaveBeenCalled();
+  });
+
+  test("should execute without errors when publishing a thing's data to cloud fails", async () => {
+    const cloud = new Cloud({ publishDataErr: "fail to publish thing's data" });
+    const publishData = new PublishData(cloud);
+    await publishData.execute(mockThing.id, mockData);
+    expect(cloudMocks.mockPublishData).toHaveBeenCalled();
   });
 });
