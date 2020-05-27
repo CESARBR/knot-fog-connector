@@ -1,9 +1,8 @@
 import logger from 'util/logger';
 
 class RegisterDevice {
-  constructor(cloudConnector, publisher) {
+  constructor(cloudConnector) {
     this.cloudConnector = cloudConnector;
-    this.publisher = publisher;
   }
 
   async execute(device) {

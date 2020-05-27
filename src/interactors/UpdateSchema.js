@@ -2,9 +2,8 @@ import logger from 'util/logger';
 import convertToCamelCase from 'util/camelCase';
 
 class UpdateSchema {
-  constructor(cloudConnector, publisher) {
+  constructor(cloudConnector) {
     this.cloudConnector = cloudConnector;
-    this.publisher = publisher;
   }
 
   async execute(device) {
