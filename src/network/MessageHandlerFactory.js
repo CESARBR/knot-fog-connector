@@ -16,9 +16,7 @@ class MessageHandlerFactory {
   }
 
   create() {
-    const {
-      cloud, amqpConnection,
-    } = this;
+    const { cloud, amqpConnection } = this;
 
     const registerDevice = new RegisterDevice(cloud);
     const unregisterDevice = new UnregisterDevice(cloud);
@@ -26,19 +24,17 @@ class MessageHandlerFactory {
     const devicesService = new DevicesService(
       registerDevice,
       unregisterDevice,
-      updateSchema,
+      updateSchema
     );
 
     const publishData = new PublishData(cloud);
-    const dataService = new DataService(
-      publishData,
-    );
+    const dataService = new DataService(publishData);
 
     return new MessageHandler(
       devicesService,
       dataService,
       amqpConnection,
-      this.amqpChannel,
+      this.amqpChannel
     );
   }
 }

@@ -19,18 +19,25 @@ class AMQPConnection {
   }
 
   async send(exchangeName, exchangeType, key, message, headers, expiration) {
-    await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
+    await this.channel.assertExchange(exchangeName, exchangeType, {
+      durable: true,
+    });
     await this.channel.publish(
       exchangeName,
       key,
       Buffer.from(JSON.stringify(message)),
-      { persistent: true, expiration, headers },
+      { persistent: true, expiration, headers }
     );
   }
 
   async onMessage(exchangeName, exchangeType, key, callback, noAck) {
-    await this.channel.assertExchange(exchangeName, exchangeType, { durable: true });
-    const { queue } = await this.channel.assertQueue('connector-event-messages', { durable: true });
+    await this.channel.assertExchange(exchangeName, exchangeType, {
+      durable: true,
+    });
+    const { queue } = await this.channel.assertQueue(
+      'connector-event-messages',
+      { durable: true }
+    );
     await this.channel.bindQueue(queue, exchangeName, key);
     return this.channel.consume(queue, callback, { noAck });
   }

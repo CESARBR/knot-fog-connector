@@ -1,7 +1,5 @@
 class DataService {
-  constructor(
-    publishDataInteractor,
-  ) {
+  constructor(publishDataInteractor) {
     this.publishDataInteractor = publishDataInteractor;
   }
 

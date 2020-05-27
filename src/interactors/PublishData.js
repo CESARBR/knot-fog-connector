@@ -8,7 +8,10 @@ class PublishData {
 
   async execute(id, data) {
     try {
-      await this.cloudConnector.publishData(id, data.map(d => convertToCamelCase(d)));
+      await this.cloudConnector.publishData(
+        id,
+        data.map((d) => convertToCamelCase(d))
+      );
       logger.debug(`Device ${id} data sent`);
     } catch (err) {
       logger.error(err.message);

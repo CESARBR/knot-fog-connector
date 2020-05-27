@@ -86,7 +86,9 @@ class MessageHandler {
 
   async handleDisconnected() {
     _.keys(this.handlers[deviceExchange]).forEach(async (key) => {
-      await this.amqpConnection.cancelConsume(this.handlers[deviceExchange][key].consumerTag);
+      await this.amqpConnection.cancelConsume(
+        this.handlers[deviceExchange][key].consumerTag
+      );
     });
   }
 
@@ -121,7 +123,11 @@ class MessageHandler {
     _.keys(this.handlers[type]).forEach(async (key) => {
       const { noAck, exchangeType } = this.handlers[type][key];
       const { consumerTag } = await this.amqpConnection.onMessage(
-        type, exchangeType, key, this.handleMessage.bind(this), noAck,
+        type,
+        exchangeType,
+        key,
+        this.handleMessage.bind(this),
+        noAck
       );
       this.handlers[type][key].consumerTag = consumerTag;
     });

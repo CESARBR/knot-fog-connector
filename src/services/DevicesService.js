@@ -2,7 +2,7 @@ class DevicesService {
   constructor(
     registerDeviceInteractor,
     unregisterDeviceInteractor,
-    updateSchemaInteractor,
+    updateSchemaInteractor
   ) {
     this.registerDeviceInteractor = registerDeviceInteractor;
     this.unregisterDeviceInteractor = unregisterDeviceInteractor;

@@ -9,7 +9,10 @@ class UpdateSchema {
 
   async execute(device) {
     try {
-      await this.cloudConnector.updateSchema(device.id, convertToCamelCase(device.schema));
+      await this.cloudConnector.updateSchema(
+        device.id,
+        convertToCamelCase(device.schema)
+      );
       logger.debug(`Device ${device.id} schema updated`);
     } catch (err) {
       logger.error(err.message);
