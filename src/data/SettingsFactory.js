@@ -56,7 +56,9 @@ class SettingsFactory {
   }
 
   validate(propertyName, propertyValue, schema) {
-    const { error } = Joi.validate(propertyValue, schema, { abortEarly: false });
+    const { error } = Joi.validate(propertyValue, schema, {
+      abortEarly: false,
+    });
     if (error) {
       throw this.mapJoiError(propertyName, error);
     }
@@ -64,9 +66,13 @@ class SettingsFactory {
 
   mapJoiError(propertyName, error) {
     const reasons = _.map(error.details, 'message');
-    const formattedReasons = reasons.length > 1
-      ? `\n${_.chain(reasons).map(reason => `- ${reason}`).join('\n').value()}`
-      : reasons[0];
+    const formattedReasons =
+      reasons.length > 1
+        ? `\n${_.chain(reasons)
+            .map((reason) => `- ${reason}`)
+            .join('\n')
+            .value()}`
+        : reasons[0];
     return new Error(`Invalid "${propertyName}" property: ${formattedReasons}`);
   }
 }

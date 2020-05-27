@@ -17,7 +17,10 @@ async function main() {
     const settings = new SettingsFactory().create();
 
     logger.info(`Connecting to '${settings.cloudType}' cloud`);
-    const cloud = CloudConnectorFactory.create(settings.cloudType, settings.cloud);
+    const cloud = CloudConnectorFactory.create(
+      settings.cloudType,
+      settings.cloud
+    );
 
     if (settings.runAs.enabled) {
       process.setgid(settings.runAs.group);
@@ -32,7 +35,7 @@ async function main() {
     const messageHandler = new MessageHandlerFactory(
       cloud,
       amqpConnection,
-      amqpChannel,
+      amqpChannel
     ).create();
 
     await cloudConnectionHandler.start();
