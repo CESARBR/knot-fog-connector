@@ -1,5 +1,5 @@
 const exchangeControl = 'control';
-const dataExchange = 'data';
+const deviceExchange = 'device';
 const expirationTime = 10000;
 
 class MessagePublisher {
@@ -10,7 +10,7 @@ class MessagePublisher {
 
   async sendDataUpdate(body) {
     await this.queue.send(
-      dataExchange,
+      deviceExchange,
       'direct',
       'data.update',
       body,
@@ -21,7 +21,7 @@ class MessagePublisher {
 
   async sendDataRequest(body) {
     await this.queue.send(
-      dataExchange,
+      deviceExchange,
       'direct',
       'data.request',
       body,
