@@ -35,7 +35,7 @@ class AMQPConnection {
       durable: true,
     });
     const { queue } = await this.channel.assertQueue(
-      'connector-event-messages',
+      `connector-event-${exchangeName}`,
       { durable: true }
     );
     await this.channel.bindQueue(queue, exchangeName, key);
