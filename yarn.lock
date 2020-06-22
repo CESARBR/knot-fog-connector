@@ -849,10 +849,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cesarbr/knot-cloud-sdk-js-amqp@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-1.0.1.tgz#a64645873b99abdb6b37e25ef1269c6e065ac123"
-  integrity sha512-undRzIz5IpXpLUC25jYbfbOGFdkpnnBnV0JtVLj6LXLl4BR0fFxk6pl10H1fwSRDJ0TfT5UDjqBsuJQ5o37u4Q==
+"@cesarbr/knot-cloud-sdk-js-amqp@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-2.0.0.tgz#a2f8461c6ced516745e1dea21ec1293d08bc7b4a"
+  integrity sha512-JgyqaanMwVdqMVEpwcKUf6qJ6T6cRmvdT6u+72ZVhNnsRNLqXBLfpViEv3OEgY44YjHMBfGt95upSZWriXzvbQ==
   dependencies:
     amqplib "^0.5.5"
     uniqid "^5.2.0"
@@ -868,12 +868,12 @@
     request "^2.88.0"
     request-promise-native "^1.0.5"
 
-"@cesarbr/knot-fog-connector-knot-cloud@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-2.1.0.tgz#b18cbc29de2ad3e5d54887d02e4b310f1699cac5"
-  integrity sha512-C9lAPxIYoq3UCweolJXGJY3UOY0i5BqXQb9vUX6VtO6p05USW65u27Fz7JuFVV0curuiIh/kyMMyDXzPQ0nQbQ==
+"@cesarbr/knot-fog-connector-knot-cloud@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-3.0.0.tgz#cbbc5395abaafe23807ebbfe04807502da3b848f"
+  integrity sha512-DVlfF7QdpLkbdlOPkAOJ9lbwPEVjhMK8eZ1cKkACsd+IHyCtrIbwaJ5qFhHiDnftTZy5k/c0y22rChuKUrJJQQ==
   dependencies:
-    "@cesarbr/knot-cloud-sdk-js-amqp" "^1.0.0"
+    "@cesarbr/knot-cloud-sdk-js-amqp" "^2.0.0"
     lodash "^4.17.13"
 
 "@cnakazawa/watch@^1.0.3":
