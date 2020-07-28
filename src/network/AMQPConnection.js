@@ -1,4 +1,5 @@
 import amqplib from 'amqp-connection-manager';
+import logger from 'util/logger';
 
 class AMQPConnection {
   constructor(settings) {
@@ -12,11 +13,17 @@ class AMQPConnection {
       connection.createChannel({
         json: true,
         setup: (channel) => {
+          logger.debug(
+            'Connection established with RabbitMQ. New channel created.'
+          );
           this.channel = channel;
           this.subscribeListeners();
           resolve(channel);
         },
       });
+      connection.on('disconnect', () =>
+        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+      );
     });
   }
 
