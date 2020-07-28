@@ -3,6 +3,7 @@ import amqplib from 'amqp-connection-manager';
 class AMQPConnection {
   constructor(settings) {
     this.url = `amqp://${settings.username}:${settings.password}@${settings.hostname}:${settings.port}`;
+    this.listeners = [];
   }
 
   async start() {
@@ -12,6 +13,7 @@ class AMQPConnection {
         json: true,
         setup: (channel) => {
           this.channel = channel;
+          this.subscribeListeners();
           resolve(channel);
         },
       });
@@ -30,20 +32,58 @@ class AMQPConnection {
     );
   }
 
+  async addListener(type, exchangeType, key, handler, noAck) {
+    this.listeners.push({
+      type,
+      exchangeType,
+      key,
+      handler,
+      noAck,
+    });
+  }
+
+  async subscribeListeners() {
+    this.listeners.forEach(async (listener, index) => {
+      const { consumerTag } = await this.onMessage(
+        listener.type,
+        listener.exchangeType,
+        listener.key,
+        listener.handler,
+        listener.noAck
+      );
+      this.listeners[index].consumerTag = consumerTag;
+    });
+  }
+
   async onMessage(exchangeName, exchangeType, key, callback, noAck) {
     await this.channel.assertExchange(exchangeName, exchangeType, {
       durable: true,
     });
+
     const { queue } = await this.channel.assertQueue(
       `connector-event-${exchangeName}`,
-      { durable: true }
+      {
+        durable: true,
+      }
     );
     await this.channel.bindQueue(queue, exchangeName, key);
     return this.channel.consume(queue, callback, { noAck });
   }
 
-  async cancelConsume(consumerTag) {
-    await this.channel.cancel(consumerTag);
+  async cancelAllConsumes(type) {
+    this.listeners.map(async (listener) => {
+      if (listener.type === type) {
+        await this.channel.cancel(listener.consumerTag);
+      }
+    });
+  }
+
+  ack(msg) {
+    this.channel.ack(msg);
+  }
+
+  nack(msg) {
+    this.channel.nack(msg);
   }
 }
 

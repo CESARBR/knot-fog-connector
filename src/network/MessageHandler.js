@@ -5,11 +5,10 @@ const deviceExchange = 'device';
 const publishDataExchange = 'data.published';
 
 class MessageHandler {
-  constructor(devicesService, dataService, amqpConnection, amqpChannel) {
+  constructor(devicesService, dataService, amqp) {
     this.devicesService = devicesService;
     this.dataService = dataService;
-    this.amqpConnection = amqpConnection;
-    this.amqpChannel = amqpChannel;
+    this.amqp = amqp;
     this.handlers = this.mapMessageHandlers();
   }
 
@@ -85,11 +84,7 @@ class MessageHandler {
   }
 
   async handleDisconnected() {
-    _.keys(this.handlers[deviceExchange]).forEach(async (key) => {
-      await this.amqpConnection.cancelConsume(
-        this.handlers[deviceExchange][key].consumerTag
-      );
-    });
+    await this.amqp.cancelAllConsumers(deviceExchange);
   }
 
   async handleReconnected() {
@@ -108,12 +103,12 @@ class MessageHandler {
       try {
         await handler(data);
         if (!this.isNoAck(exchange, routingKey)) {
-          this.amqpChannel.ack(msg);
+          this.amqp.ack(msg);
         }
       } catch (err) {
         logger.error(err.stack);
         if (!this.isNoAck(exchange, routingKey)) {
-          this.amqpChannel.nack(msg);
+          this.amqp.nack(msg);
         }
       }
     }
@@ -122,14 +117,13 @@ class MessageHandler {
   async listenToQueueMessages(type) {
     _.keys(this.handlers[type]).forEach(async (key) => {
       const { noAck, exchangeType } = this.handlers[type][key];
-      const { consumerTag } = await this.amqpConnection.onMessage(
+      await this.amqp.addListener(
         type,
         exchangeType,
         key,
         this.handleMessage.bind(this),
         noAck
       );
-      this.handlers[type][key].consumerTag = consumerTag;
     });
   }
 
@@ -137,6 +131,8 @@ class MessageHandler {
     _.keys(this.handlers).forEach(async (key) => {
       await this.listenToQueueMessages(key);
     });
+
+    await this.amqp.subscribeListeners();
   }
 }
 
