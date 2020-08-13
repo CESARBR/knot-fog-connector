@@ -30,6 +30,17 @@ class MessagePublisher {
     );
   }
 
+  async sendUpdateConfig(body) {
+    await this.queue.send(
+      deviceExchange,
+      'direct',
+      'device.config.sent',
+      body,
+      { Authorization: this.token },
+      expirationTime
+    );
+  }
+
   async sendDisconnected() {
     await this.queue.send(
       exchangeControl,
