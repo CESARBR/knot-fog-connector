@@ -2,6 +2,7 @@ import Cloud, * as cloudMocks from '@cesarbr/knot-fog-connector-knot-cloud';
 import RegisterDevice from './RegisterDevice';
 import UnregisterDevice from './UnregisterDevice';
 import UpdateSchema from './UpdateSchema';
+import UpdateConfig from './UpdateConfig';
 import PublishData from './PublishData';
 
 jest.mock('@cesarbr/knot-fog-connector-knot-cloud');
@@ -18,6 +19,15 @@ const mockThing = {
       name: 'bool-sensor',
     },
   ],
+  config: [
+    {
+      sensorId: 0,
+      change: true,
+      timeSec: 10,
+      lowerThreshold: 1000,
+      upperThreshold: 3000,
+    },
+  ],
 };
 const mockData = [
   {
@@ -31,6 +41,7 @@ describe('Interactors', () => {
     cloudMocks.mockAddDevice.mockClear();
     cloudMocks.mockRemoveDevice.mockClear();
     cloudMocks.mockUpdateSchema.mockClear();
+    cloudMocks.mockUpdateConfig.mockClear();
     cloudMocks.mockPublishData.mockClear();
   });
 
@@ -76,6 +87,22 @@ describe('Interactors', () => {
     const updateSchema = new UpdateSchema(cloud);
     await updateSchema.execute(mockThing);
     expect(cloudMocks.mockUpdateSchema).toHaveBeenCalled();
+  });
+
+  test("should execute correctly when updating a thing's config on cloud", async () => {
+    const cloud = new Cloud();
+    const updateConfig = new UpdateConfig(cloud);
+    await updateConfig.execute(mockThing);
+    expect(cloudMocks.mockUpdateConfig).toHaveBeenCalled();
+  });
+
+  test("should execute without errors when updating a thing's config on cloud fails", async () => {
+    const cloud = new Cloud({
+      updateConfigErr: "fail to update thing's config",
+    });
+    const updateConfig = new UpdateConfig(cloud);
+    await updateConfig.execute(mockThing);
+    expect(cloudMocks.mockUpdateConfig).toHaveBeenCalled();
   });
 
   test("should execute correctly when publishing a thing's data to the cloud", async () => {

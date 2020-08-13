@@ -1,6 +1,7 @@
 export const mockAddDevice = jest.fn();
 export const mockRemoveDevice = jest.fn();
 export const mockUpdateSchema = jest.fn();
+export const mockUpdateConfig = jest.fn();
 export const mockPublishData = jest.fn();
 
 export default jest.fn().mockImplementation((options = {}) => {
@@ -22,6 +23,12 @@ export default jest.fn().mockImplementation((options = {}) => {
     mockUpdateSchema.mockResolvedValue();
   }
 
+  if (options.updateConfigErr) {
+    mockUpdateConfig.mockRejectedValue(Error(options.updateConfigErr));
+  } else {
+    mockUpdateConfig.mockResolvedValue();
+  }
+
   if (options.publishDataErr) {
     mockPublishData.mockRejectedValue(Error(options.publishDataErr));
   } else {
@@ -32,6 +39,7 @@ export default jest.fn().mockImplementation((options = {}) => {
     addDevice: mockAddDevice,
     removeDevice: mockRemoveDevice,
     updateSchema: mockUpdateSchema,
+    updateConfig: mockUpdateConfig,
     publishData: mockPublishData,
   };
 });
