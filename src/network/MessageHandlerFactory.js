@@ -3,6 +3,7 @@ import MessageHandler from 'network/MessageHandler';
 import RegisterDevice from 'interactors/RegisterDevice';
 import UnregisterDevice from 'interactors/UnregisterDevice';
 import UpdateSchema from 'interactors/UpdateSchema';
+import UpdateConfig from 'interactors/UpdateConfig';
 import DevicesService from 'services/DevicesService';
 
 import PublishData from 'interactors/PublishData';
@@ -21,10 +22,12 @@ class MessageHandlerFactory {
     const registerDevice = new RegisterDevice(cloud);
     const unregisterDevice = new UnregisterDevice(cloud);
     const updateSchema = new UpdateSchema(cloud);
+    const updateConfig = new UpdateConfig(cloud);
     const devicesService = new DevicesService(
       registerDevice,
       unregisterDevice,
-      updateSchema
+      updateSchema,
+      updateConfig
     );
 
     const publishData = new PublishData(cloud);
