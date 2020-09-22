@@ -45,15 +45,6 @@ class MessageHandler {
           noAck: true,
           exchangeType: 'direct',
         },
-        'device.schema.updated': {
-          method: ({ error, ...message }) => {
-            if (!error) {
-              this.devicesService.updateSchema(message);
-            }
-          },
-          noAck: true,
-          exchangeType: 'direct',
-        },
         'device.config.updated': {
           method: ({ error, ...message }) => {
             if (!error) {

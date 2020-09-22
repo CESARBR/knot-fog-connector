@@ -1,5 +1,4 @@
 import logger from 'util/logger';
-import equal from 'deep-equal';
 
 class UpdateConfig {
   constructor(cloudConnector) {
