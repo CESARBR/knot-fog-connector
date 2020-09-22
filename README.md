@@ -230,7 +230,7 @@ List the devices registered on the cloud for the current gateway.
 - `devices` **Array** devices registered on the cloud or an empty array. Each device is an object in the following format:
   - `id` **String** device ID (KNoT ID)
   - `name` **String** device name
-  - `schema` **Array** schema items, as specified in [`updateSchema()`](#updateschemaid-schema-promisevoid)
+  - `config` **Array** config items, as specified in [`updateConfig()`](#updateconfigid-config-promisevoid)
 
 ##### Example
 
@@ -272,35 +272,50 @@ await connector.publishData("918f2e0f4e19f990", [
 ]);
 ```
 
-#### updateSchema(id, schema): Promise&lt;Void&gt;
+#### updateConfig(id, config): Promise&lt;Void&gt;
 
-Update the device schema. Called when a device updates its schema on the fog.
+Update the device config. Called when a device updates its config on the fog.
 
 ##### Arguments
 
 - `id` **String** device ID (KNoT ID)
-- `schema` **Array** schema items, each one formed by:
+- `config` **Array** config items, each one formed by:
   - `sensorId` **Number** sensor ID
-  - `valueType` **Number** semantic value type (voltage, current, temperature, etc)
-  - `unit` **Number** sensor unit (V, A, W, W, etc)
-  - `typeId` **Number** data value type (boolean, integer, etc)
-  - `name` **String** sensor name
+  - `schema` **JSON Object** schema item, formed by:
+    - `typeId` **Number** semantic value type (voltage, current, temperature, etc)
+    - `unit` **Number** sensor unit (V, A, W, etc)
+    - `valueType` **Number** data value type (boolean, integer, etc)
+    - `name` **String** sensor name
+  - `event` **JSON Object** - **Optional** event item, formed by:
+    - `change` **Boolean** enable sending sensor data when its value changes
+    - `timeSec` **Number** - **Optional** time interval in seconds that indicates when data must be sent to the cloud
+    - `lowerThreshold` **(Depends on schema's valueType)** - **Optional** send data to the cloud if it's lower than this threshold
+    - `upperThreshold` **(Depends on schema's valueType)** - **Optional** send data to the cloud if it's upper than this threshold
+
 
 Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for more information on the possible values for each field.
 
-**NOTE**: `schema` will always contain the whole schema and not a difference from a last update.
+**NOTE**: `config` will always contain the whole config and not a difference from a last update.
 
 ##### Example
 
 ```javascript
 await connector.start();
-await connector.updateSchema('918f2e0f4e19f990', [
+await connector.updateConfig('918f2e0f4e19f990', [
   {
     sensorId: 1,
-    valueType: 0xFFF1, // Switch
-    unit: 0,           // NA
-    typeId: 3,         // Boolean
-    name: 'Door lock',
+    schema: {
+        typeId: 0xFFF1,
+        unit: 0,
+        valueType: 3,
+        name: "Door lock"
+      },
+      event: {
+        change: true,
+        timeSec: 10,
+        lowerThreshold: 1000,
+        upperThreshold: 3000
+      }
   },
   {
     sensorId: 2,
