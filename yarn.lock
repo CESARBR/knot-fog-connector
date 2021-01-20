@@ -849,11 +849,12 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cesarbr/knot-cloud-sdk-js-amqp@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-2.0.0.tgz#a2f8461c6ced516745e1dea21ec1293d08bc7b4a"
-  integrity sha512-JgyqaanMwVdqMVEpwcKUf6qJ6T6cRmvdT6u+72ZVhNnsRNLqXBLfpViEv3OEgY44YjHMBfGt95upSZWriXzvbQ==
+"@cesarbr/knot-cloud-sdk-js-amqp@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-3.0.1.tgz#46599946cad02620b422ca12284386967473119a"
+  integrity sha512-QbIVjn52fnLF+OldU7jH0VKsLEXKQOBpFn/Z+HhyRse5gbxx6mcAnXx2bZAPDSnvl9wAVRAMiwyha4ldYZY9hA==
   dependencies:
+    amqp-connection-manager "^3.2.0"
     amqplib "^0.5.5"
     uniqid "^5.2.0"
 
@@ -868,13 +869,12 @@
     request "^2.88.0"
     request-promise-native "^1.0.5"
 
-"@cesarbr/knot-fog-connector-knot-cloud@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-3.0.0.tgz#cbbc5395abaafe23807ebbfe04807502da3b848f"
-  integrity sha512-DVlfF7QdpLkbdlOPkAOJ9lbwPEVjhMK8eZ1cKkACsd+IHyCtrIbwaJ5qFhHiDnftTZy5k/c0y22rChuKUrJJQQ==
+"@cesarbr/knot-fog-connector-knot-cloud@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-5.0.0.tgz#059b9a4b310e274a080649586d8ce6c2181eb0fc"
+  integrity sha512-goiq9+n+j8h6EbptpHaQmSJ9oH7wE0K1pd8XROSyhSbsVV97X7oAYTK5hyW1hG79h4XCd20J3MEZ0huaIV//Qw==
   dependencies:
-    "@cesarbr/knot-cloud-sdk-js-amqp" "^2.0.0"
-    lodash "^4.17.13"
+    "@cesarbr/knot-cloud-sdk-js-amqp" "^3.0.1"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -1257,6 +1257,13 @@ amqp-connection-manager@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/amqp-connection-manager/-/amqp-connection-manager-3.2.0.tgz#83534360533a48183113f8213af0d230c7b8d461"
   integrity sha512-CnxBqUXd6ft4DbGs8YXNp0hDZgWiDQAghxG6JRJuxGbGEQdAjsb4oRR9PWBqO5V/Gssp7lDKigXX+DtSczID2w==
+  dependencies:
+    promise-breaker "^5.0.0"
+
+amqp-connection-manager@^3.2.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/amqp-connection-manager/-/amqp-connection-manager-3.2.1.tgz#ac33ddb3effb577f2f8e45f6714be5dbdd5b2b1d"
+  integrity sha512-dDs2hg8MEtuYlXMzIqWwFx4N5Fjm8vXAQNyukDavyrYsgnQVt+rtJ+oosMP7eOXukSdquCoVqOaWr/Ih6txwTA==
   dependencies:
     promise-breaker "^5.0.0"
 
