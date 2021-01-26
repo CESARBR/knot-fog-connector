@@ -18,6 +18,10 @@ class DevicesService {
   }
 
   async updateConfig(device) {
+    if (!device.changed) {
+      return;
+    }
+
     await this.updateConfigInteractor.execute(device);
   }
 }
