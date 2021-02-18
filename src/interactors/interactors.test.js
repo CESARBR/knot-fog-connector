@@ -9,9 +9,10 @@ jest.mock('@cesarbr/knot-fog-connector-knot-cloud');
 const mockThing = {
   id: 'abcdef1234568790',
   name: 'my-device',
-  config: [{
-    sensorId: 0,
-    schema: {
+  config: [
+    {
+      sensorId: 0,
+      schema: {
         typeId: 65521,
         valueType: 3,
         unit: 0,
@@ -23,7 +24,8 @@ const mockThing = {
         lowerThreshold: 1000,
         upperThreshold: 3000,
       },
-  }],
+    },
+  ],
 };
 const mockData = [
   {
