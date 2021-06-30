@@ -849,14 +849,22 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cesarbr/knot-cloud-sdk-js-amqp@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-3.0.1.tgz#46599946cad02620b422ca12284386967473119a"
-  integrity sha512-QbIVjn52fnLF+OldU7jH0VKsLEXKQOBpFn/Z+HhyRse5gbxx6mcAnXx2bZAPDSnvl9wAVRAMiwyha4ldYZY9hA==
+"@cesarbr/knot-cloud-sdk-js-amqp@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-amqp/-/knot-cloud-sdk-js-amqp-4.0.0.tgz#c5e8899507a8580af628b49d34a2e8ac83bd22fe"
+  integrity sha512-glHQJowkiaavFqON20N7htiU5kdum7d+Sr25CpMi4iJTmkyNHHsuQyIK1He+Km2C4M8q8HF6NxWDe0aoNFI0TQ==
   dependencies:
+    "@cesarbr/knot-cloud-sdk-js-authenticator" "^2.2.0"
     amqp-connection-manager "^3.2.0"
-    amqplib "^0.5.5"
+    amqplib "^0.8.0"
     uniqid "^5.2.0"
+
+"@cesarbr/knot-cloud-sdk-js-authenticator@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-cloud-sdk-js-authenticator/-/knot-cloud-sdk-js-authenticator-2.2.0.tgz#857ea8862703c71a3eb1009a4c8367f734dabade"
+  integrity sha512-Q2FAJRs7u4bT4mEy+O7LP+xVLNSeFNrVjedtQlZAkMndUC6WZFVMv66WjP/KgUgOABPbLkOBQGECqJ1ss1fr4w==
+  dependencies:
+    axios "^0.21.1"
 
 "@cesarbr/knot-fog-connector-fiware@^3.0.0":
   version "3.0.0"
@@ -869,12 +877,12 @@
     request "^2.88.0"
     request-promise-native "^1.0.5"
 
-"@cesarbr/knot-fog-connector-knot-cloud@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-5.0.0.tgz#059b9a4b310e274a080649586d8ce6c2181eb0fc"
-  integrity sha512-goiq9+n+j8h6EbptpHaQmSJ9oH7wE0K1pd8XROSyhSbsVV97X7oAYTK5hyW1hG79h4XCd20J3MEZ0huaIV//Qw==
+"@cesarbr/knot-fog-connector-knot-cloud@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@cesarbr/knot-fog-connector-knot-cloud/-/knot-fog-connector-knot-cloud-6.0.0.tgz#1a1c34f8a17bf8a9f772379c28fc003b22dc00c8"
+  integrity sha512-MT8qFxrLoPdli01czIMnPSF3KeU69Y4tfLoN+uovQjFLu0y/xgzaNZOtz2CKHTBanyW3Odj0Uo7VqbTmfMFTVw==
   dependencies:
-    "@cesarbr/knot-cloud-sdk-js-amqp" "^3.0.1"
+    "@cesarbr/knot-cloud-sdk-js-amqp" "^4.0.0"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -1279,6 +1287,18 @@ amqplib@^0.5.5:
     safe-buffer "~5.1.2"
     url-parse "~1.4.3"
 
+amqplib@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-0.8.0.tgz#088d10bc61cc5ac5a49ac72033c7ac66c23aeb61"
+  integrity sha512-icU+a4kkq4Y1PS4NNi+YPDMwdlbFcZ1EZTQT2nigW3fvOb6AOgUQ9+Mk4ue0Zu5cBg/XpDzB40oH10ysrk2dmA==
+  dependencies:
+    bitsyntax "~0.1.0"
+    bluebird "^3.7.2"
+    buffer-more-ints "~1.0.0"
+    readable-stream "1.x >=1.1.9"
+    safe-buffer "~5.2.1"
+    url-parse "~1.5.1"
+
 ansi-align@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"
@@ -1454,6 +1474,13 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.10.0.tgz#a17b3a8ea811060e74d47d306122400ad4497ae2"
   integrity sha512-3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
+
 babel-jest@^26.0.1:
   version "26.0.1"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-26.0.1.tgz#450139ce4b6c17174b136425bda91885c397bc46"
@@ -1589,7 +1616,7 @@ bl@^1.2.2:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-bluebird@^3.5.2:
+bluebird@^3.5.2, bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
@@ -2852,6 +2879,11 @@ flatted@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
+
+follow-redirects@^1.10.0:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
+  integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -5360,7 +5392,7 @@ rxjs@^6.4.0:
   dependencies:
     tslib "^1.9.0"
 
-safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0:
+safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0, safe-buffer@~5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
@@ -6221,6 +6253,14 @@ url-parse@~1.4.3:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
   integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  dependencies:
+    querystringify "^2.1.1"
+    requires-port "^1.0.0"
+
+url-parse@~1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
