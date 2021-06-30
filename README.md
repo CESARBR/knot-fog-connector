@@ -57,21 +57,33 @@ Configuration is made via a JSON file placed into `knot-fog-connector/config/` f
 > **_NOTE:_** The KNoT Cloud is an extended version of the currently supported fog solution and for that reason, their configuration looks similar. However, it's important to notice the `cloud` instance should be running with its own message broker instance.
 
 - `cloud` **Object** cloud parameters
-  - `token` **String** User access token.
-  - `hostname` **String** AMQP broker hostname.
-  - `port` **Number** AMQP broker port.
-  - `username` **String** AMQP broker username.
-  - `password` **String** AMQP broker password.
+  - `amqp` **Object** AMQP Broker parameters
+    - `token` **String** User access token.
+    - `hostname` **String** Broker hostname.
+    - `port` **Number** Broker port.
+    - `username` **String** Broker username.
+    - `password` **String** Broker password.
+  - `http` **Object** HTTP Server parameters
+    - `hostname` **String** Server hostname.
+    - `port` **Number** Server port.
+    - `protocol` **String** Server protocol (HTTP|HTTPS).
 
 ```json
 {
   "cloudType": "KNOT_CLOUD",
   "cloud": {
-    "token": "<knot-cloud-user-token>",
-    "hostname": "broker.knot.cloud",
-    "port": 5672,
-    "username": "knot",
-    "password": "knot"
+    "amqp": {
+      "token": "<knot-cloud-user-token>",
+      "hostname": "broker.knot.cloud",
+      "port": 5672,
+      "username": "knot",
+      "password": "knot"
+    },
+    "http": {
+      "hostname": "api.knot.cloud",
+      "port": "443",
+      "protocol": "https"
+    }
   }
 }
 ```
@@ -170,8 +182,8 @@ Add a device to the cloud. Called when a new device is added to the fog.
 ```javascript
 await connector.start();
 await connector.addDevice({
-  id: "918f2e0f4e19f990",
-  name: "Front door",
+  id: '918f2e0f4e19f990',
+  name: 'Front door',
 });
 
 // {
@@ -192,7 +204,7 @@ Remove a device from the cloud. Called when a device is removed from the fog.
 
 ```javascript
 await connector.start();
-await connector.removeDevice("918f2e0f4e19f990");
+await connector.removeDevice('918f2e0f4e19f990');
 ```
 
 #### authDevice(id, token): Promise&lt;Boolean&gt;
@@ -213,8 +225,8 @@ Authenticate a device on the cloud. Called when it's necessary to verify if a de
 ```javascript
 await connector.start();
 const status = await connector.authDevice(
-  "918f2e0f4e19f990",
-  "0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d"
+  '918f2e0f4e19f990',
+  '0c20c12e2ac058d0513d81dc58e33b2f9ff8c83d'
 );
 console.log(status);
 
@@ -260,7 +272,7 @@ Publish data as a device. Called when a device publishes data on the fog.
 
 ```javascript
 await connector.start();
-await connector.publishData("918f2e0f4e19f990", [
+await connector.publishData('918f2e0f4e19f990', [
   {
     sensorId: 1,
     value: false,
@@ -291,7 +303,6 @@ Update the device config. Called when a device updates its config on the fog.
     - `timeSec` **Number** - **Optional** time interval in seconds that indicates when data must be sent to the cloud
     - `lowerThreshold` **(Depends on schema's valueType)** - **Optional** send data to the cloud if it's lower than this threshold
     - `upperThreshold` **(Depends on schema's valueType)** - **Optional** send data to the cloud if it's upper than this threshold
-
 
 Refer to the [protocol](https://github.com/CESARBR/knot-protocol-source) for more information on the possible values for each field.
 
@@ -403,7 +414,7 @@ Register a callback to handle gateway disconnection.
 ```javascript
 await connector.start();
 await connector.onDisconnected(() => {
-  console.log("Disconnected");
+  console.log('Disconnected');
 });
 
 // Disconnected
@@ -422,7 +433,7 @@ Register a callback to handle gateway reconnection.
 ```javascript
 await connector.start();
 await connector.onReconnected(() => {
-  console.log("Reconnected");
+  console.log('Reconnected');
 });
 
 // Reconnected
