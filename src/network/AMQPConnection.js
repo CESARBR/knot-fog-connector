@@ -21,9 +21,18 @@ class AMQPConnection {
           resolve(channel);
         },
       });
-      connection.on('disconnect', () =>
+      connection.on('error', () =>{
         logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
-      );
+        setTimeout(() => {
+          this.start();
+        }, 1000)
+      });
+      connection.on('close', () =>{
+        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+        setTimeout(() => {
+          this.start();
+        }, 1000)
+      });
     });
   }
 
