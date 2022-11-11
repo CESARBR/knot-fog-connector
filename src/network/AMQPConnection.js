@@ -9,18 +9,9 @@ class AMQPConnection {
 
   async start() {
     return new Promise(async (resolve) => {
-      const connection = await amqplib.connect([this.url]);
-      connection.createChannel({
-        json: true,
-        setup: (channel) => {
-          logger.debug(
-            'Connection established with RabbitMQ. New channel created.'
-          );
-          this.channel = channel;
-          this.subscribeListeners();
-          resolve(channel);
-        },
-      });
+      
+      const connection = amqplib.connect([this.url]);
+      
       connection.on('error', () =>{
         logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
         setTimeout(() => {
@@ -33,8 +24,21 @@ class AMQPConnection {
           this.start();
         }, 1000)
       });
+
+      connection.createChannel({
+        json: true,
+        setup: (channel) => {
+          logger.debug(
+            'Connection established with RabbitMQ. New channel created.'
+          );
+          this.channel = channel;
+          this.subscribeListeners();
+          resolve(channel);
+        },
+      });
     });
   }
+
 
   async send(exchangeName, exchangeType, key, message, headers, expiration) {
     await this.channel.assertExchange(exchangeName, exchangeType, {
