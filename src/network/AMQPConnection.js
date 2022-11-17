@@ -15,7 +15,7 @@ class AMQPConnection {
       json: true,
       setup: (channel) => {
         logger.debug(
-          'Connection established with RabbitMQ. New channel created.'
+          'Connection with RabbitMQ. New channel created.'
         );
         this.channel = channel;
         this.subscribeListeners();
