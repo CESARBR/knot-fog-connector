@@ -7,35 +7,33 @@ class AMQPConnection {
     this.listeners = [];
   }
 
-  async start() {
-    return new Promise(async (resolve) => {
-      
-      const connection = amqplib.connect([this.url]);
-      
-      connection.on('error', () =>{
-        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
-        setTimeout(() => {
-          this.start();
-        }, 1000)
-      });
-      connection.on('close', () =>{
-        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
-        setTimeout(() => {
-          this.start();
-        }, 1000)
-      });
+  async start(onSetup) {
 
-      connection.createChannel({
-        json: true,
-        setup: (channel) => {
-          logger.debug(
-            'Connection established with RabbitMQ. New channel created.'
-          );
-          this.channel = channel;
-          this.subscribeListeners();
-          resolve(channel);
-        },
-      });
+    const connection = amqplib.connect([this.url]);
+
+    connection.createChannel({
+      json: true,
+      setup: (channel) => {
+        logger.debug(
+          'Connection established with RabbitMQ. New channel created.'
+        );
+        this.channel = channel;
+        this.subscribeListeners();
+        onSetup(channel);
+      }
+    })
+
+    connection.on('error', () => {
+      logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+      setTimeout(() => {
+        this.start();
+      }, 1000)
+    });
+    connection.on('close', () => {
+      logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+      setTimeout(() => {
+        this.start();
+      }, 1000)
     });
   }
 
