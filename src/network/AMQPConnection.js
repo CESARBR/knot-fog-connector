@@ -10,7 +10,7 @@ class AMQPConnection {
   async start(onSetup) {
 
     try {
-      const connection = await amqplib.connect([this.url]);
+      const connection = amqplib.connect([this.url]);
       await connection.createChannel({
         json: true,
         setup: (channel) => {
