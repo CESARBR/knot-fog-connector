@@ -8,7 +8,6 @@ class AMQPConnection {
   }
 
   async start() {
-
     try {
       const connection = amqplib.connect([this.url]);
       await connection.createChannel({
@@ -22,13 +21,16 @@ class AMQPConnection {
         }
       })
       connection.on('error', () => {
-        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+        throw new Error('Disconnected from RabbitMQ, trying to reconnect.')
       })
       connection.on('close', () => {
-        logger.debug('Disconnected from RabbitMQ, trying to reconnect.')
+        throw new Error('Disconnected from RabbitMQ, trying to reconnect.')
+      })
+      connection.on('disconnect', () => {
+        throw new Error('Disconnected from RabbitMQ, trying to reconnect.')
       })
     } catch (err) {
-      logger.debug(err.msg)
+      logger.debug(err.message)
       setTimeout(() => {
         this.start()
       }, 1000)
