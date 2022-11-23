@@ -7,7 +7,7 @@ class AMQPConnection {
     this.listeners = [];
   }
 
-  async start(onSetup) {
+  async start() {
 
     try {
       const connection = amqplib.connect([this.url]);
@@ -19,7 +19,6 @@ class AMQPConnection {
           );
           this.channel = channel;
           this.subscribeListeners();
-          onSetup(channel);
         }
       })
       connection.on('error', () => {
